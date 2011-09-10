@@ -1,0 +1,34 @@
+[alias]
+  ci = commit
+  co = checkout
+  di = diff
+  st = status
+  ann = annotate
+  b = branch
+  l = log --graph --date-order --pretty='%h %C(red)%an%Creset %s %C(yellow)%ar %C(green)%d%Creset'
+  t = log --graph --topo-order --pretty='%h %C(red)%an%Creset %s %C(yellow)%ar %C(green)%d%Creset'
+  f = fetch -pt --all
+
+[diff]
+  renames = true
+
+[color]
+  ui = true
+[color "branch"]
+  current = cyan
+  local = yellow
+  remote = green
+[color "diff"]
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan
+
+[user]
+  name = chris
+  email = chris.mcclanahan@accelereyes.com
+

@@ -1,0 +1,22 @@
+=== configuration ===================
+
+iterm2:
+  profiles > keys
+    left option as +esc
+  preferences > keys
+    control as control
+    left option as left option
+    right option as control
+    left command as left command    
+    right command as left option
+
+aquamacs:
+  (setq mac-option-modifier 'control)
+  (setq mac-command-modifier 'meta)
+
+/home/chris:
+  sudo emacs /etc/auto_master
+  change /home to /home_auto
+  sudo ln -s /Users/chris /home/chris
+
+

@@ -1,0 +1,5 @@
+stop:
+sudo kextunload /System/Library/Extensions/EasyTetherUSBEthernet.kext
+
+start:
+sudo kextload /System/Library/Extensions/EasyTetherUSBEthernet.kext

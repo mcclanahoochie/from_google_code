@@ -1,0 +1,10 @@
+alias lrt ls -1rt $*
+alias ll l -l $*
+alias l ls -1 $*
+alias la l -a $*
+alias lla ll -a $*
+alias llrt ll -rt $*
+alias m matlab -nojvm -nosplash $*
+alias M matlab -nodesktop -nosplash $*
+alias mdb matlab -Dgdb $*
+alias g=git

@@ -1,0 +1,9 @@
+autodetach            on
+hardcopydir           /tmp/
+startup_message       off
+vbell                 off             # default: ???
+defscrollback         7500            # default: 100
+silencewait           15              # default: 30
+
+hardstatus alwayslastline "%{.kw}%-w%{.rW}%n %t%{-}%+w %=%{g} %H %{y} %d %M %C%a "
+altscreen on
