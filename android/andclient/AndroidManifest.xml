@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.test.android.opengl.glut" android:versionCode="1"
+	android:versionName="0.1">
+	<application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="true">
+	
+		<activity android:label="@string/app_name" android:name=".AndClient">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		
+		<activity android:name=".CubeActivity">
+			
+		</activity>
+
+		<activity android:name=".XYZActivity">
+			
+		</activity>
+
+	<activity android:name="Settings"></activity>
+<activity android:name="SOAP_Activity"></activity>
+</application>
+<uses-permission android:name="android.permission.INTERNET"></uses-permission>
+<uses-sdk android:minSdkVersion="5"></uses-sdk>
+</manifest>

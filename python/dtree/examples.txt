@@ -1,0 +1,5 @@
+Age, Education, Income, Marital Status
+36 - 55, bachelors, low, single
+18 - 35, masters, high, single
+< 18, achelors, high, single
+> 55, high school, low, married

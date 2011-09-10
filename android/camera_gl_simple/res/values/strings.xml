@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+    <string name="app_name">Jacket Demo</string>
+    <string name="author">Chris McClanahan</string>
+    <string name="website">http://www.accelereyes.com/</string>
+</resources>

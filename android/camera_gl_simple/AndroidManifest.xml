@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.mobile.jacket"
+      android:versionCode="1"
+      android:versionName="1.0">
+    <application 
+    android:icon="@drawable/icon" 
+    android:label="@string/app_name" 
+    android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+    
+        <activity android:name="Runmobile.atex.Run"
+                  android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+		
+    </application>
+    
+    	<uses-feature android:name="android.hardware.camera" android:required="true"/>
+	<uses-permission android:name="android.permission.CAMERA"/>
+	
+    <uses-sdk android:minSdkVersion="6" />
+</manifest> 

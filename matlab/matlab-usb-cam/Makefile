@@ -1,0 +1,6 @@
+
+
+
+all:
+	./compile.sh
+
