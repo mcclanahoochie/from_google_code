@@ -1,0 +1,7 @@
+
+[ Linux/Mac Only ]
+
+Make sure the latest OpenCV is installed.
+
+Place the files in your libjacket/examples/image/ directory, and type:  make && ./webcam_demo
+
