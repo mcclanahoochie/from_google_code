@@ -12,16 +12,16 @@
 
 class AbstractCaptureSource {
 public:
-	AbstractCaptureSource();
-	virtual ~AbstractCaptureSource();
-	int getDepth();
-	int getHeight();
-	int getWidth();
-	virtual IplImage* getNextFrame();
-	void convertFrame(unsigned char* video_ptr, IplImage* img,bool color);
-	CvCapture* capture;
+    AbstractCaptureSource();
+    virtual ~AbstractCaptureSource();
+    int getDepth();
+    int getHeight();
+    int getWidth();
+    virtual IplImage* getNextFrame();
+    void convertFrame(unsigned char* video_ptr, IplImage* img, bool color);
+    CvCapture* capture;
 protected:
-	int depth,width,height;
+    int depth, width, height;
 
 };
 

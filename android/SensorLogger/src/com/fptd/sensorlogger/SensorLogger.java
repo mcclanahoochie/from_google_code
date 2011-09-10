@@ -26,32 +26,32 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class SensorLogger extends ListActivity {
-	/** Called when the activity is first created. */
-	@Override
-	public void onCreate(final Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-		final ArrayList<String> list = new ArrayList<String>();
-		list.add("SensorLogger");
-		list.add("Settings");
-		this.setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list));
+        final ArrayList<String> list = new ArrayList<String>();
+        list.add("SensorLogger");
+        list.add("Settings");
+        this.setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list));
 
-	}
+    }
 
-	@Override
-	protected void onListItemClick(final ListView l, final View v, final int position, final long id) {
-		switch (position) {
+    @Override
+    protected void onListItemClick(final ListView l, final View v, final int position, final long id) {
+        switch (position) {
 
-			// main application screen
-		case 0:
-			this.startActivity(new Intent(this, Sensors.class));
-			break;
+            // main application screen
+        case 0:
+            this.startActivity(new Intent(this, Sensors.class));
+            break;
 
-			// setting screen
-		case 1:
-			this.startActivity(new Intent(this, Settings.class));
-			break;
-		}
-	}
+            // setting screen
+        case 1:
+            this.startActivity(new Intent(this, Settings.class));
+            break;
+        }
+    }
 
 }

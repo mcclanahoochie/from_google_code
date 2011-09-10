@@ -9,20 +9,20 @@ extern "C" {
 #endif
 
 
-	/**
-	 *
-	 */
-	JNIEXPORT jint JNICALL
-	Java_com_mobile_jacket_Native_surfaceChangedNative
-	(JNIEnv* , jobject , jint, jint);
+    /**
+     *
+     */
+    JNIEXPORT jint JNICALL
+    Java_com_mobile_jacket_Native_surfaceChangedNative
+    (JNIEnv* , jobject , jint, jint);
 
 
-	/**
-	 *
-	 */
-	JNIEXPORT jint JNICALL
-	Java_com_mobile_jacket_Native_renderNative
-	(JNIEnv* , jobject , jint, jint, jboolean, jbyteArray);
+    /**
+     *
+     */
+    JNIEXPORT jint JNICALL
+    Java_com_mobile_jacket_Native_renderNative
+    (JNIEnv* , jobject , jint, jint, jboolean, jbyteArray);
 
 
 

@@ -24,35 +24,35 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class AndClient extends ListActivity {
-	private final String[] titles = { "Cube", "XYZ", "Settings", "SOAP Test", };
+    private final String[] titles = { "Cube", "XYZ", "Settings", "SOAP Test", };
 
-	/** Called when the activity is first created. */
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setTitle("Android SmartP Client");
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setTitle("Android SmartP Client");
 
-		setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, titles));
-		getListView().setTextFilterEnabled(true);
-	}
+        setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, titles));
+        getListView().setTextFilterEnabled(true);
+    }
 
-	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-		super.onListItemClick(l, v, position, id);
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
 
-		Intent i = null;
-		if (position == 0) {
-			i = new Intent(this, CubeActivity.class);
-		} else if (position == 1) {
-			i = new Intent(this, XYZActivity.class);
-		} else if (position == 2) {
-			i = new Intent(this, Settings.class);
-		} else if (position == 3) {
-			i = new Intent(this, SOAP_Activity.class);
-		}
+        Intent i = null;
+        if (position == 0) {
+            i = new Intent(this, CubeActivity.class);
+        } else if (position == 1) {
+            i = new Intent(this, XYZActivity.class);
+        } else if (position == 2) {
+            i = new Intent(this, Settings.class);
+        } else if (position == 3) {
+            i = new Intent(this, SOAP_Activity.class);
+        }
 
-		if (i != null) {
-			startActivity(i);
-		}
-	}
+        if (i != null) {
+            startActivity(i);
+        }
+    }
 }

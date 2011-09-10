@@ -23,10 +23,10 @@ import android.util.Log;
 
 public class CameraPictureCallback implements PictureCallback {
 
-	private static final String TAG = "CamPicCallback";
+    private static final String TAG = "CamPicCallback";
 
-	public void onPictureTaken(final byte[] data, Camera camera) {
-		Log.d(TAG,"pic taken");
-	}
+    public void onPictureTaken(final byte[] data, Camera camera) {
+        Log.d(TAG, "pic taken");
+    }
 
 }

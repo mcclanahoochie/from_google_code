@@ -18,12 +18,12 @@
 package com.mobile.atex.camera;
 
 public class CameraHardwareException extends Exception {
-	private static final long serialVersionUID = -4453804913829319918L;
+    private static final long serialVersionUID = -4453804913829319918L;
 
-	public CameraHardwareException() {
-	}
+    public CameraHardwareException() {
+    }
 
-	public CameraHardwareException(Throwable t) {
-		super(t);
-	}
+    public CameraHardwareException(Throwable t) {
+        super(t);
+    }
 }

@@ -17,12 +17,12 @@
  */
 JNIEXPORT jint JNICALL
 Java_com_mobile_jacket_Native_surfaceChangedNative
-(JNIEnv* env, jobject jc, jint width, jint height){
+(JNIEnv* env, jobject jc, jint width, jint height) {
 
-	MSG("jni surface changed %d %d",width,height);
+    MSG("jni surface changed %d %d", width, height);
 
 
-	return (jint)1;
+    return (jint)1;
 }
 
 
@@ -32,15 +32,15 @@ Java_com_mobile_jacket_Native_surfaceChangedNative
  */
 JNIEXPORT jint JNICALL
 Java_com_mobile_jacket_Native_renderNative
-(JNIEnv* env, jobject jc, jint drawWidth, jint drawHeight, jboolean forceRedraw, jbyteArray _yuv420sp){
+(JNIEnv* env, jobject jc, jint drawWidth, jint drawHeight, jboolean forceRedraw, jbyteArray _yuv420sp) {
 
-	//MSG("%d %d",drawWidth,drawHeight);
+    //MSG("%d %d",drawWidth,drawHeight);
 
-	jbyte* yuv420sp = (env)->GetByteArrayElements( _yuv420sp, NULL);
+    jbyte* yuv420sp = (env)->GetByteArrayElements(_yuv420sp, NULL);
 
-	(env)->ReleaseByteArrayElements( (jbyteArray) _yuv420sp, yuv420sp, JNI_ABORT);
+    (env)->ReleaseByteArrayElements((jbyteArray) _yuv420sp, yuv420sp, JNI_ABORT);
 
 
-	return (jint)1;
+    return (jint)1;
 }
 

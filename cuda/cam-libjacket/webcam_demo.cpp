@@ -18,11 +18,11 @@ void jacket_img_test_demo(Mat& img) {
 
     // convolution kernels
     const float h_avg_kernel[] = { 1.0 / 12.0, 2.0 / 12.0, 1.0 / 12.0,
-                                  2.0 / 12.0, 0.0       , 2.0 / 12.0,
-                                  1.0 / 12.0, 2.0 / 12.0, 1.1 / 12.0
+                                   2.0 / 12.0, 0.0       , 2.0 / 12.0,
+                                   1.0 / 12.0, 2.0 / 12.0, 1.1 / 12.0
                                  };
     const float h_sobel_kernel[] = { -2.0, -1.0,  0.0,
-                                    -1.0,  0.0,  1.0,
+                                     -1.0,  0.0,  1.0,
                                      0.0,  1.0,  2.0
                                    };
     f32 avg_k   = f32(h_avg_kernel,   3, 3);
@@ -30,7 +30,7 @@ void jacket_img_test_demo(Mat& img) {
 
 
     // extract cv image
-    Mat mgray (img.rows, img.cols, CV_8UC1);
+    Mat mgray(img.rows, img.cols, CV_8UC1);
     cvtColor(img.t(), mgray, CV_BGR2GRAY);
     mgray.convertTo(mgray, CV_32FC1);
     float* fgray = (float*)mgray.data;
@@ -82,7 +82,7 @@ int main() {
 
     // image setup
     capture >> cam_img;
-    if ( cam_img.empty() ) {
+    if (cam_img.empty()) {
         cout << "load image fail " << endl;
         return 0;
     }

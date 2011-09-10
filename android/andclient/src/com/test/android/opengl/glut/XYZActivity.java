@@ -24,51 +24,51 @@ import android.os.Bundle;
 
 public class XYZActivity extends Activity {
 
-	/**
-	 * Set to true to enable checking of the OpenGL error code after every OpenGL call.
-	 * Set to false for faster code.
-	 */
-	private final static boolean DEBUG_CHECK_GL_ERROR = false;
+    /**
+     * Set to true to enable checking of the OpenGL error code after every OpenGL call.
+     * Set to false for faster code.
+     */
+    private final static boolean DEBUG_CHECK_GL_ERROR = false;
 
-	private GL_View mGLView;
+    private GL_View mGLView;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setTitle("XYZ");
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setTitle("XYZ");
 
-		mGLView = new GL_View(this);
-		setContentView(mGLView);
+        mGLView = new GL_View(this);
+        setContentView(mGLView);
 
-		if (DEBUG_CHECK_GL_ERROR) {
-			mGLView.setGLWrapper(new GL_View.GLWrapper() {
-				public GL wrap(GL gl) {
-					return GLDebugHelper.wrap(gl, GLDebugHelper.CONFIG_CHECK_GL_ERROR, null);
-				}
-			});
-		}
-		final GLUTRenderer render = new GLUTRenderer(this);
-		render.setMode(GLUTRenderer.XYZ);
-		mGLView.setRenderer(render);
-		mGLView.setEventListener(render);
-		mGLView.requestFocus();
-	}
+        if (DEBUG_CHECK_GL_ERROR) {
+            mGLView.setGLWrapper(new GL_View.GLWrapper() {
+                public GL wrap(GL gl) {
+                    return GLDebugHelper.wrap(gl, GLDebugHelper.CONFIG_CHECK_GL_ERROR, null);
+                }
+            });
+        }
+        final GLUTRenderer render = new GLUTRenderer(this);
+        render.setMode(GLUTRenderer.XYZ);
+        mGLView.setRenderer(render);
+        mGLView.setEventListener(render);
+        mGLView.requestFocus();
+    }
 
-	@Override
-	protected void onPause() {
-		super.onPause();
-		mGLView.onPause();
-		if (GLUTRenderer.recvT.isAlive()) {
-			GLUTRenderer.recvT.stop();
-		}
-	}
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mGLView.onPause();
+        if (GLUTRenderer.recvT.isAlive()) {
+            GLUTRenderer.recvT.stop();
+        }
+    }
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-		if (!GLUTRenderer.recvT.isAlive()) {
-			GLUTRenderer.recvT.start();
-		}
-		mGLView.onResume();
-	}
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!GLUTRenderer.recvT.isAlive()) {
+            GLUTRenderer.recvT.start();
+        }
+        mGLView.onResume();
+    }
 }

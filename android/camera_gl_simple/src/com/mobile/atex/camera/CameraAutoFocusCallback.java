@@ -22,8 +22,8 @@ import android.hardware.Camera.AutoFocusCallback;
 import android.util.Log;
 
 public class CameraAutoFocusCallback implements AutoFocusCallback {
-	final String TAG = "autofocus";
-	public void onAutoFocus(boolean success, Camera camera) {
-		Log.d(TAG,"autofocus");
-	}
+    final String TAG = "autofocus";
+    public void onAutoFocus(boolean success, Camera camera) {
+        Log.d(TAG, "autofocus");
+    }
 }

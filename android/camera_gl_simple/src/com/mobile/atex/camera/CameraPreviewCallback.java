@@ -28,35 +28,35 @@ import android.util.Log;
 
 
 public class CameraPreviewCallback implements PreviewCallback {
-	private static boolean mProcessing = true;
-	private static boolean getnewframe = true;
-	private final String TAG = "CameraPreviewCallback";
-	private static Size mPreviewSize;
-	private static int mBuffSize = 320 * 240 * 12 / 8;
-	// buffsize =  w*h*12/8 : (12 bits per pixel / 8 bits per byte)
-	public static byte[] cameradata = new byte[320*240*12/8];
+    private static boolean mProcessing = true;
+    private static boolean getnewframe = true;
+    private final String TAG = "CameraPreviewCallback";
+    private static Size mPreviewSize;
+    private static int mBuffSize = 320 * 240 * 12 / 8;
+    // buffsize =  w*h*12/8 : (12 bits per pixel / 8 bits per byte)
+    public static byte[] cameradata = new byte[320*240*12/8];
 
-	public CameraPreviewCallback(Size previewSize, int buffsize) {
-		mPreviewSize = previewSize;
-		mBuffSize = buffsize;
-		cameradata = new byte[buffsize];
-	}
+    public CameraPreviewCallback(Size previewSize, int buffsize) {
+        mPreviewSize = previewSize;
+        mBuffSize = buffsize;
+        cameradata = new byte[buffsize];
+    }
 
-	public void onPreviewFrame(byte[] data, Camera camera) {
-		Log.d(TAG, "=======previewframe==========");
-		if (getnewframe) {
-			System.arraycopy(data, 0, cameradata, 0, data.length);
-			getnewframe = false;
-		}
-	}
+    public void onPreviewFrame(byte[] data, Camera camera) {
+        Log.d(TAG, "=======previewframe==========");
+        if (getnewframe) {
+            System.arraycopy(data, 0, cameradata, 0, data.length);
+            getnewframe = false;
+        }
+    }
 
-	public byte[] getCameraData() {
-		getnewframe = true;
-		return cameradata;
-	}
+    public byte[] getCameraData() {
+        getnewframe = true;
+        return cameradata;
+    }
 
-	public void doProcessing() {
-		mProcessing = !mProcessing;
-	}
+    public void doProcessing() {
+        mProcessing = !mProcessing;
+    }
 
 }

@@ -30,79 +30,79 @@ import android.graphics.BitmapFactory;
 
 public class GL_Utils {
 
-	public static void addColorf(FloatBuffer buffer, float r, float g, float b, float a) {
-		buffer.put(r);
-		buffer.put(g);
-		buffer.put(b);
-		buffer.put(a);
-	}
+    public static void addColorf(FloatBuffer buffer, float r, float g, float b, float a) {
+        buffer.put(r);
+        buffer.put(g);
+        buffer.put(b);
+        buffer.put(a);
+    }
 
-	public static void addCoord2f(FloatBuffer buffer, float x, float y) {
-		buffer.put(x);
-		buffer.put(y);
-	}
+    public static void addCoord2f(FloatBuffer buffer, float x, float y) {
+        buffer.put(x);
+        buffer.put(y);
+    }
 
-	public static void addIndex(ShortBuffer buffer, int index1, int index2, int index3) {
-		buffer.put((short) index1);
-		buffer.put((short) index2);
-		buffer.put((short) index3);
-	}
+    public static void addIndex(ShortBuffer buffer, int index1, int index2, int index3) {
+        buffer.put((short) index1);
+        buffer.put((short) index2);
+        buffer.put((short) index3);
+    }
 
-	public static void addVertex3f(FloatBuffer buffer, float x, float y, float z) {
-		buffer.put(x);
-		buffer.put(y);
-		buffer.put(z);
-	}
+    public static void addVertex3f(FloatBuffer buffer, float x, float y, float z) {
+        buffer.put(x);
+        buffer.put(y);
+        buffer.put(z);
+    }
 
-	public static FloatBuffer allocateFloatBuffer(int capacity) {
-		final ByteBuffer vbb = ByteBuffer.allocateDirect(capacity);
-		vbb.order(ByteOrder.nativeOrder());
-		return vbb.asFloatBuffer();
-	}
+    public static FloatBuffer allocateFloatBuffer(int capacity) {
+        final ByteBuffer vbb = ByteBuffer.allocateDirect(capacity);
+        vbb.order(ByteOrder.nativeOrder());
+        return vbb.asFloatBuffer();
+    }
 
-	public static IntBuffer allocateInttBuffer(int capacity) {
-		final ByteBuffer vbb = ByteBuffer.allocateDirect(capacity);
-		vbb.order(ByteOrder.nativeOrder());
-		return vbb.asIntBuffer();
-	}
+    public static IntBuffer allocateInttBuffer(int capacity) {
+        final ByteBuffer vbb = ByteBuffer.allocateDirect(capacity);
+        vbb.order(ByteOrder.nativeOrder());
+        return vbb.asIntBuffer();
+    }
 
-	public static ShortBuffer allocateShortBuffer(int capacity) {
-		final ByteBuffer vbb = ByteBuffer.allocateDirect(capacity);
-		vbb.order(ByteOrder.nativeOrder());
-		return vbb.asShortBuffer();
-	}
+    public static ShortBuffer allocateShortBuffer(int capacity) {
+        final ByteBuffer vbb = ByteBuffer.allocateDirect(capacity);
+        vbb.order(ByteOrder.nativeOrder());
+        return vbb.asShortBuffer();
+    }
 
-	public static Bitmap loadBitmap(Context mContext, int id) {
-		final InputStream is = mContext.getResources().openRawResource(id);
-		Bitmap bitmap = null;
-		try {
-			bitmap = BitmapFactory.decodeStream(is);
-		} finally {
-			try {
-				is.close();
-			} catch (final IOException e) {
-				// Ignore.
-			}
-		}
-		return bitmap;
-	}
+    public static Bitmap loadBitmap(Context mContext, int id) {
+        final InputStream is = mContext.getResources().openRawResource(id);
+        Bitmap bitmap = null;
+        try {
+            bitmap = BitmapFactory.decodeStream(is);
+        } finally {
+            try {
+                is.close();
+            } catch (final IOException e) {
+                // Ignore.
+            }
+        }
+        return bitmap;
+    }
 
-	public static FloatBuffer toFloatBufferPositionZero(float[] values) {
-		final ByteBuffer vbb = ByteBuffer.allocateDirect(values.length * 4);
-		vbb.order(ByteOrder.nativeOrder());
-		final FloatBuffer buffer = vbb.asFloatBuffer();
-		buffer.put(values);
-		buffer.position(0);
-		return buffer;
-	}
+    public static FloatBuffer toFloatBufferPositionZero(float[] values) {
+        final ByteBuffer vbb = ByteBuffer.allocateDirect(values.length * 4);
+        vbb.order(ByteOrder.nativeOrder());
+        final FloatBuffer buffer = vbb.asFloatBuffer();
+        buffer.put(values);
+        buffer.position(0);
+        return buffer;
+    }
 
-	public static ShortBuffer toShortBuffer(short[] values) {
-		final ByteBuffer vbb = ByteBuffer.allocateDirect(values.length * 2);
-		vbb.order(ByteOrder.nativeOrder());
-		final ShortBuffer buffer = vbb.asShortBuffer();
-		buffer.put(values);
-		buffer.position(0);
-		return buffer;
-	}
+    public static ShortBuffer toShortBuffer(short[] values) {
+        final ByteBuffer vbb = ByteBuffer.allocateDirect(values.length * 2);
+        vbb.order(ByteOrder.nativeOrder());
+        final ShortBuffer buffer = vbb.asShortBuffer();
+        buffer.put(values);
+        buffer.position(0);
+        return buffer;
+    }
 
 }

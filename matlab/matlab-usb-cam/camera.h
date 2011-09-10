@@ -10,11 +10,11 @@
 #include "abstractcapturesource.h"
 #include <highgui.h>
 
-class Camera:public AbstractCaptureSource {
+class Camera: public AbstractCaptureSource {
 public:
-	Camera(int deviceNumber);
+    Camera(int deviceNumber);
 protected:
-	int number;
+    int number;
 };
 
 #endif /* CAMERA_H_ */

@@ -20,7 +20,7 @@
 } while (0)
 
 
-int main (int argc, char** args) {
+int main(int argc, char** args) {
 
     // args
     int P = 3;
@@ -34,7 +34,7 @@ int main (int argc, char** args) {
 
     // input data
     float* h_data = (float*)malloc(numel * sizeof(float));
-    for (int i = 0; i < numel ; ++i) { h_data[i] = (i % (max+1)); }
+    for (int i = 0; i < numel ; ++i) { h_data[i] = (i % (max + 1)); }
 
     // gpu mem
     Npp32f* d_data = nppsMalloc_32f(numel);

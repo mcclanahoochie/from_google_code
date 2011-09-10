@@ -21,6 +21,6 @@ import android.hardware.Camera;
 import android.hardware.Camera.ErrorCallback;
 
 public class CameraErrorCallback implements ErrorCallback {
-	public void onError(int error, Camera camera) {
-	}
+    public void onError(int error, Camera camera) {
+    }
 }

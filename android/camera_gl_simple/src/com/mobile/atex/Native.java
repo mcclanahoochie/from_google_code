@@ -20,23 +20,23 @@ package com.mobile.atex;
 
 public class Native {
 
-	/**
-	 *
-	 */
-	static {
-		System.loadLibrary("atex");
-	}
+    /**
+     *
+     */
+    static {
+        System.loadLibrary("atex");
+    }
 
-	/**
-	 *
-	 */
-	public static native int surfaceChangedNative(int width, int height);
+    /**
+     *
+     */
+    public static native int surfaceChangedNative(int width, int height);
 
 
-	/**
-	 *
-	 */
-	public static native int renderNative(int drawWidth, int drawHeight, boolean forceRedraw, byte[] _yuv420sp);
+    /**
+     *
+     */
+    public static native int renderNative(int drawWidth, int drawHeight, boolean forceRedraw, byte[] _yuv420sp);
 
 
 
