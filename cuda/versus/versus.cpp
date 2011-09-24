@@ -1,11 +1,11 @@
-#include <iostream>
-#include <fstream>
 // place the containing folder in your
 //  libjacket/examples/ directory
 //
 // Chris McClanahan - 2011
 
 
+#include <iostream>
+#include <fstream>
 #include <stdio.h>
 #include <math.h>
 #include <jacket.h>
