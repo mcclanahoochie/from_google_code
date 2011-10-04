@@ -60,7 +60,7 @@ int main(int argc, char** args) {
 
     // nppihist scratch buffer
     NppiSize oBuffROI;
-    oBuffROI.width = nLevels;
+    oBuffROI.width = numel;
     oBuffROI.height = 1;
     int buffsize;
     NPP(nppiHistogramRangeGetBufferSize_32f_C1R(oBuffROI, nLevels, &buffsize));
