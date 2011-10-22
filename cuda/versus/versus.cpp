@@ -22,20 +22,11 @@ using namespace std;
 using namespace cv;
 using namespace gpu;
 
+const int t_ocv = 0;
+const int t_jkt = 1;
 
-const int ksz = 3;
-const float jktmk1[] = {
-    1.0, 2.0, 1.0,
-};
-const float jktmk2[] = {
-    1.0, 0.0, -1.0,
-};
-float cvmk[ksz][ksz] = {
-    {-2, -1,  0, },
-    {-1,  0,  1, },
-    { 0,  1,  2, },
-};
-Mat cvk = Mat (ksz, ksz, CV_32F, cvmk);
+int ksz;
+int kszs[] = {3, 5, 9, 13, 32, 64, 128};
 
 void gen(Mat& mat, int rows, int cols, int type, Scalar low, Scalar high) {
     mat.create(rows, cols, type);
@@ -43,81 +34,72 @@ void gen(Mat& mat, int rows, int cols, int type, Scalar low, Scalar high) {
     rng.fill(mat, RNG::UNIFORM, low, high);
 }
 
-const int use_cv_sobel = 1;
-
 int main() {
 
-    // setup
-    Mat src, dst;
-    GpuMat d_src, d_dst, d_cvk;
+    Mat src, dst, ker;
+    GpuMat d_src, d_dst, d_ker;
     int runs = 100;
 
-    // bench
-    for (int size = 512; size < 4000; size += 512) {
+    for (int k = 0; k < 7; ++k) {
 
-        cout  << "size: " << size << "x" << size << endl;
-        gen(src, size, size, CV_32FC1, 0, 1);
+        ksz = kszs[k];
+        cout  << "kernelsize: " << ksz << "x" << ksz << endl;
+        gen(ker, ksz, ksz, CV_32F, -1, 1);
 
-        try {
+        // bench
+        for (int size = 512; size < 4000; size += 512) {
 
-            // opencv
-            {
-                dst.create(size, size, CV_32FC1);
-                d_src = src;
-                d_dst.create(size, size, CV_32FC1);
-                d_cvk = cvk;
+            cout  << "imgsize: " << size << "x" << size << endl;
+            gen(src, size, size, CV_32FC1, 0, 1);
 
-                // // cpu
-                // Sobel(src, dst, dst.depth(), 1, 1);
-                // start_timer(0);
-                // for (int i = 0; i < runs; ++i) {
-                //     Sobel(src, dst, dst.depth(), 1, 1);
-                // }
-                // cout  << "  cv-cpu: " << elapsed_time(0) / (float)runs << endl;
+            try {
 
-                // gpu
-                if (use_cv_sobel) {
-                    gpu::Sobel(d_src, d_dst, d_dst.depth(), 1, 1, ksz);
+                // opencv
+                if (t_ocv) {
+                    // setup
+                    dst.create(size, size, CV_32FC1);
+                    d_src = src;
+                    d_dst.create(size, size, CV_32FC1);
+                    d_ker = ker;
+
+                    // convolve(d_src, d_ker, d_dst);
+                    ConvolveBuf buf;
+                    convolve(d_src, d_ker, d_dst, false, buf);
                     start_timer(1);
                     for (int i = 0; i < runs; ++i) {
-                        gpu::Sobel(d_src, d_dst, d_dst.depth(), 1, 1, ksz);
+                        // convolve(d_src, d_ker, d_dst);
+                        convolve(d_src, d_ker, d_dst, false, buf);
                     }
-                } else {
-                    convolve(d_src, d_cvk, d_dst);
-                    start_timer(1);
+                    cout << "cv-gpu: " << elapsed_time(1) / (float)runs << endl;
+                }
+
+                // jacket
+                if (t_jkt) {
+                    // extract cv image
+                    Mat jimg;
+                    src.convertTo(jimg, CV_32FC1);
+                    float* fgray = (float*)jimg.data;
+                    f32 I1 = f32(fgray, jimg.rows, jimg.cols);
+                    unsigned dimsb[] = {ksz, ksz};
+
+                    // gpu
+                    f32 jker = f32((float*)ker.data, ker.rows, ker.cols);
+                    f32 jdst = conv2(I1, jker, jktConvValid);
+                    gsync();
+                    start_timer(2);
                     for (int i = 0; i < runs; ++i) {
-                        convolve(d_src, d_cvk, d_dst);
+                        jdst = conv2(I1, jker, jktConvValid);
                     }
+                    gsync();
+                    cout << "jacket: " << elapsed_time(2) / (float)runs << endl;
                 }
-                cout << "  cv-gpu: " << elapsed_time(1) / (float)runs << endl;
+
+            } catch (gexception& e) {
+                cout << e.what() << endl;
             }
 
-            // jacket
-            {
-                // extract cv image
-                Mat jimg;
-                src.convertTo(jimg, CV_32FC1);
-                float* fgray = (float*)jimg.data;
-                f32 I1 = f32(fgray, jimg.rows, jimg.cols);
-                unsigned dimsb[] = {ksz, ksz};
-                // gpu
-                //f32 jdst = conv2(I1, sobel_k, jktConvSame);
-                f32 jdst = conv2(ksz, jktmk1, ksz, jktmk2, I1, jktConvSame);
-                gsync();
-                start_timer(2);
-                for (int i = 0; i < runs; ++i) {
-                    //jdst = conv2(I1, sobel_k, jktConvSame);
-                    jdst = conv2(ksz, jktmk1, ksz, jktmk2, I1, jktConvSame);
-                    gsync(); // disables smart caching
-                }
-                cout << "  jacket: " << elapsed_time(2) / (float)runs << endl;
-            }
-
-        } catch (gexception& e) {
-            cout << e.what() << endl;
-        }
-
-    } // loop
+        } // image size loop
+    } // kernel size loop
 
     return 0;
 }
