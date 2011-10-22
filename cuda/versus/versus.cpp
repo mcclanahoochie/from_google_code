@@ -36,6 +36,7 @@ void gen(Mat& mat, int rows, int cols, int type, Scalar low, Scalar high) {
 
 int main() {
 
+    jkt::info();
     Mat src, dst, ker;
     GpuMat d_src, d_dst, d_ker;
     int runs = 100;
