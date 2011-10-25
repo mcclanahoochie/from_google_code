@@ -22,7 +22,7 @@ using namespace std;
 using namespace cv;
 using namespace gpu;
 
-const int t_ocv = 0;
+const int t_ocv = 1;
 const int t_jkt = 1;
 
 int ksz;
@@ -44,6 +44,7 @@ int main() {
     for (int k = 0; k < 7; ++k) {
 
         ksz = kszs[k];
+
         cout  << "kernelsize: " << ksz << "x" << ksz << endl;
         gen(ker, ksz, ksz, CV_32F, -1, 1);
 
@@ -63,13 +64,10 @@ int main() {
                     d_dst.create(size, size, CV_32FC1);
                     d_ker = ker;
 
-                    // convolve(d_src, d_ker, d_dst);
-                    ConvolveBuf buf;
-                    convolve(d_src, d_ker, d_dst, false, buf);
+                    convolve(d_src, d_ker, d_dst);
                     start_timer(1);
                     for (int i = 0; i < runs; ++i) {
-                        // convolve(d_src, d_ker, d_dst);
-                        convolve(d_src, d_ker, d_dst, false, buf);
+                        convolve(d_src, d_ker, d_dst);
                     }
                     cout << "cv-gpu: " << elapsed_time(1) / (float)runs << endl;
                 }
@@ -94,6 +92,8 @@ int main() {
                     gsync();
                     cout << "jacket: " << elapsed_time(2) / (float)runs << endl;
                 }
+
+
 
             } catch (gexception& e) {
                 cout << e.what() << endl;
