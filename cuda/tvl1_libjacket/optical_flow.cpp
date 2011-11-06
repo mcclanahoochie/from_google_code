@@ -1,4 +1,11 @@
-// chris mcclanahan 2011
+//
+// Chris McClanahan - 2011
+//
+// Adapted from: http://gpu4vision.icg.tugraz.at/index.php?content=downloads.php
+//   "An Improved Algorithm for TV-L1 Optical Flow"
+//
+// More info: http://mcclanahoochie.com/blog/portfolio/gpu-tv-l1-optical-flow-with-libjacket/
+//
 
 #include <iostream>
 #include <fstream>
@@ -80,10 +87,14 @@ void optical_flow_tvl1(Mat& img1, Mat& img2, Mat& mu, Mat& mv) {
     MSG("elapsed time: %f", timer::toc());
 
     // output
-    // FloatToMat(ou.T().host(), mu);
-    // FloatToMat(ov.T().host(), mv);
-
-    display_flow(I2,ou,ov);
+#if 0
+    // to opencv
+    FloatToMat(ou.T().host(), mu);
+    FloatToMat(ov.T().host(), mv);
+#else
+    // to libjacket
+    display_flow(I2, ou, ov);
+#endif
 }
 
 
@@ -247,10 +258,10 @@ float dx_kernel[] = {
 };
 float dy_kernel[] = {
     -1.0f / 12.0f, -1.0f / 12.0f, -1.0f / 12.0f, -1.0f / 12.0f, -1.0f / 12.0f,
-    8.0f / 12.0f, 8.0f / 12.0f, 8.0f / 12.0f, 8.0f / 12.0f, 8.0f / 12.0f,
-    0.0f / 12.0f, 0.0f / 12.0f, 0.0f / 12.0f, 0.0f / 12.0f, 0.0f / 12.0f,
+     8.0f / 12.0f,  8.0f / 12.0f,  8.0f / 12.0f,  8.0f / 12.0f,  8.0f / 12.0f,
+     0.0f / 12.0f,  0.0f / 12.0f,  0.0f / 12.0f,  0.0f / 12.0f,  0.0f / 12.0f,
     -8.0f / 12.0f, -8.0f / 12.0f, -8.0f / 12.0f, -8.0f / 12.0f - 8.0f / 12.0f,
-    1.0f / 12.0f, 1.0f / 12.0f, 1.0f / 12.0f, 1.0f / 12.0f, 1.0f / 12.0f,
+     1.0f / 12.0f,  1.0f / 12.0f,  1.0f / 12.0f,  1.0f / 12.0f,  1.0f / 12.0f,
 };
 f32 dx = f32(dx_kernel, gdims(5, 5), jktHostPointer);
 f32 dy = f32(dy_kernel, gdims(5, 5), jktHostPointer);
@@ -272,9 +283,10 @@ void warping(f32& Ix, f32& Iy, f32& It, f32& I1, f32& I2, f32& u, f32& v) {
 
     f32 idxx0 = idx + u;
     f32 idyy0 = idy + v;
-    f32 idxx = max(1, min(N-1, idxx0));
-    f32 idyy = max(1, min(M-1, idyy0));
+    f32 idxx = max(1, min(N, idxx0));
+    f32 idyy = max(1, min(M, idyy0));
 
+    // interp2 based warp ()
     It = interp2(idy, idx, I2, idyy, idxx) - I1;
 
     // display_flow(It, idxx, idyy);
@@ -285,10 +297,10 @@ void warping(f32& Ix, f32& Iy, f32& It, f32& I1, f32& I2, f32& u, f32& v) {
     diffs(Ix, Iy, I1, I2);
 #else
     // interp2 based warp ()
-    f32 idxm = max(1, min(N-1, idxx - 0.5f));
-    f32 idxp = max(1, min(N-1, idxx + 0.5f));
-    f32 idym = max(1, min(M-1, idyy - 0.5f));
-    f32 idyp = max(1, min(M-1, idyy + 0.5f));
+    f32 idxm = max(1, min(N, idxx - 0.5f));
+    f32 idxp = max(1, min(N, idxx + 0.5f));
+    f32 idym = max(1, min(M, idyy - 0.5f));
+    f32 idyp = max(1, min(M, idyy + 0.5f));
     Ix = interp2(idy, idx, I2, idyy, idxp) - interp2(idy, idx, I2, idyy, idxm);
     Iy = interp2(idy, idx, I2, idyp, idxx) - interp2(idy, idx, I2, idym, idxx);
 #endif
@@ -439,9 +451,9 @@ void tv_l1_dual(f32& u, f32& v, f32& p, f32& w, f32& I1, f32& I2, int level) {
     }
 
     // output
-    const unsigned hw[] = {3,3};
-    u = medfilt2(u,hw);
-    v = medfilt2(v,hw);
+    const unsigned hw[] = {3, 3};
+    u = medfilt2(u, hw);
+    v = medfilt2(v, hw);
 
     /* for j = 0 ; j < warps  would end here */
 }
