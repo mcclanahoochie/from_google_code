@@ -25,9 +25,9 @@ using namespace std;
 using namespace cv;
 
 // control
-const float pfactor = 0.75;   // scale each pyr level by this amount
+const float pfactor = 0.73;   // scale each pyr level by this amount
 const int plevels = 4;        // number of pyramid levels
-const int max_iters = 5;     // u v w update loop
+const int max_iters = 4;     // u v w update loop
 const float lambda = 50 ;     // smoothness constraint
 
 // functions
@@ -73,18 +73,32 @@ void optical_flow_tvl1(Mat& img1, Mat& img2, Mat& mu, Mat& mv) {
     float* fi2 = (float*)mi2.data;
     f32 I2 = f32(fi2, img2.rows, img2.cols) / 255.0f;
 
+#if 0
+    // runs
+    int nruns = 4;
+    // warmup
+    create_pyramids(I1, I2, pyr1, pyr2);
+    f32 ou, ov;
+    process_pyramids(pyr1, pyr2, ou, ov);
     // timing
     timer::tic();
+    for(int i=0; i<nruns; i++){
+        create_pyramids(I1, I2, pyr1, pyr2);
+        process_pyramids(pyr1, pyr2, ou, ov);
+    }
+    MSG("elapsed time (sec): %f", timer::toc()/(float)nruns);
 
+#else
+    // timing
+    timer::tic();
     // pyramids
     create_pyramids(I1, I2, pyr1, pyr2);
-
     // flow
     f32 ou, ov;
     process_pyramids(pyr1, pyr2, ou, ov);
-
     // timing
     MSG("elapsed time: %f", timer::toc());
+#endif
 
     // output
 #if 0
@@ -278,8 +292,8 @@ void warping(f32& Ix, f32& Iy, f32& It, f32& I1, f32& I2, f32& u, f32& v) {
     int M = mnk[0];
     int N = mnk[1];
     // f32 idx, idy; meshgrid(idx, idy, f32(seq(N)), f32(seq(M)));
-    f32 idx = repmat(f32(seq(N)).T(), M, 1);
-    f32 idy = repmat(f32(seq(M)), 1, N);
+    f32 idx = repmat(f32(seq(N)).T(), M, 1)+1;
+    f32 idy = repmat(f32(seq(M)), 1, N)+1;
 
     f32 idxx0 = idx + u;
     f32 idyy0 = idy + v;
@@ -456,6 +470,7 @@ void tv_l1_dual(f32& u, f32& v, f32& p, f32& w, f32& I1, f32& I2, int level) {
     v = medfilt2(v, hw);
 
     /* for j = 0 ; j < warps  would end here */
+
 }
 
 
