@@ -25,27 +25,30 @@ using namespace std;
 using namespace cv;
 
 // control
-const float pfactor = 0.73;   // scale each pyr level by this amount
-const int plevels = 4;        // number of pyramid levels
-const int max_iters = 4;     // u v w update loop
-const float lambda = 50 ;     // smoothness constraint
+const float pfactor = 0.72;   // scale each pyr level by this amount
+const int max_plevels = 5;    // number of pyramid levels
+const int max_iters = 5;      // u v w update loop
+const float lambda = 40;      // smoothness constraint
+const int max_warps = 3;      // warping u v warping
 
 // functions
 int  grab_frame(Mat& img, char* filename);
-void optical_flow_tvl1(Mat& img1, Mat& img2, Mat& u, Mat& v);
 void create_pyramids(f32& im1, f32& im2, f32& pyr1, f32& pyr2);
 void process_pyramids(f32& pyr1, f32& pyr2, f32& u, f32& v);
-void display_flow(f32& I2, f32& u, f32& v);
 void tv_l1_dual(f32& u, f32& v, f32& p, f32& w, f32& I1, f32& I2, int level);
+void optical_flow_tvl1(Mat& img1, Mat& img2, Mat& u, Mat& v);
+void display_flow(f32& I2, f32& u, f32& v);
+void MatToFloat(const Mat& thing, float* thing2);
 void FloatToMat(float const* thing, Mat& thing2);
 
 // misc
+int plevels = max_plevels;
 const int n_dual_vars = 6;
 static int cam_init = 0;
 static int pyr_init = 0;
 VideoCapture  capture;
-int pyr_M[plevels + 1];
-int pyr_N[plevels + 1];
+int pyr_M[max_plevels + 1];
+int pyr_N[max_plevels + 1];
 f32 pyr1, pyr2;
 
 // macros
@@ -82,12 +85,11 @@ void optical_flow_tvl1(Mat& img1, Mat& img2, Mat& mu, Mat& mv) {
     process_pyramids(pyr1, pyr2, ou, ov);
     // timing
     timer::tic();
-    for(int i=0; i<nruns; i++){
+    for (int i = 0; i < nruns; i++) {
         create_pyramids(I1, I2, pyr1, pyr2);
         process_pyramids(pyr1, pyr2, ou, ov);
     }
-    MSG("elapsed time (sec): %f", timer::toc()/(float)nruns);
-
+    MSG("elapsed time (sec): %f", timer::toc() / (float)nruns);
 #else
     // timing
     timer::tic();
@@ -101,7 +103,7 @@ void optical_flow_tvl1(Mat& img1, Mat& img2, Mat& mu, Mat& mv) {
 #endif
 
     // output
-#if 0
+#if 1
     // to opencv
     FloatToMat(ou.T().host(), mu);
     FloatToMat(ov.T().host(), mv);
@@ -109,6 +111,16 @@ void optical_flow_tvl1(Mat& img1, Mat& img2, Mat& mu, Mat& mv) {
     // to libjacket
     display_flow(I2, ou, ov);
 #endif
+}
+
+
+void MatToFloat(const Mat& thing, float* thing2) {
+    int tmp = 0;
+    for (int i = 0; i < thing.rows; i++) {
+        const float* fptr = thing.ptr<float>(i);
+        for (int j = 0; j < thing.cols; j++)
+            { thing2[tmp++] = fptr[j]; }
+    }
 }
 
 
@@ -145,6 +157,27 @@ void display_flow(f32& I2, f32& u, f32& v) {
 }
 
 
+void display_flow(const Mat& u, const Mat& v) {
+    //calculate angle and magnitude
+    cv::Mat magnitude, angle;
+    cv::cartToPolar(u, v, magnitude, angle, true);
+    //translate magnitude to range [0;1]
+    double mag_max, mag_min;
+    cv::minMaxLoc(magnitude, &mag_min, &mag_max);
+    magnitude.convertTo(magnitude, -1, 1.0 / mag_max);
+    //build hsv image
+    cv::Mat _hsv[3], hsv;
+    _hsv[0] = angle;
+    _hsv[1] = Mat::ones(angle.size(), CV_32F);
+    _hsv[2] = magnitude;
+    cv::merge(_hsv, 3, hsv);
+    //convert to BGR and show
+    Mat bgr;
+    cv::cvtColor(hsv, bgr, CV_HSV2BGR);
+    cv::imshow("optical flow", bgr);
+}
+
+
 int grab_frame(Mat& img, char* filename) {
 
     // camera/image setup
@@ -152,7 +185,7 @@ int grab_frame(Mat& img, char* filename) {
         if (filename != NULL) {
             capture.open(filename);
         } else {
-            float rescale = 0.66;
+            float rescale = 0.54;
             int w = 640 * rescale;
             int h = 480 * rescale;
             capture.open(0); //try to open
@@ -187,8 +220,10 @@ void gen_pyramid_sizes(f32& im1) {
             sM *= pfactor;
             sN *= pfactor;
         }
-        pyr_M[level] = sM;
-        pyr_N[level] = sN;
+        pyr_M[level] = (int)(sM + 0.5f);
+        pyr_N[level] = (int)(sN + 0.5f);
+        MSG(" pyr %d: %d x %d ", level, (int)sM, (int)sN);
+        if (sM < 21 || sN < 21 || level >= max_plevels) { plevels = level; break; }
     }
 }
 
@@ -242,7 +277,7 @@ void process_pyramids(f32& pyr1, f32& pyr2, f32& ou, f32& ov) {
             gfor(f32 ndv, n_dual_vars) {
                 p_(span, span, ndv) = resize(p(span, span, ndv), pyr_M[level], pyr_N[level], JKT_RSZ_Nearest);
             }
-            u = u_;  v = v_;  p = p_;   w = w_;
+            u = u_;  v = v_;  p = p_;  w = w_;
         }
 
         // extract
@@ -272,10 +307,10 @@ float dx_kernel[] = {
 };
 float dy_kernel[] = {
     -1.0f / 12.0f, -1.0f / 12.0f, -1.0f / 12.0f, -1.0f / 12.0f, -1.0f / 12.0f,
-     8.0f / 12.0f,  8.0f / 12.0f,  8.0f / 12.0f,  8.0f / 12.0f,  8.0f / 12.0f,
-     0.0f / 12.0f,  0.0f / 12.0f,  0.0f / 12.0f,  0.0f / 12.0f,  0.0f / 12.0f,
+    8.0f / 12.0f,  8.0f / 12.0f,  8.0f / 12.0f,  8.0f / 12.0f,  8.0f / 12.0f,
+    0.0f / 12.0f,  0.0f / 12.0f,  0.0f / 12.0f,  0.0f / 12.0f,  0.0f / 12.0f,
     -8.0f / 12.0f, -8.0f / 12.0f, -8.0f / 12.0f, -8.0f / 12.0f - 8.0f / 12.0f,
-     1.0f / 12.0f,  1.0f / 12.0f,  1.0f / 12.0f,  1.0f / 12.0f,  1.0f / 12.0f,
+    1.0f / 12.0f,  1.0f / 12.0f,  1.0f / 12.0f,  1.0f / 12.0f,  1.0f / 12.0f,
 };
 f32 dx = f32(dx_kernel, gdims(5, 5), jktHostPointer);
 f32 dy = f32(dy_kernel, gdims(5, 5), jktHostPointer);
@@ -292,8 +327,8 @@ void warping(f32& Ix, f32& Iy, f32& It, f32& I1, f32& I2, f32& u, f32& v) {
     int M = mnk[0];
     int N = mnk[1];
     // f32 idx, idy; meshgrid(idx, idy, f32(seq(N)), f32(seq(M)));
-    f32 idx = repmat(f32(seq(N)).T(), M, 1)+1;
-    f32 idy = repmat(f32(seq(M)), 1, N)+1;
+    f32 idx = repmat(f32(seq(N)).T(), M, 1) + 1;
+    f32 idy = repmat(f32(seq(M)), 1, N) + 1;
 
     f32 idxx0 = idx + u;
     f32 idyy0 = idy + v;
@@ -370,107 +405,106 @@ void tv_l1_dual(f32& u, f32& v, f32& p, f32& w, f32& I1, f32& I2, int level) {
     float tau   = 1 / L;
     float sigma = 1 / L;
 
-    float eps_u = 0;
-    float eps_w = 0;
-    float gamma = 0.02;
+    float eps_u = 0.00f;
+    float eps_w = 0.00f;
+    float gamma = 0.02f;
 
     f32 u_ = u;
     f32 v_ = v;
     f32 w_ = w;
 
-    /* for j = 0 ; j < warps  would start here */
+    for (int j = 0; j < max_warps; j++) {
 
-    f32 u0 = u;
-    f32 v0 = v;
+        f32 u0 = u;
+        f32 v0 = v;
 
-    // warping
-    f32 Ix, Iy, It;   warping(Ix, Iy, It, I1, I2, u0, v0);
+        // warping
+        f32 Ix, Iy, It;   warping(Ix, Iy, It, I1, I2, u0, v0);
 
-    // gradients
-    f32 I_grad_sqr = jkt::max(float(1e-6), f32(power(Ix, 2) + power(Iy, 2) + gamma * gamma));
+        // gradients
+        f32 I_grad_sqr = jkt::max(float(1e-6), f32(power(Ix, 2) + power(Iy, 2) + gamma * gamma));
 
-    // inner loop
-    for (int k = 0; k < max_iters; ++k) {
+        // inner loop
+        for (int k = 0; k < max_iters; ++k) {
 
-        // dual =====
+            // dual =====
 
-        // shifts
-        f32 u_x, u_y;    dxyp(u_x, u_y, u_);
-        f32 v_x, v_y;    dxyp(v_x, v_y, v_);
-        f32 w_x, w_y;    dxyp(w_x, w_y, w_);
+            // shifts
+            f32 u_x, u_y;    dxyp(u_x, u_y, u_);
+            f32 v_x, v_y;    dxyp(v_x, v_y, v_);
+            f32 w_x, w_y;    dxyp(w_x, w_y, w_);
 
-        // update dual
-        p(span, span, 0) = (p(span, span, 0) + sigma * u_x) ; // / (1 + sigma * eps_u);
-        p(span, span, 1) = (p(span, span, 1) + sigma * u_y) ; // / (1 + sigma * eps_u);
-        p(span, span, 2) = (p(span, span, 2) + sigma * v_x) ; // / (1 + sigma * eps_u);
-        p(span, span, 3) = (p(span, span, 3) + sigma * v_y) ; // / (1 + sigma * eps_u);
+            // update dual
+            p(span, span, 0) = (p(span, span, 0) + sigma * u_x) / (1 + sigma * eps_u);
+            p(span, span, 1) = (p(span, span, 1) + sigma * u_y) / (1 + sigma * eps_u);
+            p(span, span, 2) = (p(span, span, 2) + sigma * v_x) / (1 + sigma * eps_u);
+            p(span, span, 3) = (p(span, span, 3) + sigma * v_y) / (1 + sigma * eps_u);
 
-        p(span, span, 4) = (p(span, span, 4) + sigma * w_x) ; // / (1 + sigma * eps_w);
-        p(span, span, 5) = (p(span, span, 5) + sigma * w_y) ; // / (1 + sigma * eps_w);
+            p(span, span, 4) = (p(span, span, 4) + sigma * w_x) / (1 + sigma * eps_w);
+            p(span, span, 5) = (p(span, span, 5) + sigma * w_y) / (1 + sigma * eps_w);
 
-        // normalize
-        f32 reprojection = max(1, sqrt(power(p(span, span, 0), 2) + power(p(span, span, 1), 2) +
-                                       power(p(span, span, 2), 2) + power(p(span, span, 3), 2)));
+            // normalize
+            f32 reprojection = max(1, sqrt(power(p(span, span, 0), 2) + power(p(span, span, 1), 2) +
+                                           power(p(span, span, 2), 2) + power(p(span, span, 3), 2)));
 
-        p(span, span, 0) = p(span, span, 0) / reprojection;
-        p(span, span, 1) = p(span, span, 1) / reprojection;
-        p(span, span, 2) = p(span, span, 2) / reprojection;
-        p(span, span, 3) = p(span, span, 3) / reprojection;
+            p(span, span, 0) = p(span, span, 0) / reprojection;
+            p(span, span, 1) = p(span, span, 1) / reprojection;
+            p(span, span, 2) = p(span, span, 2) / reprojection;
+            p(span, span, 3) = p(span, span, 3) / reprojection;
 
-        reprojection = max(1, sqrt(power(p(span, span, 4), 2) + power(p(span, span, 5), 2)));
+            reprojection = max(1, sqrt(power(p(span, span, 4), 2) + power(p(span, span, 5), 2)));
 
-        p(span, span, 4) = p(span, span, 4) / reprojection;
-        p(span, span, 5) = p(span, span, 5) / reprojection;
+            p(span, span, 4) = p(span, span, 4) / reprojection;
+            p(span, span, 5) = p(span, span, 5) / reprojection;
 
-        // primal =====
+            // primal =====
 
-        // divergence
-        f32 div_u;   dxym(div_u, p(span, span, 0), p(span, span, 1));
-        f32 div_v;   dxym(div_v, p(span, span, 2), p(span, span, 3));
-        f32 div_w;   dxym(div_w, p(span, span, 4), p(span, span, 5));
+            // divergence
+            f32 div_u;   dxym(div_u, p(span, span, 0), p(span, span, 1));
+            f32 div_v;   dxym(div_v, p(span, span, 2), p(span, span, 3));
+            f32 div_w;   dxym(div_w, p(span, span, 4), p(span, span, 5));
 
-        // old
-        u_ = u;
-        v_ = v;
-        w_ = w;
+            // old
+            u_ = u;
+            v_ = v;
+            w_ = w;
 
-        // update
-        u = u + tau * div_u;
-        v = v + tau * div_v;
-        w = w + tau * div_w;
+            // update
+            u = u + tau * div_u;
+            v = v + tau * div_v;
+            w = w + tau * div_w;
 
-        // indexing
-        f32 rho  = It + (u - u0) * Ix + (v - v0) * Iy + gamma * w;
-        b8 idx1 = rho      <  -tau * lambda * I_grad_sqr;
-        b8 idx2 = rho      >   tau * lambda * I_grad_sqr;
-        b8 idx3 = abs(rho) <=  tau * lambda * I_grad_sqr;
+            // indexing
+            f32 rho  = It + (u - u0) * Ix + (v - v0) * Iy + gamma * w;
+            b8 idx1 = rho      <  -tau * lambda * I_grad_sqr;
+            b8 idx2 = rho      >   tau * lambda * I_grad_sqr;
+            b8 idx3 = abs(rho) <=  tau * lambda * I_grad_sqr;
 
-        u = u + tau * lambda * (Ix * idx1) ;
-        v = v + tau * lambda * (Iy * idx1) ;
-        w = w + tau * lambda * gamma * idx1;
+            u = u + tau * lambda * (Ix * idx1) ;
+            v = v + tau * lambda * (Iy * idx1) ;
+            w = w + tau * lambda * gamma * idx1;
 
-        u = u - tau * lambda * (Ix * idx2) ;
-        v = v - tau * lambda * (Iy * idx2) ;
-        w = w - tau * lambda * gamma * idx2;
+            u = u - tau * lambda * (Ix * idx2) ;
+            v = v - tau * lambda * (Iy * idx2) ;
+            w = w - tau * lambda * gamma * idx2;
 
-        u = u - rho * idx3 * Ix / I_grad_sqr;
-        v = v - rho * idx3 * Iy / I_grad_sqr;
-        w = w - rho * idx3 * gamma / I_grad_sqr;
+            u = u - rho * idx3 * Ix / I_grad_sqr;
+            v = v - rho * idx3 * Iy / I_grad_sqr;
+            w = w - rho * idx3 * gamma / I_grad_sqr;
 
-        // propagate
-        u_ = 2 * u - u_;
-        v_ = 2 * v - v_;
-        w_ = 2 * w - w_;
+            // propagate
+            u_ = 2 * u - u_;
+            v_ = 2 * v - v_;
+            w_ = 2 * w - w_;
 
-    }
+        }
 
-    // output
-    const unsigned hw[] = {3, 3};
-    u = medfilt2(u, hw);
-    v = medfilt2(v, hw);
+        // output
+        const unsigned hw[] = {3, 3};
+        u = medfilt2(u, hw);
+        v = medfilt2(v, hw);
 
-    /* for j = 0 ; j < warps  would end here */
-
+    } /* j < warps */
 }
 
 
@@ -491,6 +525,7 @@ int main(int argc, char* argv[]) {
     int mm = prev_img.rows;  int nn = prev_img.cols;
     disp_u = Mat::zeros(mm, nn, CV_32FC1);
     disp_v = Mat::zeros(mm, nn, CV_32FC1);
+    printf("img %d x %d \n", mm, nn);
 
     // process main
     if (is_images) {
@@ -501,7 +536,10 @@ int main(int argc, char* argv[]) {
         // show
         imshow("u", disp_u);
         imshow("v", disp_v);
+        display_flow(disp_u, disp_v);
         waitKey(0);
+        // // write
+        // writeFlo(disp_u, disp_v);
     } else {
         // process loop
         while (grab_frame(cam_img, NULL)) {
@@ -513,6 +551,7 @@ int main(int argc, char* argv[]) {
                 // show
                 imshow("u", disp_u);
                 imshow("v", disp_v);
+                display_flow(disp_u, disp_v);
             } catch (gexception& e) {
                 cout << e.what() << endl;
                 throw;
