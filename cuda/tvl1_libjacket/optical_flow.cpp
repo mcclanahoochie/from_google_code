@@ -25,8 +25,8 @@ using namespace std;
 using namespace cv;
 
 // control
-const float pfactor = 0.72;   // scale each pyr level by this amount
-const int max_plevels = 5;    // number of pyramid levels
+const float pfactor = 0.65;   // scale each pyr level by this amount
+const int max_plevels = 7;    // number of pyramid levels
 const int max_iters = 5;      // u v w update loop
 const float lambda = 40;      // smoothness constraint
 const int max_warps = 3;      // warping u v warping
@@ -42,7 +42,7 @@ void MatToFloat(const Mat& thing, float* thing2);
 void FloatToMat(float const* thing, Mat& thing2);
 
 // misc
-int plevels = max_plevels;
+int plevels = max_plevels - 1;
 const int n_dual_vars = 6;
 static int cam_init = 0;
 static int pyr_init = 0;
@@ -142,6 +142,10 @@ void display_flow(f32& I2, f32& u, f32& v) {
     subplot(2, 2, 2); imagesc(u);                   title("u");
     subplot(2, 2, 3); imagesc(v);                   title("v");
     subplot(2, 2, 4); imagesc((abs(v) + abs(u)));   title("u+v");
+    // int M = I2.dims()[0];
+    // int N = I2.dims()[1];
+    // f32 idx, idy; meshgrid(idx, idy, f32(seq(0,N-1,3)), f32(seq(0,M-1,3)));
+    // quiver(idx,idy,u,v);
     drawnow();
 #else
     // show in opencv
@@ -185,7 +189,7 @@ int grab_frame(Mat& img, char* filename) {
         if (filename != NULL) {
             capture.open(filename);
         } else {
-            float rescale = 0.54;
+            float rescale = 0.62;
             int w = 640 * rescale;
             int h = 480 * rescale;
             capture.open(0); //try to open
@@ -222,8 +226,8 @@ void gen_pyramid_sizes(f32& im1) {
         }
         pyr_M[level] = (int)(sM + 0.5f);
         pyr_N[level] = (int)(sN + 0.5f);
+        if (sM < 20 || sN < 20) { plevels = level; break; }
         MSG(" pyr %d: %d x %d ", level, (int)sM, (int)sN);
-        if (sM < 21 || sN < 21 || level >= max_plevels) { plevels = level; break; }
     }
 }
 
@@ -269,9 +273,13 @@ void process_pyramids(f32& pyr1, f32& pyr2, f32& ou, f32& ov) {
             w  = f32::zeros(pyr_M[level], pyr_N[level]);
             p  = f32::zeros(pyr_M[level], pyr_N[level], n_dual_vars);
         } else {
+            // float rescale_u =  pyr_N[level+1]/(float)pyr_N[level];
+            // float rescale_v =  pyr_M[level+1]/(float)pyr_M[level];
+            float rescale_u = 1.0f / pfactor;
+            float rescale_v = 1.0f / pfactor;
             // propagate
-            f32 u_ =  resize(u, pyr_M[level], pyr_N[level], JKT_RSZ_Nearest);
-            f32 v_ =  resize(v, pyr_M[level], pyr_N[level], JKT_RSZ_Nearest);
+            f32 u_ =  resize(u, pyr_M[level], pyr_N[level], JKT_RSZ_Nearest) * rescale_u;
+            f32 v_ =  resize(v, pyr_M[level], pyr_N[level], JKT_RSZ_Nearest) * rescale_v;
             f32 w_ =  resize(w, pyr_M[level], pyr_N[level], JKT_RSZ_Nearest);
             f32 p_ = f32::zeros(pyr_M[level], pyr_N[level], n_dual_vars);
             gfor(f32 ndv, n_dual_vars) {
@@ -297,30 +305,6 @@ void process_pyramids(f32& pyr1, f32& pyr2, f32& ou, f32& ov) {
 }
 
 
-//  5x5 derivative kernels
-float dx_kernel[] = {
-    -1.0f / 12.0f, 8.0f / 12.0f, 0.0f / 12.0f, -8.0f / 12.0f, 1.0f / 12.0f,
-    -1.0f / 12.0f, 8.0f / 12.0f, 0.0f / 12.0f, -8.0f / 12.0f, 1.0f / 12.0f,
-    -1.0f / 12.0f, 8.0f / 12.0f, 0.0f / 12.0f, -8.0f / 12.0f, 1.0f / 12.0f,
-    -1.0f / 12.0f, 8.0f / 12.0f, 0.0f / 12.0f, -8.0f / 12.0f, 1.0f / 12.0f,
-    -1.0f / 12.0f, 8.0f / 12.0f, 0.0f / 12.0f, -8.0f / 12.0f, 1.0f / 12.0f,
-};
-float dy_kernel[] = {
-    -1.0f / 12.0f, -1.0f / 12.0f, -1.0f / 12.0f, -1.0f / 12.0f, -1.0f / 12.0f,
-    8.0f / 12.0f,  8.0f / 12.0f,  8.0f / 12.0f,  8.0f / 12.0f,  8.0f / 12.0f,
-    0.0f / 12.0f,  0.0f / 12.0f,  0.0f / 12.0f,  0.0f / 12.0f,  0.0f / 12.0f,
-    -8.0f / 12.0f, -8.0f / 12.0f, -8.0f / 12.0f, -8.0f / 12.0f - 8.0f / 12.0f,
-    1.0f / 12.0f,  1.0f / 12.0f,  1.0f / 12.0f,  1.0f / 12.0f,  1.0f / 12.0f,
-};
-f32 dx = f32(dx_kernel, gdims(5, 5), jktHostPointer);
-f32 dy = f32(dy_kernel, gdims(5, 5), jktHostPointer);
-// convolutions
-void diffs(f32& Ix, f32& Iy, f32& I1, f32& I2) {
-    Ix = conv2(I1, dx, jktConvSame) - conv2(I2, dx, jktConvSame);
-    Iy = conv2(I1, dy, jktConvSame) - conv2(I2, dy, jktConvSame);
-}
-
-
 void warping(f32& Ix, f32& Iy, f32& It, f32& I1, f32& I2, f32& u, f32& v) {
 
     gdims mnk = I2.dims();
@@ -329,11 +313,12 @@ void warping(f32& Ix, f32& Iy, f32& It, f32& I1, f32& I2, f32& u, f32& v) {
     // f32 idx, idy; meshgrid(idx, idy, f32(seq(N)), f32(seq(M)));
     f32 idx = repmat(f32(seq(N)).T(), M, 1) + 1;
     f32 idy = repmat(f32(seq(M)), 1, N) + 1;
+    /* ^ BUG: idx idy should ideally be [0-N); ^ */
 
     f32 idxx0 = idx + u;
     f32 idyy0 = idy + v;
-    f32 idxx = max(1, min(N, idxx0));
-    f32 idyy = max(1, min(M, idyy0));
+    f32 idxx = max(1, min(N - 1, idxx0));
+    f32 idyy = max(1, min(M - 1, idyy0));
 
     // interp2 based warp ()
     It = interp2(idy, idx, I2, idyy, idxx) - I1;
@@ -341,20 +326,14 @@ void warping(f32& Ix, f32& Iy, f32& It, f32& I1, f32& I2, f32& u, f32& v) {
     // display_flow(It, idxx, idyy);
     // waitKey(0);
 
-#if 0
-    // convolution based warp
-    diffs(Ix, Iy, I1, I2);
-#else
     // interp2 based warp ()
-    f32 idxm = max(1, min(N, idxx - 0.5f));
-    f32 idxp = max(1, min(N, idxx + 0.5f));
-    f32 idym = max(1, min(M, idyy - 0.5f));
-    f32 idyp = max(1, min(M, idyy + 0.5f));
+    f32 idxm = max(1, min(N - 1, idxx - 0.5f));
+    f32 idxp = max(1, min(N - 1, idxx + 0.5f));
+    f32 idym = max(1, min(M - 1, idyy - 0.5f));
+    f32 idyp = max(1, min(M - 1, idyy + 0.5f));
     Ix = interp2(idy, idx, I2, idyy, idxp) - interp2(idy, idx, I2, idyy, idxm);
     Iy = interp2(idy, idx, I2, idyp, idxx) - interp2(idy, idx, I2, idym, idxx);
-#endif
-
-    /* ^ interp2 should be cubic; that may fix things */
+    /* ^ BUG: interp2 should be cubic; that may fix things; ^ */
 }
 
 
@@ -377,6 +356,7 @@ void dxym(f32& Id, f32 I0x, f32 I0y) {
     Id = (x0 - x1) + (y0 - y1);
 }
 
+
 void dxyp(f32& Ix, f32& Iy, f32& I0) {
     // shifts
     gdims mnk = I0.dims();
@@ -392,11 +372,7 @@ void dxyp(f32& Ix, f32& Iy, f32& I0) {
     x0(span, seq(0, N - 2)) = I0(span, seq(1, N - 1));
 
     Ix = (x0 - x1);  Iy = (y0 - y1);
-
-//    Ix = circshift(I0, -1, 0) - I0;
-//    Iy = circshift(I0, 0, -1) - I0;
 }
-
 
 
 void tv_l1_dual(f32& u, f32& v, f32& p, f32& w, f32& I1, f32& I2, int level) {
