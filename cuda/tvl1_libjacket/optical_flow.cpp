@@ -25,11 +25,12 @@ using namespace std;
 using namespace cv;
 
 // control
-const float pfactor = 0.65;   // scale each pyr level by this amount
+const float pfactor = 0.7;   // scale each pyr level by this amount
 const int max_plevels = 7;    // number of pyramid levels
 const int max_iters = 5;      // u v w update loop
 const float lambda = 40;      // smoothness constraint
 const int max_warps = 3;      // warping u v warping
+const int min_img_sz = 20;    // min mxn img in pyramid
 
 // functions
 int  grab_frame(Mat& img, char* filename);
@@ -42,7 +43,7 @@ void MatToFloat(const Mat& thing, float* thing2);
 void FloatToMat(float const* thing, Mat& thing2);
 
 // misc
-int plevels = max_plevels - 1;
+int plevels = max_plevels;
 const int n_dual_vars = 6;
 static int cam_init = 0;
 static int pyr_init = 0;
@@ -226,8 +227,8 @@ void gen_pyramid_sizes(f32& im1) {
         }
         pyr_M[level] = (int)(sM + 0.5f);
         pyr_N[level] = (int)(sN + 0.5f);
-        if (sM < 20 || sN < 20) { plevels = level; break; }
         MSG(" pyr %d: %d x %d ", level, (int)sM, (int)sN);
+        if (sM < min_img_sz || sN < min_img_sz) { plevels = level; break; }
     }
 }
 
