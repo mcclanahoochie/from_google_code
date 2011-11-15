@@ -25,12 +25,13 @@ using namespace std;
 using namespace cv;
 
 // control
-const float pfactor = 0.7;   // scale each pyr level by this amount
-const int max_plevels = 7;    // number of pyramid levels
+const float pfactor = 0.66;   // scale each pyr level by this amount
+const int max_plevels = 6;    // number of pyramid levels
 const int max_iters = 5;      // u v w update loop
 const float lambda = 40;      // smoothness constraint
 const int max_warps = 3;      // warping u v warping
 const int min_img_sz = 20;    // min mxn img in pyramid
+#define TIMING 0              // warmup, then average multiple runs
 
 // functions
 int  grab_frame(Mat& img, char* filename);
@@ -77,7 +78,7 @@ void optical_flow_tvl1(Mat& img1, Mat& img2, Mat& mu, Mat& mv) {
     float* fi2 = (float*)mi2.data;
     f32 I2 = f32(fi2, img2.rows, img2.cols) / 255.0f;
 
-#if 0
+#if TIMING
     // runs
     int nruns = 4;
     // warmup
@@ -86,7 +87,7 @@ void optical_flow_tvl1(Mat& img1, Mat& img2, Mat& mu, Mat& mv) {
     process_pyramids(pyr1, pyr2, ou, ov);
     // timing
     timer::tic();
-    for (int i = 0; i < nruns; i++) {
+    for (int i = 0; i < nruns; ++i) {
         create_pyramids(I1, I2, pyr1, pyr2);
         process_pyramids(pyr1, pyr2, ou, ov);
     }
@@ -163,22 +164,32 @@ void display_flow(f32& I2, f32& u, f32& v) {
 
 
 void display_flow(const Mat& u, const Mat& v) {
-    //calculate angle and magnitude
-    cv::Mat magnitude, angle;
+#if 0
+    cv::Mat magnitude, angle, bgr;
     cv::cartToPolar(u, v, magnitude, angle, true);
-    //translate magnitude to range [0;1]
     double mag_max, mag_min;
     cv::minMaxLoc(magnitude, &mag_min, &mag_max);
     magnitude.convertTo(magnitude, -1, 1.0 / mag_max);
-    //build hsv image
-    cv::Mat _hsv[3], hsv;
+    cv::Mat _hsv[3], hsv_image;
     _hsv[0] = angle;
     _hsv[1] = Mat::ones(angle.size(), CV_32F);
     _hsv[2] = magnitude;
-    cv::merge(_hsv, 3, hsv);
-    //convert to BGR and show
-    Mat bgr;
-    cv::cvtColor(hsv, bgr, CV_HSV2BGR);
+    cv::merge(_hsv, 3, hsv_image);
+#else
+    cv::Mat magnitude, angle, bgr;
+    Mat hsv_image(u.rows, u.cols, CV_8UC3);
+    for (int i = 0; i < u.rows; ++i) {
+        const float* x_ptr = u.ptr<float>(i);
+        const float* y_ptr = v.ptr<float>(i);
+        uchar* hsv_ptr = hsv_image.ptr<uchar>(i);
+        for (int j = 0; j < u.cols; ++j, hsv_ptr += 3, ++x_ptr, ++y_ptr) {
+            hsv_ptr[0] = (uchar)((atan2f(*y_ptr, *x_ptr) / M_PI + 1) * 90);
+            hsv_ptr[1] = hsv_ptr[2] = (uchar) std::min<float>(
+                                          sqrtf(*y_ptr * *y_ptr + *x_ptr * *x_ptr) * 20, 255.0);
+        }
+    }
+#endif
+    cv::cvtColor(hsv_image, bgr, CV_HSV2BGR);
     cv::imshow("optical flow", bgr);
 }
 
@@ -190,7 +201,7 @@ int grab_frame(Mat& img, char* filename) {
         if (filename != NULL) {
             capture.open(filename);
         } else {
-            float rescale = 0.62;
+            float rescale = 0.615;
             int w = 640 * rescale;
             int h = 480 * rescale;
             capture.open(0); //try to open
@@ -279,12 +290,12 @@ void process_pyramids(f32& pyr1, f32& pyr2, f32& ou, f32& ov) {
             float rescale_u = 1.0f / pfactor;
             float rescale_v = 1.0f / pfactor;
             // propagate
-            f32 u_ =  resize(u, pyr_M[level], pyr_N[level], JKT_RSZ_Nearest) * rescale_u;
-            f32 v_ =  resize(v, pyr_M[level], pyr_N[level], JKT_RSZ_Nearest) * rescale_v;
-            f32 w_ =  resize(w, pyr_M[level], pyr_N[level], JKT_RSZ_Nearest);
+            f32 u_ =  resize(u, pyr_M[level], pyr_N[level], JKT_RSZ_Bilinear) * rescale_u;
+            f32 v_ =  resize(v, pyr_M[level], pyr_N[level], JKT_RSZ_Bilinear) * rescale_v;
+            f32 w_ =  resize(w, pyr_M[level], pyr_N[level], JKT_RSZ_Bilinear);
             f32 p_ = f32::zeros(pyr_M[level], pyr_N[level], n_dual_vars);
             gfor(f32 ndv, n_dual_vars) {
-                p_(span, span, ndv) = resize(p(span, span, ndv), pyr_M[level], pyr_N[level], JKT_RSZ_Nearest);
+                p_(span, span, ndv) = resize(p(span, span, ndv), pyr_M[level], pyr_N[level], JKT_RSZ_Bilinear);
             }
             u = u_;  v = v_;  p = p_;  w = w_;
         }
@@ -511,8 +522,8 @@ int main(int argc, char* argv[]) {
         // process files
         optical_flow_tvl1(prev_img, cam_img, disp_u, disp_v);
         // show
-        imshow("u", disp_u);
-        imshow("v", disp_v);
+        // imshow("u", disp_u);
+        // imshow("v", disp_v);
         display_flow(disp_u, disp_v);
         waitKey(0);
         // // write
@@ -526,8 +537,8 @@ int main(int argc, char* argv[]) {
                 // frames
                 prev_img = cam_img.clone();
                 // show
-                imshow("u", disp_u);
-                imshow("v", disp_v);
+                // imshow("u", disp_u);
+                // imshow("v", disp_v);
                 display_flow(disp_u, disp_v);
             } catch (gexception& e) {
                 cout << e.what() << endl;
