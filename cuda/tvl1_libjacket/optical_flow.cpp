@@ -25,9 +25,9 @@ using namespace std;
 using namespace cv;
 
 // control
-const float pfactor = 0.66;   // scale each pyr level by this amount
-const int max_plevels = 6;    // number of pyramid levels
-const int max_iters = 5;      // u v w update loop
+const float pfactor = 0.7;    // scale each pyr level by this amount
+const int max_plevels = 9;    // number of pyramid levels
+const int max_iters = 6;      // u v w update loop
 const float lambda = 40;      // smoothness constraint
 const int max_warps = 3;      // warping u v warping
 const int min_img_sz = 20;    // min mxn img in pyramid
@@ -91,7 +91,7 @@ void optical_flow_tvl1(Mat& img1, Mat& img2, Mat& mu, Mat& mv) {
         create_pyramids(I1, I2, pyr1, pyr2);
         process_pyramids(pyr1, pyr2, ou, ov);
     }
-    MSG("elapsed time (sec): %f", timer::toc() / (float)nruns);
+    MSG("fps: %f", 1.0f / (timer::toc() / (float)nruns));
 #else
     // timing
     timer::tic();
@@ -101,7 +101,7 @@ void optical_flow_tvl1(Mat& img1, Mat& img2, Mat& mu, Mat& mv) {
     f32 ou, ov;
     process_pyramids(pyr1, pyr2, ou, ov);
     // timing
-    MSG("elapsed time: %f", timer::toc());
+    MSG("fps: %f", 1.0f / (timer::toc()));
 #endif
 
     // output
@@ -285,10 +285,8 @@ void process_pyramids(f32& pyr1, f32& pyr2, f32& ou, f32& ov) {
             w  = f32::zeros(pyr_M[level], pyr_N[level]);
             p  = f32::zeros(pyr_M[level], pyr_N[level], n_dual_vars);
         } else {
-            // float rescale_u =  pyr_N[level+1]/(float)pyr_N[level];
-            // float rescale_v =  pyr_M[level+1]/(float)pyr_M[level];
-            float rescale_u = 1.0f / pfactor;
-            float rescale_v = 1.0f / pfactor;
+            float rescale_u =  pyr_N[level+1]/(float)pyr_N[level];
+            float rescale_v =  pyr_M[level+1]/(float)pyr_M[level];
             // propagate
             f32 u_ =  resize(u, pyr_M[level], pyr_N[level], JKT_RSZ_Bilinear) * rescale_u;
             f32 v_ =  resize(v, pyr_M[level], pyr_N[level], JKT_RSZ_Bilinear) * rescale_v;
@@ -322,7 +320,6 @@ void warping(f32& Ix, f32& Iy, f32& It, f32& I1, f32& I2, f32& u, f32& v) {
     gdims mnk = I2.dims();
     int M = mnk[0];
     int N = mnk[1];
-    // f32 idx, idy; meshgrid(idx, idy, f32(seq(N)), f32(seq(M)));
     f32 idx = repmat(f32(seq(N)).T(), M, 1) + 1;
     f32 idy = repmat(f32(seq(M)), 1, N) + 1;
     /* ^ BUG: idx idy should ideally be [0-N); ^ */
@@ -335,16 +332,13 @@ void warping(f32& Ix, f32& Iy, f32& It, f32& I1, f32& I2, f32& u, f32& v) {
     // interp2 based warp ()
     It = interp2(idy, idx, I2, idyy, idxx) - I1;
 
-    // display_flow(It, idxx, idyy);
-    // waitKey(0);
-
     // interp2 based warp ()
-    f32 idxm = max(1, min(N - 1, idxx - 0.5f));
-    f32 idxp = max(1, min(N - 1, idxx + 0.5f));
-    f32 idym = max(1, min(M - 1, idyy - 0.5f));
-    f32 idyp = max(1, min(M - 1, idyy + 0.5f));
-    Ix = interp2(idy, idx, I2, idyy, idxp) - interp2(idy, idx, I2, idyy, idxm);
-    Iy = interp2(idy, idx, I2, idyp, idxx) - interp2(idy, idx, I2, idym, idxx);
+    f32 idxm = max(1, min(N - 1, idxx - 1.f));
+    f32 idxp = max(1, min(N - 1, idxx + 1.f));
+    f32 idym = max(1, min(M - 1, idyy - 1.f));
+    f32 idyp = max(1, min(M - 1, idyy + 1.f));
+    Ix = interp2(idy, idx, I2, idy, idxp) - interp2(idy, idx, I2, idy, idxm);
+    Iy = interp2(idy, idx, I2, idyp, idx) - interp2(idy, idx, I2, idym, idx);
     /* ^ BUG: interp2 should be cubic; that may fix things; ^ */
 }
 
@@ -393,8 +387,8 @@ void tv_l1_dual(f32& u, f32& v, f32& p, f32& w, f32& I1, f32& I2, int level) {
     float tau   = 1 / L;
     float sigma = 1 / L;
 
-    float eps_u = 0.00f;
-    float eps_w = 0.00f;
+    float eps_u = 0.01f;
+    float eps_w = 0.01f;
     float gamma = 0.02f;
 
     f32 u_ = u;
