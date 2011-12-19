@@ -28,72 +28,72 @@ namespace detail {
 namespace host {
 
 template < typename InputIterator,
-		 typename OutputIterator,
-		 typename UnaryFunction >
+         typename OutputIterator,
+         typename UnaryFunction >
 OutputIterator transform(InputIterator first, InputIterator last,
-						 OutputIterator result,
-						 UnaryFunction unary_op) {
-	for (; first != last; ++first, ++result) {
-		*result = unary_op(*first);
-	}
+                         OutputIterator result,
+                         UnaryFunction unary_op) {
+    for (; first != last; ++first, ++result) {
+        *result = unary_op(*first);
+    }
 
-	return result;
+    return result;
 } // end transform()
 
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename OutputIterator,
-		 typename BinaryFunction >
+         typename InputIterator2,
+         typename OutputIterator,
+         typename BinaryFunction >
 OutputIterator transform(InputIterator1 first1, InputIterator1 last1,
-						 InputIterator2 first2,
-						 OutputIterator result,
-						 BinaryFunction binary_op) {
-	for (; first1 != last1; ++first1, ++first2, ++result) {
-		*result = binary_op(*first1, *first2);
-	}
+                         InputIterator2 first2,
+                         OutputIterator result,
+                         BinaryFunction binary_op) {
+    for (; first1 != last1; ++first1, ++first2, ++result) {
+        *result = binary_op(*first1, *first2);
+    }
 
-	return result;
+    return result;
 } // end transform()
 
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename ForwardIterator,
-		 typename UnaryFunction,
-		 typename Predicate >
+         typename InputIterator2,
+         typename ForwardIterator,
+         typename UnaryFunction,
+         typename Predicate >
 ForwardIterator transform_if(InputIterator1 first, InputIterator1 last,
-							 InputIterator2 stencil,
-							 ForwardIterator result,
-							 UnaryFunction unary_op,
-							 Predicate pred) {
-	for (; first != last; ++first, ++stencil, ++result) {
-		if (pred(*stencil)) {
-			*result = unary_op(*first);
-		}
-	}
+                             InputIterator2 stencil,
+                             ForwardIterator result,
+                             UnaryFunction unary_op,
+                             Predicate pred) {
+    for (; first != last; ++first, ++stencil, ++result) {
+        if (pred(*stencil)) {
+            *result = unary_op(*first);
+        }
+    }
 
-	return result;
+    return result;
 } // end transform_if()
 
 
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename InputIterator3,
-		 typename ForwardIterator,
-		 typename BinaryFunction,
-		 typename Predicate >
+         typename InputIterator2,
+         typename InputIterator3,
+         typename ForwardIterator,
+         typename BinaryFunction,
+         typename Predicate >
 ForwardIterator transform_if(InputIterator1 first1, InputIterator1 last1,
-							 InputIterator2 first2,
-							 InputIterator3 stencil,
-							 ForwardIterator result,
-							 BinaryFunction binary_op,
-							 Predicate pred) {
-	for (; first1 != last1; ++first1, ++first2, ++stencil, ++result) {
-		if (pred(*stencil)) {
-			*result = binary_op(*first1, *first2);
-		}
-	}
+                             InputIterator2 first2,
+                             InputIterator3 stencil,
+                             ForwardIterator result,
+                             BinaryFunction binary_op,
+                             Predicate pred) {
+    for (; first1 != last1; ++first1, ++first2, ++stencil, ++result) {
+        if (pred(*stencil)) {
+            *result = binary_op(*first1, *first2);
+        }
+    }
 
-	return result;
+    return result;
 } // end transform_if()
 
 } // end host

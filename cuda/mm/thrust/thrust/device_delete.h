@@ -44,7 +44,7 @@ namespace thrust {
  */
 template<typename T>
 inline void device_delete(thrust::device_ptr<T> ptr,
-						  const size_t n = 1);
+                          const size_t n = 1);
 
 /*! \}
  */

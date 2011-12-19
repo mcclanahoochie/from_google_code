@@ -37,68 +37,68 @@ namespace dispatch {
 ////////////////
 template <class ForwardIterator, class T, class StrictWeakOrdering>
 ForwardIterator lower_bound(ForwardIterator begin,
-							ForwardIterator end,
-							const T& value,
-							StrictWeakOrdering comp,
-							thrust::host_space_tag) {
-	return thrust::detail::host::lower_bound(begin, end, value, comp);
+                            ForwardIterator end,
+                            const T& value,
+                            StrictWeakOrdering comp,
+                            thrust::host_space_tag) {
+    return thrust::detail::host::lower_bound(begin, end, value, comp);
 }
 
 template <class ForwardIterator, class InputIterator, class OutputIterator, class StrictWeakOrdering>
 OutputIterator lower_bound(ForwardIterator begin,
-						   ForwardIterator end,
-						   InputIterator values_begin,
-						   InputIterator values_end,
-						   OutputIterator output,
-						   StrictWeakOrdering comp,
-						   thrust::host_space_tag,
-						   thrust::host_space_tag,
-						   thrust::host_space_tag) {
-	return thrust::detail::host::lower_bound(begin, end, values_begin, values_end, output, comp);
+                           ForwardIterator end,
+                           InputIterator values_begin,
+                           InputIterator values_end,
+                           OutputIterator output,
+                           StrictWeakOrdering comp,
+                           thrust::host_space_tag,
+                           thrust::host_space_tag,
+                           thrust::host_space_tag) {
+    return thrust::detail::host::lower_bound(begin, end, values_begin, values_end, output, comp);
 }
 
 template <class ForwardIterator, class T, class StrictWeakOrdering>
 ForwardIterator upper_bound(ForwardIterator begin,
-							ForwardIterator end,
-							const T& value,
-							StrictWeakOrdering comp,
-							thrust::host_space_tag) {
-	return thrust::detail::host::upper_bound(begin, end, value, comp);
+                            ForwardIterator end,
+                            const T& value,
+                            StrictWeakOrdering comp,
+                            thrust::host_space_tag) {
+    return thrust::detail::host::upper_bound(begin, end, value, comp);
 }
 
 template <class ForwardIterator, class InputIterator, class OutputIterator, class StrictWeakOrdering>
 OutputIterator upper_bound(ForwardIterator begin,
-						   ForwardIterator end,
-						   InputIterator values_begin,
-						   InputIterator values_end,
-						   OutputIterator output,
-						   StrictWeakOrdering comp,
-						   thrust::host_space_tag,
-						   thrust::host_space_tag,
-						   thrust::host_space_tag) {
-	return thrust::detail::host::upper_bound(begin, end, values_begin, values_end, output, comp);
+                           ForwardIterator end,
+                           InputIterator values_begin,
+                           InputIterator values_end,
+                           OutputIterator output,
+                           StrictWeakOrdering comp,
+                           thrust::host_space_tag,
+                           thrust::host_space_tag,
+                           thrust::host_space_tag) {
+    return thrust::detail::host::upper_bound(begin, end, values_begin, values_end, output, comp);
 }
 
 template <class ForwardIterator, class T, class StrictWeakOrdering>
 bool binary_search(ForwardIterator begin,
-				   ForwardIterator end,
-				   const T& value,
-				   StrictWeakOrdering comp,
-				   thrust::host_space_tag) {
-	return thrust::detail::host::binary_search(begin, end, value, comp);
+                   ForwardIterator end,
+                   const T& value,
+                   StrictWeakOrdering comp,
+                   thrust::host_space_tag) {
+    return thrust::detail::host::binary_search(begin, end, value, comp);
 }
 
 template <class ForwardIterator, class InputIterator, class OutputIterator, class StrictWeakOrdering>
 OutputIterator binary_search(ForwardIterator begin,
-							 ForwardIterator end,
-							 InputIterator values_begin,
-							 InputIterator values_end,
-							 OutputIterator output,
-							 StrictWeakOrdering comp,
-							 thrust::host_space_tag,
-							 thrust::host_space_tag,
-							 thrust::host_space_tag) {
-	return thrust::detail::host::binary_search(begin, end, values_begin, values_end, output, comp);
+                             ForwardIterator end,
+                             InputIterator values_begin,
+                             InputIterator values_end,
+                             OutputIterator output,
+                             StrictWeakOrdering comp,
+                             thrust::host_space_tag,
+                             thrust::host_space_tag,
+                             thrust::host_space_tag) {
+    return thrust::detail::host::binary_search(begin, end, values_begin, values_end, output, comp);
 }
 
 //////////////////
@@ -106,68 +106,68 @@ OutputIterator binary_search(ForwardIterator begin,
 //////////////////
 template <class ForwardIterator, class T, class StrictWeakOrdering>
 ForwardIterator lower_bound(ForwardIterator begin,
-							ForwardIterator end,
-							const T& value,
-							StrictWeakOrdering comp,
-							thrust::device_space_tag) {
-	return thrust::detail::device::lower_bound(begin, end, value, comp);
+                            ForwardIterator end,
+                            const T& value,
+                            StrictWeakOrdering comp,
+                            thrust::device_space_tag) {
+    return thrust::detail::device::lower_bound(begin, end, value, comp);
 }
 
 template <class ForwardIterator, class InputIterator, class OutputIterator, class StrictWeakOrdering>
 OutputIterator lower_bound(ForwardIterator begin,
-						   ForwardIterator end,
-						   InputIterator values_begin,
-						   InputIterator values_end,
-						   OutputIterator output,
-						   StrictWeakOrdering comp,
-						   thrust::device_space_tag,
-						   thrust::device_space_tag,
-						   thrust::device_space_tag) {
-	return thrust::detail::device::lower_bound(begin, end, values_begin, values_end, output, comp);
+                           ForwardIterator end,
+                           InputIterator values_begin,
+                           InputIterator values_end,
+                           OutputIterator output,
+                           StrictWeakOrdering comp,
+                           thrust::device_space_tag,
+                           thrust::device_space_tag,
+                           thrust::device_space_tag) {
+    return thrust::detail::device::lower_bound(begin, end, values_begin, values_end, output, comp);
 }
 
 template <class ForwardIterator, class T, class StrictWeakOrdering>
 ForwardIterator upper_bound(ForwardIterator begin,
-							ForwardIterator end,
-							const T& value,
-							StrictWeakOrdering comp,
-							thrust::device_space_tag) {
-	return thrust::detail::device::upper_bound(begin, end, value, comp);
+                            ForwardIterator end,
+                            const T& value,
+                            StrictWeakOrdering comp,
+                            thrust::device_space_tag) {
+    return thrust::detail::device::upper_bound(begin, end, value, comp);
 }
 
 template <class ForwardIterator, class InputIterator, class OutputIterator, class StrictWeakOrdering>
 OutputIterator upper_bound(ForwardIterator begin,
-						   ForwardIterator end,
-						   InputIterator values_begin,
-						   InputIterator values_end,
-						   OutputIterator output,
-						   StrictWeakOrdering comp,
-						   thrust::device_space_tag,
-						   thrust::device_space_tag,
-						   thrust::device_space_tag) {
-	return thrust::detail::device::upper_bound(begin, end, values_begin, values_end, output, comp);
+                           ForwardIterator end,
+                           InputIterator values_begin,
+                           InputIterator values_end,
+                           OutputIterator output,
+                           StrictWeakOrdering comp,
+                           thrust::device_space_tag,
+                           thrust::device_space_tag,
+                           thrust::device_space_tag) {
+    return thrust::detail::device::upper_bound(begin, end, values_begin, values_end, output, comp);
 }
 
 template <class ForwardIterator, class T, class StrictWeakOrdering>
 bool binary_search(ForwardIterator begin,
-				   ForwardIterator end,
-				   const T& value,
-				   StrictWeakOrdering comp,
-				   thrust::device_space_tag) {
-	return thrust::detail::device::binary_search(begin, end, value, comp);
+                   ForwardIterator end,
+                   const T& value,
+                   StrictWeakOrdering comp,
+                   thrust::device_space_tag) {
+    return thrust::detail::device::binary_search(begin, end, value, comp);
 }
 
 template <class ForwardIterator, class InputIterator, class OutputIterator, class StrictWeakOrdering>
 OutputIterator binary_search(ForwardIterator begin,
-							 ForwardIterator end,
-							 InputIterator values_begin,
-							 InputIterator values_end,
-							 OutputIterator output,
-							 StrictWeakOrdering comp,
-							 thrust::device_space_tag,
-							 thrust::device_space_tag,
-							 thrust::device_space_tag) {
-	return thrust::detail::device::binary_search(begin, end, values_begin, values_end, output, comp);
+                             ForwardIterator end,
+                             InputIterator values_begin,
+                             InputIterator values_end,
+                             OutputIterator output,
+                             StrictWeakOrdering comp,
+                             thrust::device_space_tag,
+                             thrust::device_space_tag,
+                             thrust::device_space_tag) {
+    return thrust::detail::device::binary_search(begin, end, values_begin, values_end, output, comp);
 }
 
 } // end dispatch

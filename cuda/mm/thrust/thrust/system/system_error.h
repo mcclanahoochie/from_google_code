@@ -46,36 +46,36 @@ namespace system {
  *  to throw an exception object of type \p std::bad_alloc rather than \p system_error.
  */
 class system_error
-		: public std::runtime_error {
+        : public std::runtime_error {
 public:
-	// [19.5.5.2] Class system_error members
+    // [19.5.5.2] Class system_error members
 
-	inline system_error(error_code ec, const std::string& what_arg);
+    inline system_error(error_code ec, const std::string& what_arg);
 
-	inline system_error(error_code ec, const char* what_arg);
+    inline system_error(error_code ec, const char* what_arg);
 
-	inline system_error(error_code ec);
+    inline system_error(error_code ec);
 
-	inline system_error(int ev, const error_category& ecat, const std::string& what_arg);
+    inline system_error(int ev, const error_category& ecat, const std::string& what_arg);
 
-	inline system_error(int ev, const error_category& ecat, const char* what_arg);
+    inline system_error(int ev, const error_category& ecat, const char* what_arg);
 
-	inline system_error(int ev, const error_category& ecat);
+    inline system_error(int ev, const error_category& ecat);
 
-	inline virtual ~system_error(void) throw () {};
+    inline virtual ~system_error(void) throw() {};
 
-	inline const error_code& code(void) const throw();
+    inline const error_code& code(void) const throw();
 
-	inline const char* what(void) const throw();
+    inline const char* what(void) const throw();
 
-	/*! \cond
-	 */
+    /*! \cond
+     */
 private:
-	error_code          m_error_code;
-	mutable std::string m_what;
+    error_code          m_error_code;
+    mutable std::string m_what;
 
-	/*! \endcond
-	 */
+    /*! \endcond
+     */
 }; // end system_error
 
 } // end system

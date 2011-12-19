@@ -31,13 +31,13 @@ namespace detail {
 namespace device {
 
 template < typename InputIterator,
-		 typename UnaryFunction >
+         typename UnaryFunction >
 void for_each(InputIterator first,
-			  InputIterator last,
-			  UnaryFunction f) {
-	// dispatch on space
-	thrust::detail::device::dispatch::for_each(first, last, f,
-			typename thrust::iterator_space<InputIterator>::type());
+              InputIterator last,
+              UnaryFunction f) {
+    // dispatch on space
+    thrust::detail::device::dispatch::for_each(first, last, f,
+            typename thrust::iterator_space<InputIterator>::type());
 }
 
 } // end namespace device

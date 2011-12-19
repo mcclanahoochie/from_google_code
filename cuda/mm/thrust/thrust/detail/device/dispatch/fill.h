@@ -29,24 +29,24 @@ namespace device {
 namespace dispatch {
 
 template < typename InputIterator,
-		 typename UnaryFunction,
-		 typename Space >
+         typename UnaryFunction,
+         typename Space >
 void fill(InputIterator first,
-		  InputIterator last,
-		  UnaryFunction f,
-		  Space) {
-	// generic backend
-	thrust::detail::device::generic::fill(first, last, f);
+          InputIterator last,
+          UnaryFunction f,
+          Space) {
+    // generic backend
+    thrust::detail::device::generic::fill(first, last, f);
 }
 
 template < typename InputIterator,
-		 typename UnaryFunction >
+         typename UnaryFunction >
 void fill(InputIterator first,
-		  InputIterator last,
-		  UnaryFunction f,
-		  thrust::detail::cuda_device_space_tag) {
-	// refinement for the CUDA backend
-	thrust::detail::device::cuda::fill(first, last, f);
+          InputIterator last,
+          UnaryFunction f,
+          thrust::detail::cuda_device_space_tag) {
+    // refinement for the CUDA backend
+    thrust::detail::device::cuda::fill(first, last, f);
 }
 
 } // end dispatch

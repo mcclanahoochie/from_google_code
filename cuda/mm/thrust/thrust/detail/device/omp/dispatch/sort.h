@@ -35,20 +35,20 @@ namespace dispatch {
 
 template<typename RandomAccessIterator, typename StrictWeakOrdering>
 void stable_sort(RandomAccessIterator first, RandomAccessIterator last, StrictWeakOrdering comp,
-				 thrust::detail::true_type) {
-	// RandomAccessIterator is trivial, so cast to a raw pointer and use std::stable_sort
-	std::stable_sort(thrust::raw_pointer_cast(&*first),
-					 thrust::raw_pointer_cast(&*last),
-					 comp);
+                 thrust::detail::true_type) {
+    // RandomAccessIterator is trivial, so cast to a raw pointer and use std::stable_sort
+    std::stable_sort(thrust::raw_pointer_cast(&*first),
+                     thrust::raw_pointer_cast(&*last),
+                     comp);
 }
 
 template<typename RandomAccessIterator, typename StrictWeakOrdering>
 void stable_sort(RandomAccessIterator first, RandomAccessIterator last, StrictWeakOrdering comp,
-				 thrust::detail::false_type) {
-	// RandomAccessIterator is not trivial, so use host's stable_sort implementation
-	thrust::detail::host::stable_sort(thrust::detail::make_forced_iterator(first, thrust::host_space_tag()),
-									  thrust::detail::make_forced_iterator(last,  thrust::host_space_tag()),
-									  comp);
+                 thrust::detail::false_type) {
+    // RandomAccessIterator is not trivial, so use host's stable_sort implementation
+    thrust::detail::host::stable_sort(thrust::detail::make_forced_iterator(first, thrust::host_space_tag()),
+                                      thrust::detail::make_forced_iterator(last,  thrust::host_space_tag()),
+                                      comp);
 }
 
 } // end dispatch

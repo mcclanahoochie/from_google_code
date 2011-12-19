@@ -35,10 +35,10 @@ namespace dispatch {
 ////////////////
 template <typename InputIterator, typename Predicate>
 InputIterator find_if(InputIterator first,
-					  InputIterator last,
-					  Predicate pred,
-					  thrust::host_space_tag) {
-	return thrust::detail::host::find_if(first, last, pred);
+                      InputIterator last,
+                      Predicate pred,
+                      thrust::host_space_tag) {
+    return thrust::detail::host::find_if(first, last, pred);
 }
 
 //////////////////
@@ -46,10 +46,10 @@ InputIterator find_if(InputIterator first,
 //////////////////
 template <typename InputIterator, typename Predicate>
 InputIterator find_if(InputIterator first,
-					  InputIterator last,
-					  Predicate pred,
-					  thrust::device_space_tag) {
-	return thrust::detail::device::find_if(first, last, pred);
+                      InputIterator last,
+                      Predicate pred,
+                      thrust::device_space_tag) {
+    return thrust::detail::device::find_if(first, last, pred);
 }
 
 ///////////////
@@ -57,11 +57,11 @@ InputIterator find_if(InputIterator first,
 ///////////////
 template <typename InputIterator, typename Predicate>
 InputIterator find_if(InputIterator first,
-					  InputIterator last,
-					  Predicate pred,
-					  thrust::any_space_tag) {
-	// default to device
-	return thrust::detail::device::find_if(first, last, pred);
+                      InputIterator last,
+                      Predicate pred,
+                      thrust::any_space_tag) {
+    // default to device
+    return thrust::detail::device::find_if(first, last, pred);
 }
 
 } // end namespace dispatch

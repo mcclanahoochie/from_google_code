@@ -28,8 +28,8 @@ namespace cuda {
 
 template<typename ForwardIterator, typename T>
 void fill(ForwardIterator first,
-		  ForwardIterator last,
-		  const T& exemplar);
+          ForwardIterator last,
+          const T& exemplar);
 
 } // end namespace cuda
 } // end namespace device

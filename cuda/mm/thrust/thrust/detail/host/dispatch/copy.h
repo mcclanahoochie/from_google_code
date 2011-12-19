@@ -33,25 +33,25 @@ namespace dispatch {
 
 
 template < typename InputIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator copy(InputIterator first,
-					InputIterator last,
-					OutputIterator result,
-					thrust::detail::false_type) {
-	return thrust::detail::host::detail::general_copy(first, last, result);
+                    InputIterator last,
+                    OutputIterator result,
+                    thrust::detail::false_type) {
+    return thrust::detail::host::detail::general_copy(first, last, result);
 } // end copy()
 
 
 template < typename InputIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator copy(InputIterator first,
-					InputIterator last,
-					OutputIterator result,
-					thrust::detail::true_type) {
-	typedef typename thrust::iterator_difference<InputIterator>::type Size;
+                    InputIterator last,
+                    OutputIterator result,
+                    thrust::detail::true_type) {
+    typedef typename thrust::iterator_difference<InputIterator>::type Size;
 
-	const Size n = last - first;
-	return thrust::detail::host::detail::trivial_copy_n(&*first, n, &*result);
+    const Size n = last - first;
+    return thrust::detail::host::detail::trivial_copy_n(&*first, n, &*result);
 } // end copy()
 
 

@@ -28,18 +28,18 @@ namespace cuda {
 namespace detail {
 
 template < typename RandomAccessIterator,
-		 typename StrictWeakOrdering >
+         typename StrictWeakOrdering >
 void stable_merge_sort(RandomAccessIterator first,
-					   RandomAccessIterator last,
-					   StrictWeakOrdering comp);
+                       RandomAccessIterator last,
+                       StrictWeakOrdering comp);
 
 template < typename RandomAccessIterator1,
-		 typename RandomAccessIterator2,
-		 typename StrictWeakOrdering >
+         typename RandomAccessIterator2,
+         typename StrictWeakOrdering >
 void stable_merge_sort_by_key(RandomAccessIterator1 keys_begin,
-							  RandomAccessIterator1 keys_end,
-							  RandomAccessIterator2 values_begin,
-							  StrictWeakOrdering comp);
+                              RandomAccessIterator1 keys_end,
+                              RandomAccessIterator2 values_begin,
+                              StrictWeakOrdering comp);
 
 } // end namespace detail
 } // end namespace cuda

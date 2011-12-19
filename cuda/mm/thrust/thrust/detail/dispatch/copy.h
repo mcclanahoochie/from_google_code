@@ -42,10 +42,10 @@ template<typename InputIterator, typename OutputIterator> OutputIterator copy(In
 template<typename InputIterator1, typename InputIterator2, typename OutputIterator, typename Predicate>
 OutputIterator
 copy_if(InputIterator1,
-		InputIterator1,
-		InputIterator2,
-		OutputIterator,
-		Predicate);
+        InputIterator1,
+        InputIterator2,
+        OutputIterator,
+        Predicate);
 
 
 } // end device
@@ -67,12 +67,12 @@ namespace dispatch {
 ///////////////////////
 
 template < typename InputIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator copy(InputIterator begin,
-					InputIterator end,
-					OutputIterator result,
-					thrust::host_space_tag) {
-	return thrust::detail::host::copy(begin, end, result);
+                    InputIterator end,
+                    OutputIterator result,
+                    thrust::host_space_tag) {
+    return thrust::detail::host::copy(begin, end, result);
 }
 
 ///////////////////////////
@@ -80,12 +80,12 @@ OutputIterator copy(InputIterator begin,
 //////////////////////////
 
 template < typename InputIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator copy(InputIterator begin,
-					InputIterator end,
-					OutputIterator result,
-					thrust::device_space_tag) {
-	return thrust::detail::device::copy(begin, end, result);
+                    InputIterator end,
+                    OutputIterator result,
+                    thrust::device_space_tag) {
+    return thrust::detail::device::copy(begin, end, result);
 }
 
 ///////////////
@@ -93,12 +93,12 @@ OutputIterator copy(InputIterator begin,
 ///////////////
 
 template < typename InputIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator copy(InputIterator begin,
-					InputIterator end,
-					OutputIterator result,
-					thrust::any_space_tag) {
-	return thrust::detail::device::copy(begin, end, result);
+                    InputIterator end,
+                    OutputIterator result,
+                    thrust::any_space_tag) {
+    return thrust::detail::device::copy(begin, end, result);
 }
 
 //////////////////////
@@ -106,12 +106,12 @@ OutputIterator copy(InputIterator begin,
 //////////////////////
 
 template < typename InputIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator copy(InputIterator first,
-					InputIterator last,
-					OutputIterator result,
-					thrust::detail::false_type cross_space_copy) {
-	return thrust::detail::device::copy(first, last, result);
+                    InputIterator last,
+                    OutputIterator result,
+                    thrust::detail::false_type cross_space_copy) {
+    return thrust::detail::device::copy(first, last, result);
 }
 
 //////////////////////
@@ -119,33 +119,33 @@ OutputIterator copy(InputIterator first,
 //////////////////////
 
 template < typename InputIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator copy(InputIterator first,
-					InputIterator last,
-					OutputIterator result,
-					thrust::detail::true_type cross_space_copy) {
-	typedef typename thrust::iterator_space<InputIterator>::type  space1;
-	typedef typename thrust::iterator_space<OutputIterator>::type space2;
+                    InputIterator last,
+                    OutputIterator result,
+                    thrust::detail::true_type cross_space_copy) {
+    typedef typename thrust::iterator_space<InputIterator>::type  space1;
+    typedef typename thrust::iterator_space<OutputIterator>::type space2;
 
-	// find the minimum space of the two
-	typedef typename thrust::detail::minimum_space<space1, space2>::type minimum_space;
+    // find the minimum space of the two
+    typedef typename thrust::detail::minimum_space<space1, space2>::type minimum_space;
 
-	return thrust::detail::dispatch::copy(first, last, result, minimum_space());
+    return thrust::detail::dispatch::copy(first, last, result, minimum_space());
 }
 
 
 // entry point
 template < typename InputIterator,
-		 typename OutputIterator,
-		 typename Space1,
-		 typename Space2 >
+         typename OutputIterator,
+         typename Space1,
+         typename Space2 >
 OutputIterator copy(InputIterator first,
-					InputIterator last,
-					OutputIterator result,
-					Space1,
-					Space2) {
-	return thrust::detail::dispatch::copy(first, last, result,
-										  typename thrust::detail::is_one_convertible_to_the_other<Space1, Space2>::type());
+                    InputIterator last,
+                    OutputIterator result,
+                    Space1,
+                    Space2) {
+    return thrust::detail::dispatch::copy(first, last, result,
+                                          typename thrust::detail::is_one_convertible_to_the_other<Space1, Space2>::type());
 }
 
 
@@ -155,18 +155,18 @@ OutputIterator copy(InputIterator first,
 ////////////////////////
 
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename OutputIterator,
-		 typename Predicate >
+         typename InputIterator2,
+         typename OutputIterator,
+         typename Predicate >
 OutputIterator copy_if(InputIterator1 first,
-					   InputIterator1 last,
-					   InputIterator2 stencil,
-					   OutputIterator result,
-					   Predicate pred,
-					   thrust::host_space_tag,
-					   thrust::host_space_tag,
-					   thrust::host_space_tag) {
-	return thrust::detail::host::copy_if(first, last, stencil, result, pred);
+                       InputIterator1 last,
+                       InputIterator2 stencil,
+                       OutputIterator result,
+                       Predicate pred,
+                       thrust::host_space_tag,
+                       thrust::host_space_tag,
+                       thrust::host_space_tag) {
+    return thrust::detail::host::copy_if(first, last, stencil, result, pred);
 } // end copy_if()
 
 ////////////////////////////
@@ -174,18 +174,18 @@ OutputIterator copy_if(InputIterator1 first,
 ////////////////////////////
 
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename OutputIterator,
-		 typename Predicate >
+         typename InputIterator2,
+         typename OutputIterator,
+         typename Predicate >
 OutputIterator copy_if(InputIterator1 first,
-					   InputIterator1 last,
-					   InputIterator2 stencil,
-					   OutputIterator result,
-					   Predicate pred,
-					   thrust::device_space_tag,
-					   thrust::device_space_tag,
-					   thrust::device_space_tag) {
-	return thrust::detail::device::copy_if(first, last, stencil, result, pred);
+                       InputIterator1 last,
+                       InputIterator2 stencil,
+                       OutputIterator result,
+                       Predicate pred,
+                       thrust::device_space_tag,
+                       thrust::device_space_tag,
+                       thrust::device_space_tag) {
+    return thrust::detail::device::copy_if(first, last, stencil, result, pred);
 } // end copy_if()
 
 } // end dispatch

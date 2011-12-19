@@ -27,17 +27,17 @@ namespace util {
 
 template <typename T>
 T* align_up(T* ptr, detail::uintptr_t bytes) {
-	return (T*) ( bytes * (((detail::uintptr_t) ptr + (bytes - 1)) / bytes) );
+    return (T*)(bytes * (((detail::uintptr_t) ptr + (bytes - 1)) / bytes));
 }
 
 template <typename T>
 T* align_down(T* ptr, detail::uintptr_t bytes) {
-	return (T*) ( bytes * (detail::uintptr_t(ptr) / bytes) );
+    return (T*)(bytes * (detail::uintptr_t(ptr) / bytes));
 }
 
 template <typename T>
 bool is_aligned(T* ptr, detail::uintptr_t bytes = sizeof(T)) {
-	return detail::uintptr_t(ptr) % bytes == 0;
+    return detail::uintptr_t(ptr) % bytes == 0;
 }
 
 } // end namespace util

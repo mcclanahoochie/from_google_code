@@ -28,11 +28,11 @@ namespace detail {
 namespace device {
 
 template < typename ForwardIterator,
-		 typename Generator >
+         typename Generator >
 void generate(ForwardIterator first,
-			  ForwardIterator last,
-			  Generator gen) {
-	thrust::detail::device::generic::generate(first, last, gen);
+              ForwardIterator last,
+              Generator gen) {
+    thrust::detail::device::generic::generate(first, last, gen);
 }
 
 } // end namespace device

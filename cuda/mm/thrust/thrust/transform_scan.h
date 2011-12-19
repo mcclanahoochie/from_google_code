@@ -87,14 +87,14 @@ namespace thrust {
  *
  */
 template < typename InputIterator,
-		 typename OutputIterator,
-		 typename UnaryFunction,
-		 typename AssociativeOperator >
+         typename OutputIterator,
+         typename UnaryFunction,
+         typename AssociativeOperator >
 OutputIterator transform_inclusive_scan(InputIterator first,
-										InputIterator last,
-										OutputIterator result,
-										UnaryFunction unary_op,
-										AssociativeOperator binary_op);
+                                        InputIterator last,
+                                        OutputIterator result,
+                                        UnaryFunction unary_op,
+                                        AssociativeOperator binary_op);
 
 
 /*! \p transform_exclusive_scan fuses the \p transform and \p exclusive_scan
@@ -147,16 +147,16 @@ OutputIterator transform_inclusive_scan(InputIterator first,
  *
  */
 template < typename InputIterator,
-		 typename OutputIterator,
-		 typename UnaryFunction,
-		 typename T,
-		 typename AssociativeOperator >
+         typename OutputIterator,
+         typename UnaryFunction,
+         typename T,
+         typename AssociativeOperator >
 OutputIterator transform_exclusive_scan(InputIterator first,
-										InputIterator last,
-										OutputIterator result,
-										UnaryFunction unary_op,
-										T init,
-										AssociativeOperator binary_op);
+                                        InputIterator last,
+                                        OutputIterator result,
+                                        UnaryFunction unary_op,
+                                        T init,
+                                        AssociativeOperator binary_op);
 
 /*! \} // end transformed_prefixsums
  */

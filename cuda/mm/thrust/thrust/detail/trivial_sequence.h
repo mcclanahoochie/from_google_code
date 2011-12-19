@@ -37,39 +37,39 @@ template<typename Iterator, typename is_trivial> struct _trivial_sequence { };
 // trivial case
 template<typename Iterator>
 struct _trivial_sequence<Iterator, thrust::detail::true_type> {
-	typedef Iterator iterator_type;
-	Iterator first, last;
+    typedef Iterator iterator_type;
+    Iterator first, last;
 
-	_trivial_sequence(Iterator _first, Iterator _last) : first(_first), last(_last) {
+    _trivial_sequence(Iterator _first, Iterator _last) : first(_first), last(_last) {
 //        std::cout << "trivial case" << std::endl;
-	}
+    }
 
-	iterator_type begin() { return first; }
-	iterator_type end()   { return last; }
+    iterator_type begin() { return first; }
+    iterator_type end()   { return last; }
 };
 
 // non-trivial case
 template<typename Iterator>
 struct _trivial_sequence<Iterator, thrust::detail::false_type> {
-	typedef typename thrust::iterator_space<Iterator>::type iterator_space;
-	typedef typename thrust::iterator_value<Iterator>::type iterator_value;
-	typedef typename thrust::detail::raw_buffer<iterator_value, iterator_space>::iterator iterator_type;
+    typedef typename thrust::iterator_space<Iterator>::type iterator_space;
+    typedef typename thrust::iterator_value<Iterator>::type iterator_value;
+    typedef typename thrust::detail::raw_buffer<iterator_value, iterator_space>::iterator iterator_type;
 
-	thrust::detail::raw_buffer<iterator_value, iterator_space> buffer;
+    thrust::detail::raw_buffer<iterator_value, iterator_space> buffer;
 
-	_trivial_sequence(Iterator first, Iterator last) : buffer(first, last) {
+    _trivial_sequence(Iterator first, Iterator last) : buffer(first, last) {
 //        std::cout << "non-trivial case" << std::endl;
-	}
+    }
 
-	iterator_type begin() { return buffer.begin(); }
-	iterator_type end()   { return buffer.end(); }
+    iterator_type begin() { return buffer.begin(); }
+    iterator_type end()   { return buffer.end(); }
 };
 
 template <typename Iterator>
 struct trivial_sequence : public detail::_trivial_sequence<Iterator, typename thrust::detail::is_trivial_iterator<Iterator>::type> {
-	typedef _trivial_sequence<Iterator, typename thrust::detail::is_trivial_iterator<Iterator>::type> super_t;
+    typedef _trivial_sequence<Iterator, typename thrust::detail::is_trivial_iterator<Iterator>::type> super_t;
 
-	trivial_sequence(Iterator first, Iterator last) : super_t(first, last) { }
+    trivial_sequence(Iterator first, Iterator last) : super_t(first, last) { }
 };
 
 } // end namespace detail

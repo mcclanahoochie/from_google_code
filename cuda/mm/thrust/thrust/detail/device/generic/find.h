@@ -28,8 +28,8 @@ namespace generic {
 
 template <typename InputIterator, typename Predicate>
 InputIterator find_if(InputIterator first,
-					  InputIterator last,
-					  Predicate pred);
+                      InputIterator last,
+                      Predicate pred);
 
 } // end namespace generic
 } // end namespace device

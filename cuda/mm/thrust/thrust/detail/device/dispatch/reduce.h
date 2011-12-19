@@ -29,40 +29,40 @@ namespace device {
 namespace dispatch {
 
 template < typename InputIterator,
-		 typename OutputType,
-		 typename BinaryFunction >
+         typename OutputType,
+         typename BinaryFunction >
 OutputType reduce(InputIterator first,
-				  InputIterator last,
-				  OutputType init,
-				  BinaryFunction binary_op,
-				  thrust::detail::omp_device_space_tag) {
-	// OpenMP implementation
-	return thrust::detail::device::omp::reduce(first, last, init, binary_op);
+                  InputIterator last,
+                  OutputType init,
+                  BinaryFunction binary_op,
+                  thrust::detail::omp_device_space_tag) {
+    // OpenMP implementation
+    return thrust::detail::device::omp::reduce(first, last, init, binary_op);
 }
 
 template < typename InputIterator,
-		 typename OutputType,
-		 typename BinaryFunction >
+         typename OutputType,
+         typename BinaryFunction >
 OutputType reduce(InputIterator first,
-				  InputIterator last,
-				  OutputType init,
-				  BinaryFunction binary_op,
-				  thrust::detail::cuda_device_space_tag) {
-	// CUDA implementation
-	return thrust::detail::device::cuda::reduce(first, last, init, binary_op);
+                  InputIterator last,
+                  OutputType init,
+                  BinaryFunction binary_op,
+                  thrust::detail::cuda_device_space_tag) {
+    // CUDA implementation
+    return thrust::detail::device::cuda::reduce(first, last, init, binary_op);
 }
 
 template < typename InputIterator,
-		 typename OutputType,
-		 typename BinaryFunction >
+         typename OutputType,
+         typename BinaryFunction >
 OutputType reduce(InputIterator first,
-				  InputIterator last,
-				  OutputType init,
-				  BinaryFunction binary_op,
-				  thrust::any_space_tag) {
-	// Use default backend
-	return thrust::detail::device::dispatch::reduce(first, last, init, binary_op,
-			thrust::detail::default_device_space_tag());
+                  InputIterator last,
+                  OutputType init,
+                  BinaryFunction binary_op,
+                  thrust::any_space_tag) {
+    // Use default backend
+    return thrust::detail::device::dispatch::reduce(first, last, init, binary_op,
+            thrust::detail::default_device_space_tag());
 }
 
 } // end namespace dispatch

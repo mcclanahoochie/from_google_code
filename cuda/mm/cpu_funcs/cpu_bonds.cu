@@ -144,9 +144,9 @@ int run_bonds_kernel_cpu(int N, float* h_xyz, float rmin, float rmax, float radm
         h = 0;
         for (j = i + 3; j < N - 2; j += 3) {
             // dist
-            dx = h_xyz[i+0] - h_xyz[j+0];
-            dy = h_xyz[i+1] - h_xyz[j+1];
-            dz = h_xyz[i+2] - h_xyz[j+2];
+            dx = h_xyz[i + 0] - h_xyz[j + 0];
+            dy = h_xyz[i + 1] - h_xyz[j + 1];
+            dz = h_xyz[i + 2] - h_xyz[j + 2];
             dist = sqrtf(dx * dx + dy * dy + dz * dz);
             // bonds
             if (rmin < dist && dist < rmax) {
@@ -154,7 +154,7 @@ int run_bonds_kernel_cpu(int N, float* h_xyz, float rmin, float rmax, float radm
                 ++nbonds;
                 // neighbors
                 if (h < NLISTHEIGHT) {
-                    h_cpu_nlist[h*width+(i/3)] = (j / 3);
+                    h_cpu_nlist[h * width + (i / 3)] = (j / 3);
                     ++h;
                 }
             }
@@ -208,7 +208,7 @@ void prepare_output_cpu(int natoms, int nbins, int** nblist_out, int nbonds_sum,
             idx = h * width + n;
             if (h_cpu_nlist[idx] != EMPTY) {
                 nblist_tmp[added_bonds  ] = n;
-                nblist_tmp[added_bonds+1] = h_cpu_nlist[idx];
+                nblist_tmp[added_bonds + 1] = h_cpu_nlist[idx];
                 added_bonds += 2;
             }
         }

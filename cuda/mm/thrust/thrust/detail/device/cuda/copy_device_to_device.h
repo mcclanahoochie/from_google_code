@@ -39,8 +39,8 @@ namespace device {
 
 // XXX WAR circular #inclusion problems
 template < typename InputIterator,
-		 typename OutputIterator,
-		 typename UnaryFunction >
+         typename OutputIterator,
+         typename UnaryFunction >
 OutputIterator transform(InputIterator, InputIterator, OutputIterator, UnaryFunction);
 
 namespace cuda {
@@ -48,49 +48,49 @@ namespace cuda {
 namespace detail {
 
 template < typename InputIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator copy_device_to_device(InputIterator begin,
-									 InputIterator end,
-									 OutputIterator result,
-									 thrust::detail::false_type) {
-	// general case (mixed types)
-	typedef typename thrust::iterator_traits<InputIterator>::value_type InputType;
+                                     InputIterator end,
+                                     OutputIterator result,
+                                     thrust::detail::false_type) {
+    // general case (mixed types)
+    typedef typename thrust::iterator_traits<InputIterator>::value_type InputType;
 
 #if THRUST_DEVICE_COMPILER == THRUST_DEVICE_COMPILER_NVCC
-	return thrust::detail::device::transform(begin, end, result, thrust::identity<InputType>());
+    return thrust::detail::device::transform(begin, end, result, thrust::identity<InputType>());
 #else
-	// we're not compiling with nvcc: copy [begin, end) to temp host memory
-	typename thrust::iterator_traits<InputIterator>::difference_type n = thrust::distance(begin, end);
+    // we're not compiling with nvcc: copy [begin, end) to temp host memory
+    typename thrust::iterator_traits<InputIterator>::difference_type n = thrust::distance(begin, end);
 
-	raw_buffer<InputType, host_space_tag> temp1(begin, end);
+    raw_buffer<InputType, host_space_tag> temp1(begin, end);
 
-	// transform temp1 to OutputType in host memory
-	typedef typename thrust::iterator_traits<OutputIterator>::value_type OutputType;
-	raw_buffer<OutputType, host_space_tag> temp2(temp1.begin(), temp1.end());
+    // transform temp1 to OutputType in host memory
+    typedef typename thrust::iterator_traits<OutputIterator>::value_type OutputType;
+    raw_buffer<OutputType, host_space_tag> temp2(temp1.begin(), temp1.end());
 
-	// copy temp2 to device
-	result = thrust::detail::device::cuda::copy_cross_space(temp2.begin(), temp2.end(), result);
+    // copy temp2 to device
+    result = thrust::detail::device::cuda::copy_cross_space(temp2.begin(), temp2.end(), result);
 
-	return result;
+    return result;
 #endif // THRUST_DEVICE_COMPILER_NVCC
 }
 
 
 template < typename InputIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator copy_device_to_device(InputIterator begin,
-									 InputIterator end,
-									 OutputIterator result,
-									 thrust::detail::true_type) {
-	// specialization for device to device when the value_types match, operator= is not overloaded,
-	// and the iterators are pointers
+                                     InputIterator end,
+                                     OutputIterator result,
+                                     thrust::detail::true_type) {
+    // specialization for device to device when the value_types match, operator= is not overloaded,
+    // and the iterators are pointers
 
-	// how many elements to copy?
-	typename thrust::iterator_traits<OutputIterator>::difference_type n = end - begin;
+    // how many elements to copy?
+    typename thrust::iterator_traits<OutputIterator>::difference_type n = end - begin;
 
-	thrust::detail::device::cuda::trivial_copy_n(begin, n, result);
+    thrust::detail::device::cuda::trivial_copy_n(begin, n, result);
 
-	return result + n;
+    return result + n;
 }
 
 } // end namespace detail
@@ -100,23 +100,23 @@ OutputIterator copy_device_to_device(InputIterator begin,
 /////////////////
 
 template < typename InputIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator copy_device_to_device(InputIterator begin,
-									 InputIterator end,
-									 OutputIterator result) {
-	typedef typename thrust::iterator_traits<InputIterator>::value_type InputType;
-	typedef typename thrust::iterator_traits<OutputIterator>::value_type OutputType;
+                                     InputIterator end,
+                                     OutputIterator result) {
+    typedef typename thrust::iterator_traits<InputIterator>::value_type InputType;
+    typedef typename thrust::iterator_traits<OutputIterator>::value_type OutputType;
 
-	const bool use_trivial_copy =
-		thrust::detail::is_same<InputType, OutputType>::value
-		&& thrust::detail::is_trivial_iterator<InputIterator>::value
-		&& thrust::detail::is_trivial_iterator<OutputIterator>::value;
+    const bool use_trivial_copy =
+        thrust::detail::is_same<InputType, OutputType>::value
+        && thrust::detail::is_trivial_iterator<InputIterator>::value
+        && thrust::detail::is_trivial_iterator<OutputIterator>::value;
 
-	// XXX WAR nvcc 3.0 unused variable warning
-	(void) use_trivial_copy;
+    // XXX WAR nvcc 3.0 unused variable warning
+    (void) use_trivial_copy;
 
-	return detail::copy_device_to_device(begin, end, result,
-										 thrust::detail::integral_constant<bool, use_trivial_copy>());
+    return detail::copy_device_to_device(begin, end, result,
+                                         thrust::detail::integral_constant<bool, use_trivial_copy>());
 
 }
 

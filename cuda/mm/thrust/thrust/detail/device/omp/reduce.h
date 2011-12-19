@@ -28,12 +28,12 @@ namespace device {
 namespace omp {
 
 template < typename InputIterator,
-		 typename OutputType,
-		 typename BinaryFunction >
+         typename OutputType,
+         typename BinaryFunction >
 OutputType reduce(InputIterator first,
-				  InputIterator last,
-				  OutputType init,
-				  BinaryFunction binary_op);
+                  InputIterator last,
+                  OutputType init,
+                  BinaryFunction binary_op);
 
 } // end namespace omp
 } // end namespace device

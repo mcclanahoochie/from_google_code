@@ -27,32 +27,32 @@ namespace device {
 namespace generic {
 
 template < typename ForwardIterator,
-		 typename Predicate >
+         typename Predicate >
 ForwardIterator stable_partition(ForwardIterator first,
-								 ForwardIterator last,
-								 Predicate pred);
+                                 ForwardIterator last,
+                                 Predicate pred);
 
 template < typename ForwardIterator1,
-		 typename ForwardIterator2,
-		 typename Predicate >
+         typename ForwardIterator2,
+         typename Predicate >
 ForwardIterator2 stable_partition_copy(ForwardIterator1 first,
-									   ForwardIterator1 last,
-									   ForwardIterator2 result,
-									   Predicate pred);
+                                       ForwardIterator1 last,
+                                       ForwardIterator2 result,
+                                       Predicate pred);
 
 template < typename ForwardIterator,
-		 typename Predicate >
+         typename Predicate >
 ForwardIterator partition(ForwardIterator first,
-						  ForwardIterator last,
-						  Predicate pred);
+                          ForwardIterator last,
+                          Predicate pred);
 
 template < typename ForwardIterator1,
-		 typename ForwardIterator2,
-		 typename Predicate >
+         typename ForwardIterator2,
+         typename Predicate >
 ForwardIterator2 partition_copy(ForwardIterator1 first,
-								ForwardIterator1 last,
-								ForwardIterator2 result,
-								Predicate pred);
+                                ForwardIterator1 last,
+                                ForwardIterator2 result,
+                                Predicate pred);
 
 } // end namespace generic
 } // end namespace device

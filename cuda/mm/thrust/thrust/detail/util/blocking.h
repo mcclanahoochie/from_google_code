@@ -28,13 +28,13 @@ namespace util {
 // x/y rounding towards +infinity for integers, used to determine # of blocks/warps etc.
 template<typename L, typename R>
 inline __host__ __device__ L divide_ri(const L x, const R y) {
-	return (x + (y - 1)) / y;
+    return (x + (y - 1)) / y;
 }
 
 // x/y rounding towards zero for integers, used to determine # of blocks/warps etc.
 template<typename L, typename R>
 inline __host__ __device__ L divide_rz(const L x, const R y) {
-	return x / y;
+    return x / y;
 }
 
 // round x towards infinity to the next multiple of y

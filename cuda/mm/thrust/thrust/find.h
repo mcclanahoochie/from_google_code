@@ -70,8 +70,8 @@ namespace thrust {
  */
 template <typename InputIterator, typename T>
 InputIterator find(InputIterator first,
-				   InputIterator last,
-				   const T& value);
+                   InputIterator last,
+                   const T& value);
 
 
 /*! \p find_if returns the first iterator \c i in the range
@@ -126,8 +126,8 @@ InputIterator find(InputIterator first,
  */
 template <typename InputIterator, typename Predicate>
 InputIterator find_if(InputIterator first,
-					  InputIterator last,
-					  Predicate pred);
+                      InputIterator last,
+                      Predicate pred);
 
 /*! \} // end searching
  */

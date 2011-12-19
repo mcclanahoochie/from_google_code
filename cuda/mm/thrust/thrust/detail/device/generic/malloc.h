@@ -35,13 +35,13 @@ namespace generic {
 
 template<unsigned int DummyParameterToAvoidInstantiation>
 thrust::device_ptr<void> malloc(const std::size_t n) {
-	void* result = std::malloc(n);
+    void* result = std::malloc(n);
 
-	if (!result) {
-		throw std::bad_alloc();
-	} // end if
+    if (!result) {
+        throw std::bad_alloc();
+    } // end if
 
-	return thrust::device_ptr<void>(result);
+    return thrust::device_ptr<void>(result);
 } // end malloc()
 
 } // end namespace generic

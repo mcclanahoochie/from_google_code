@@ -29,20 +29,20 @@ template<typename, typename> class permutation_iterator;
 namespace detail {
 
 template < typename ElementIterator,
-		 typename IndexIterator >
+         typename IndexIterator >
 struct permutation_iterator_base {
-	typedef typename thrust::iterator_space<ElementIterator>::type Space1;
-	typedef typename thrust::iterator_space<IndexIterator>::type Space2;
+    typedef typename thrust::iterator_space<ElementIterator>::type Space1;
+    typedef typename thrust::iterator_space<IndexIterator>::type Space2;
 
-	typedef thrust::experimental::iterator_adaptor <
-	permutation_iterator<ElementIterator, IndexIterator>,
-						 IndexIterator,
-						 typename thrust::iterator_pointer<ElementIterator>::type,
-						 typename thrust::iterator_value<ElementIterator>::type,
-						 typename detail::minimum_space<Space1, Space2>::type,
-						 thrust::use_default,
-						 typename thrust::iterator_reference<ElementIterator>::type
-						 > type;
+    typedef thrust::experimental::iterator_adaptor <
+    permutation_iterator<ElementIterator, IndexIterator>,
+                         IndexIterator,
+                         typename thrust::iterator_pointer<ElementIterator>::type,
+                         typename thrust::iterator_value<ElementIterator>::type,
+                         typename detail::minimum_space<Space1, Space2>::type,
+                         thrust::use_default,
+                         typename thrust::iterator_reference<ElementIterator>::type
+                         > type;
 }; // end permutation_iterator_base
 
 } // end detail

@@ -74,7 +74,7 @@ namespace thrust {
  */
 template<typename ForwardIterator, typename T>
 void replace(ForwardIterator first, ForwardIterator last, const T& old_value,
-			 const T& new_value);
+             const T& new_value);
 
 /*! \p replace_if replaces every element in the range <tt>[first, last)</tt> for which
  *  \p pred returns \c true with \p new_value. That is: for every iterator \c i, if
@@ -128,8 +128,8 @@ void replace(ForwardIterator first, ForwardIterator last, const T& old_value,
  */
 template<typename ForwardIterator, typename Predicate, typename T>
 void replace_if(ForwardIterator first, ForwardIterator last,
-				Predicate pred,
-				const T& new_value);
+                Predicate pred,
+                const T& new_value);
 
 /*! \p replace_if replaces every element in the range <tt>[first, last)</tt> for which
  *  <tt>pred(*s)</tt> returns \c true with \p new_value. That is: for every iterator
@@ -192,9 +192,9 @@ void replace_if(ForwardIterator first, ForwardIterator last,
  */
 template<typename ForwardIterator, typename InputIterator, typename Predicate, typename T>
 void replace_if(ForwardIterator first, ForwardIterator last,
-				InputIterator stencil,
-				Predicate pred,
-				const T& new_value);
+                InputIterator stencil,
+                Predicate pred,
+                const T& new_value);
 
 /*! \p replace_copy copies elements from the range <tt>[first, last)</tt> to the range
  *  <tt>[result, result + (last-first))</tt>, except that any element equal to \p old_value
@@ -226,8 +226,8 @@ void replace_if(ForwardIterator first, ForwardIterator last,
  */
 template<typename InputIterator, typename OutputIterator, typename T>
 OutputIterator replace_copy(InputIterator first, InputIterator last,
-							OutputIterator result, const T& old_value,
-							const T& new_value);
+                            OutputIterator result, const T& old_value,
+                            const T& new_value);
 
 /*! \p replace_copy_if copies elements from the range <tt>[first, last)</tt> to the range
  *  <tt>[result, result + (last-first))</tt>, except that any element for which \p pred
@@ -258,9 +258,9 @@ OutputIterator replace_copy(InputIterator first, InputIterator last,
  */
 template<typename InputIterator, typename OutputIterator, typename Predicate, typename T>
 OutputIterator replace_copy_if(InputIterator first, InputIterator last,
-							   OutputIterator result,
-							   Predicate pred,
-							   const T& new_value);
+                               OutputIterator result,
+                               Predicate pred,
+                               const T& new_value);
 
 /*! This version of \p replace_copy_if copies elements from the range <tt>[first, last)</tt> to the range
  *  <tt>[result, result + (last-first))</tt>, except that any element whose corresponding stencil
@@ -291,10 +291,10 @@ OutputIterator replace_copy_if(InputIterator first, InputIterator last,
  */
 template<typename InputIterator1, typename InputIterator2, typename OutputIterator, typename Predicate, typename T>
 OutputIterator replace_copy_if(InputIterator1 first, InputIterator1 last,
-							   InputIterator2 stencil,
-							   OutputIterator result,
-							   Predicate pred,
-							   const T& new_value);
+                               InputIterator2 stencil,
+                               OutputIterator result,
+                               Predicate pred,
+                               const T& new_value);
 
 /*! \} // end replacing
  *  \} // transformations

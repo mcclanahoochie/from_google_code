@@ -31,30 +31,30 @@ namespace cuda {
 
 
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename OutputIterator,
-		 typename AssociativeOperator,
-		 typename BinaryPredicate >
+         typename InputIterator2,
+         typename OutputIterator,
+         typename AssociativeOperator,
+         typename BinaryPredicate >
 OutputIterator inclusive_segmented_scan(InputIterator1 first1,
-										InputIterator1 last1,
-										InputIterator2 first2,
-										OutputIterator result,
-										AssociativeOperator binary_op,
-										BinaryPredicate pred);
+                                        InputIterator1 last1,
+                                        InputIterator2 first2,
+                                        OutputIterator result,
+                                        AssociativeOperator binary_op,
+                                        BinaryPredicate pred);
 
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename OutputIterator,
-		 typename T,
-		 typename AssociativeOperator,
-		 typename BinaryPredicate >
+         typename InputIterator2,
+         typename OutputIterator,
+         typename T,
+         typename AssociativeOperator,
+         typename BinaryPredicate >
 OutputIterator exclusive_segmented_scan(InputIterator1 first1,
-										InputIterator1 last1,
-										InputIterator2 first2,
-										OutputIterator result,
-										const T init,
-										AssociativeOperator binary_op,
-										BinaryPredicate pred);
+                                        InputIterator1 last1,
+                                        InputIterator2 first2,
+                                        OutputIterator result,
+                                        const T init,
+                                        AssociativeOperator binary_op,
+                                        BinaryPredicate pred);
 
 } // end namespace cuda
 

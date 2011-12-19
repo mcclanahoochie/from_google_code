@@ -59,149 +59,149 @@ template<typename T> class device_reference;
  */
 template<typename T> class device_ptr {
 public:
-	// define iterator_traits types
-	typedef thrust::detail::device_ptr_category        iterator_category;
-	typedef typename detail::remove_const<T>::type     value_type;
-	typedef ptrdiff_t                                  difference_type;
-	typedef device_ptr                                 pointer;
-	typedef device_reference<T>                        reference;
+    // define iterator_traits types
+    typedef thrust::detail::device_ptr_category        iterator_category;
+    typedef typename detail::remove_const<T>::type     value_type;
+    typedef ptrdiff_t                                  difference_type;
+    typedef device_ptr                                 pointer;
+    typedef device_reference<T>                        reference;
 
-	/*! \p device_ptr's null constructor initializes its raw pointer to \c 0.
-	 */
-	__host__ __device__
-	device_ptr(void) : mPtr(0) {}
+    /*! \p device_ptr's null constructor initializes its raw pointer to \c 0.
+     */
+    __host__ __device__
+    device_ptr(void) : mPtr(0) {}
 
-	/*! \p device_ptr's copy constructor is templated to allow copying to a
-	 *  const T * from a T *.
-	 *
-	 *  \param ptr A raw pointer to copy from, presumed to point to a location in
-	 *         device memory.
-	 */
-	template<class Y>
-	__host__ __device__
-	explicit device_ptr(Y* ptr) : mPtr(ptr) {}
+    /*! \p device_ptr's copy constructor is templated to allow copying to a
+     *  const T * from a T *.
+     *
+     *  \param ptr A raw pointer to copy from, presumed to point to a location in
+     *         device memory.
+     */
+    template<class Y>
+    __host__ __device__
+    explicit device_ptr(Y* ptr) : mPtr(ptr) {}
 
-	/*! \p device_ptr's copy constructor allows copying from another device_ptr with related type.
-	 *  \param ptr The \c device_ptr to copy from.
-	 */
-	__host__ __device__
-	device_ptr(const device_ptr<value_type> &ptr) : mPtr(ptr.get()) {}
+    /*! \p device_ptr's copy constructor allows copying from another device_ptr with related type.
+     *  \param ptr The \c device_ptr to copy from.
+     */
+    __host__ __device__
+    device_ptr(const device_ptr<value_type>& ptr) : mPtr(ptr.get()) {}
 
-	/*! \p device_ptr's conversion operator allows conversion to <tt>device_ptr<U></tt> with
-	 *  \p U related to \p T. For example, <tt>device_ptr<int></tt> may be converted to
-	 *  <tt>device_ptr<void></tt>.
-	 *
-	 *  \return A copy of this \p device_ptr, converted to <tt>device_ptr<U></tt>.
-	 */
-	template<typename U>
-	__host__ __device__
-	operator device_ptr<U> (void) const
-	{return device_ptr<U>(static_cast<U*>(get()));}
+    /*! \p device_ptr's conversion operator allows conversion to <tt>device_ptr<U></tt> with
+     *  \p U related to \p T. For example, <tt>device_ptr<int></tt> may be converted to
+     *  <tt>device_ptr<void></tt>.
+     *
+     *  \return A copy of this \p device_ptr, converted to <tt>device_ptr<U></tt>.
+     */
+    template<typename U>
+    __host__ __device__
+    operator device_ptr<U> (void) const
+    {return device_ptr<U>(static_cast<U*>(get()));}
 
-	/*! Returns a \p device_ptr whose raw pointer is equal to this \p device_ptr's raw pointer
-	 *  plus the given sum.
-	 *
-	 *  \param rhs The sum to add to this \p device_ptr's raw pointer.
-	 *  \return <tt>device_ptr(mPtr + rhs)</tt>.
-	 */
-	__host__ __device__
-	device_ptr operator+(const difference_type& rhs) const {return device_ptr(mPtr + rhs);}
+    /*! Returns a \p device_ptr whose raw pointer is equal to this \p device_ptr's raw pointer
+     *  plus the given sum.
+     *
+     *  \param rhs The sum to add to this \p device_ptr's raw pointer.
+     *  \return <tt>device_ptr(mPtr + rhs)</tt>.
+     */
+    __host__ __device__
+    device_ptr operator+(const difference_type& rhs) const {return device_ptr(mPtr + rhs);}
 
-	/*! Returns a \p device_ptr whose raw pointer is equal to this \p device_ptr's raw pointer
-	 *  minus the given difference.
-	 *
-	 *  \param rhs The difference to subtract to this \p device_ptr's raw pointer.
-	 *  \return <tt>device_ptr(mPtr - rhs)</tt>.
-	 */
-	__host__ __device__
-	device_ptr operator-(const difference_type& rhs) const {return device_ptr(mPtr - rhs);}
+    /*! Returns a \p device_ptr whose raw pointer is equal to this \p device_ptr's raw pointer
+     *  minus the given difference.
+     *
+     *  \param rhs The difference to subtract to this \p device_ptr's raw pointer.
+     *  \return <tt>device_ptr(mPtr - rhs)</tt>.
+     */
+    __host__ __device__
+    device_ptr operator-(const difference_type& rhs) const {return device_ptr(mPtr - rhs);}
 
-	/*! The pre-increment operator increments this \p device_ptr's raw pointer and then returns
-	 *  a reference to this \p device_ptr
-	 *  \return <tt>*this</tt>
-	 */
-	__host__ __device__
-	device_ptr& operator++(void) {++mPtr; return *this;}
+    /*! The pre-increment operator increments this \p device_ptr's raw pointer and then returns
+     *  a reference to this \p device_ptr
+     *  \return <tt>*this</tt>
+     */
+    __host__ __device__
+    device_ptr& operator++(void) {++mPtr; return *this;}
 
-	/*! The post-increment operator copies this \p device_ptr, increments the copy, and then
-	 *  returns the copy.
-	 *  \return A copy of this \p device_ptr after being incremented.
-	 */
-	__host__ __device__
-	device_ptr operator++(int) {
-		device_ptr copy(*this);
-		++(*this);
-		return copy;
-	} // end operator++()
+    /*! The post-increment operator copies this \p device_ptr, increments the copy, and then
+     *  returns the copy.
+     *  \return A copy of this \p device_ptr after being incremented.
+     */
+    __host__ __device__
+    device_ptr operator++(int) {
+        device_ptr copy(*this);
+        ++(*this);
+        return copy;
+    } // end operator++()
 
-	/*! The pre-decrement operator decrements this \p device_ptr's raw pointer and then returns
-	 *  a reference to this \p device_ptr
-	 *  \return <tt>*this</tt>
-	 */
-	__host__ __device__
-	device_ptr& operator--(void) {--mPtr; return *this;}
+    /*! The pre-decrement operator decrements this \p device_ptr's raw pointer and then returns
+     *  a reference to this \p device_ptr
+     *  \return <tt>*this</tt>
+     */
+    __host__ __device__
+    device_ptr& operator--(void) {--mPtr; return *this;}
 
-	/*! The post-decrement operator copies this \p device_ptr, decrements the copy, and then
-	 *  returns the copy.
-	 *  \return A copy of this \p device_ptr after being decremented.
-	 */
-	__host__ __device__
-	device_ptr operator--(int) {
-		device_ptr copy(*this);
-		--(*this);
-		return copy;
-	} // end operator--()
+    /*! The post-decrement operator copies this \p device_ptr, decrements the copy, and then
+     *  returns the copy.
+     *  \return A copy of this \p device_ptr after being decremented.
+     */
+    __host__ __device__
+    device_ptr operator--(int) {
+        device_ptr copy(*this);
+        --(*this);
+        return copy;
+    } // end operator--()
 
-	/*! The addition assignment operator adds the given sum to this \p device_ptr's raw
-	 *  pointer and returns this \p device_ptr by reference.
-	 *
-	 *  \param rhs The sum to add to this \p device_ptr's raw pointer.
-	 *  \return <tt>*this</tt>
-	 */
-	__host__ __device__
-	device_ptr& operator+=(difference_type rhs) {mPtr += rhs; return *this;}
+    /*! The addition assignment operator adds the given sum to this \p device_ptr's raw
+     *  pointer and returns this \p device_ptr by reference.
+     *
+     *  \param rhs The sum to add to this \p device_ptr's raw pointer.
+     *  \return <tt>*this</tt>
+     */
+    __host__ __device__
+    device_ptr& operator+=(difference_type rhs) {mPtr += rhs; return *this;}
 
-	/*! The subtraction assignment operator subtracts the given difference from this
-	 *  \p device_ptr's raw pointer and returns this \p device_ptr by reference.
-	 *
-	 *  \param rhs The difference to subtract from this \p device_ptr's raw pointer.
-	 *  \return <tt>*this</tt>
-	 */
-	__host__ __device__
-	device_ptr& operator-=(difference_type rhs) {mPtr -= rhs; return *this;}
+    /*! The subtraction assignment operator subtracts the given difference from this
+     *  \p device_ptr's raw pointer and returns this \p device_ptr by reference.
+     *
+     *  \param rhs The difference to subtract from this \p device_ptr's raw pointer.
+     *  \return <tt>*this</tt>
+     */
+    __host__ __device__
+    device_ptr& operator-=(difference_type rhs) {mPtr -= rhs; return *this;}
 
-	/*! The difference operator returns the difference between this \p device_ptr's
-	 *  raw pointer and that of another.
-	 *
-	 *  \param rhs The \p device_ptr to subtract from this \p device_ptr.
-	 *  \return The difference between this \p device_ptr's raw pointer and
-	 *          \p rhs's raw pointer.
-	 */
-	__host__ __device__
-	difference_type operator-(const device_ptr& rhs) const {return mPtr - rhs.mPtr;}
+    /*! The difference operator returns the difference between this \p device_ptr's
+     *  raw pointer and that of another.
+     *
+     *  \param rhs The \p device_ptr to subtract from this \p device_ptr.
+     *  \return The difference between this \p device_ptr's raw pointer and
+     *          \p rhs's raw pointer.
+     */
+    __host__ __device__
+    difference_type operator-(const device_ptr& rhs) const {return mPtr - rhs.mPtr;}
 
-	/*! The array subscript operator dereferences this \p device_ptr by the given index.
-	 *  \param i The index to add to this \p device_ptr's raw pointer before deference.
-	 *  \return A device_reference referring to the object pointed to by (this \p device_ptr
-	 *          plus \c i).
-	 */
-	__host__ __device__
-	reference operator[](const difference_type& i) const;
+    /*! The array subscript operator dereferences this \p device_ptr by the given index.
+     *  \param i The index to add to this \p device_ptr's raw pointer before deference.
+     *  \return A device_reference referring to the object pointed to by (this \p device_ptr
+     *          plus \c i).
+     */
+    __host__ __device__
+    reference operator[](const difference_type& i) const;
 
-	/*! This method dereferences this \p device_ptr.
-	 *  \return a device_reference referring to the object pointed to by this \p device_ptr.
-	 */
-	__host__ __device__
-	reference operator*(void) const;
+    /*! This method dereferences this \p device_ptr.
+     *  \return a device_reference referring to the object pointed to by this \p device_ptr.
+     */
+    __host__ __device__
+    reference operator*(void) const;
 
-	/*! This method returns this \p device_ptr's raw pointer.
-	 *  \return This \p device_ptr's raw pointer.
-	 */
-	__host__ __device__
-	T* get(void) const {return mPtr;}
+    /*! This method returns this \p device_ptr's raw pointer.
+     *  \return This \p device_ptr's raw pointer.
+     */
+    __host__ __device__
+    T* get(void) const {return mPtr;}
 
 private:
-	T* mPtr;
+    T* mPtr;
 }; // end device_ptr
 
 /*! Equality comparison operator compares two \p device_ptrs with related types for
@@ -214,7 +214,7 @@ private:
  */
 template<typename T1, typename T2>
 __host__ __device__
-inline bool operator==(const device_ptr<T1> &lhs, const device_ptr<T2> &rhs);
+inline bool operator==(const device_ptr<T1>& lhs, const device_ptr<T2>& rhs);
 
 /*! Inequality comparison operator compares two \p device_ptrs with related types for
  *  inequality.
@@ -226,7 +226,7 @@ inline bool operator==(const device_ptr<T1> &lhs, const device_ptr<T2> &rhs);
  */
 template<typename T1, typename T2>
 __host__ __device__
-inline bool operator!=(const device_ptr<T1> &lhs, const device_ptr<T2> &rhs);
+inline bool operator!=(const device_ptr<T1>& lhs, const device_ptr<T2>& rhs);
 
 /*! Less than comparison operator compares two \p device_ptrs with related types.
  *
@@ -237,7 +237,7 @@ inline bool operator!=(const device_ptr<T1> &lhs, const device_ptr<T2> &rhs);
  */
 template<typename T1, typename T2>
 __host__ __device__
-inline bool operator<(const device_ptr<T1> &lhs, const device_ptr<T2> &rhs);
+inline bool operator<(const device_ptr<T1>& lhs, const device_ptr<T2>& rhs);
 
 /*! Less than or equal comparison operator compares two \p device_ptrs with related types.
  *
@@ -248,7 +248,7 @@ inline bool operator<(const device_ptr<T1> &lhs, const device_ptr<T2> &rhs);
  */
 template<typename T1, typename T2>
 __host__ __device__
-inline bool operator<=(const device_ptr<T1> &lhs, const device_ptr<T2> &rhs);
+inline bool operator<=(const device_ptr<T1>& lhs, const device_ptr<T2>& rhs);
 
 /*! Greater than comparison operator compares two \p device_ptrs with related types.
  *
@@ -259,7 +259,7 @@ inline bool operator<=(const device_ptr<T1> &lhs, const device_ptr<T2> &rhs);
  */
 template<typename T1, typename T2>
 __host__ __device__
-inline bool operator>(const device_ptr<T1> &lhs, const device_ptr<T2> &rhs);
+inline bool operator>(const device_ptr<T1>& lhs, const device_ptr<T2>& rhs);
 
 /*! Greater than or equal comparison operator compares two \p device_ptrs with related types.
  *
@@ -270,7 +270,7 @@ inline bool operator>(const device_ptr<T1> &lhs, const device_ptr<T2> &rhs);
  */
 template<typename T1, typename T2>
 __host__ __device__
-inline bool operator>=(const device_ptr<T1> &lhs, const device_ptr<T2> &rhs);
+inline bool operator>=(const device_ptr<T1>& lhs, const device_ptr<T2>& rhs);
 
 /*! This operator outputs the value of a \p device_ptr's raw pointer to a \p std::basic_ostream.
  *
@@ -279,7 +279,7 @@ inline bool operator>=(const device_ptr<T1> &lhs, const device_ptr<T2> &rhs);
  *  \return os.
  */
 template<class E, class T, class Y>
-inline std::basic_ostream<E, T> &operator<<(std::basic_ostream<E, T> &os, const device_ptr<Y> &p);
+inline std::basic_ostream<E, T>& operator<<(std::basic_ostream<E, T>& os, const device_ptr<Y>& p);
 
 /*! \}
  */
@@ -309,7 +309,7 @@ inline device_ptr<T> device_pointer_cast(T* ptr);
  */
 template<typename T>
 __host__ __device__
-inline device_ptr<T> device_pointer_cast(const device_ptr<T> &ptr);
+inline device_ptr<T> device_pointer_cast(const device_ptr<T>& ptr);
 
 /*! \p raw_pointer_cast creates a "raw" pointer <tt>T*</tt> from a device_ptr, simply
  *  returning the pointer wrapped by the device_ptr.
@@ -319,7 +319,7 @@ inline device_ptr<T> device_pointer_cast(const device_ptr<T> &ptr);
  */
 template<typename T>
 __host__ __device__
-inline T* raw_pointer_cast(const device_ptr<T> &ptr);
+inline T* raw_pointer_cast(const device_ptr<T>& ptr);
 
 /*! \p raw_pointer_cast creates a copy of a "raw" pointer <tt>T*</tt>.
  *  This version is included merely for convenience.

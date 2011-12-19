@@ -38,17 +38,17 @@ namespace cuda {
 template<unsigned int DummyParameterToPreventInstantiation>
 thrust::device_ptr<void> malloc(const std::size_t n) {
 #if 1
-	void* result;
-	cudaError_t error = cudaMalloc(reinterpret_cast<void**>(&result), n);
+    void* result;
+    cudaError_t error = cudaMalloc(reinterpret_cast<void**>(&result), n);
 
-	if (error) {
-		throw std::bad_alloc();
-	} // end if
+    if (error) {
+        throw std::bad_alloc();
+    } // end if
 #else
-	//void *result = jkt_thrust_allocate(n);
+    //void *result = jkt_thrust_allocate(n);
 #endif
 
-	return thrust::device_ptr<void>(result);
+    return thrust::device_ptr<void>(result);
 } // end malloc()
 
 } // end namespace cuda

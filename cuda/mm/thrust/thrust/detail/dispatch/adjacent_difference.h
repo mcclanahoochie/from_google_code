@@ -38,11 +38,11 @@ namespace dispatch {
 ///////////////
 template <class InputIterator, class OutputIterator, class BinaryFunction>
 OutputIterator adjacent_difference(InputIterator first, InputIterator last,
-								   OutputIterator result,
-								   BinaryFunction binary_op,
-								   thrust::host_space_tag,
-								   thrust::host_space_tag) {
-	return std::adjacent_difference(first, last, result, binary_op);
+                                   OutputIterator result,
+                                   BinaryFunction binary_op,
+                                   thrust::host_space_tag,
+                                   thrust::host_space_tag) {
+    return std::adjacent_difference(first, last, result, binary_op);
 }
 
 
@@ -51,11 +51,11 @@ OutputIterator adjacent_difference(InputIterator first, InputIterator last,
 /////////////////
 template <class InputIterator, class OutputIterator, class BinaryFunction>
 OutputIterator adjacent_difference(InputIterator first, InputIterator last,
-								   OutputIterator result,
-								   BinaryFunction binary_op,
-								   thrust::device_space_tag,
-								   thrust::device_space_tag) {
-	return thrust::detail::device::adjacent_difference(first, last, result, binary_op);
+                                   OutputIterator result,
+                                   BinaryFunction binary_op,
+                                   thrust::device_space_tag,
+                                   thrust::device_space_tag) {
+    return thrust::detail::device::adjacent_difference(first, last, result, binary_op);
 }
 
 } // end dispatch

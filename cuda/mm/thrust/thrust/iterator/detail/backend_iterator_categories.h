@@ -25,28 +25,28 @@ namespace detail {
 struct cuda_device_iterator_tag {};
 
 struct input_cuda_device_iterator_tag
-		: cuda_device_iterator_tag {
-	operator input_device_iterator_tag () {return input_device_iterator_tag();}
+        : cuda_device_iterator_tag {
+    operator input_device_iterator_tag() {return input_device_iterator_tag();}
 };
 
 struct output_cuda_device_iterator_tag
-		: cuda_device_iterator_tag {
-	operator output_device_iterator_tag () {return output_device_iterator_tag();}
+        : cuda_device_iterator_tag {
+    operator output_device_iterator_tag() {return output_device_iterator_tag();}
 };
 
 struct forward_cuda_device_iterator_tag
-		: input_cuda_device_iterator_tag {
-	operator forward_device_iterator_tag () {return forward_device_iterator_tag();}
+        : input_cuda_device_iterator_tag {
+    operator forward_device_iterator_tag() {return forward_device_iterator_tag();}
 };
 
 struct bidirectional_cuda_device_iterator_tag
-		: forward_cuda_device_iterator_tag {
-	operator bidirectional_device_iterator_tag () {return bidirectional_device_iterator_tag();}
+        : forward_cuda_device_iterator_tag {
+    operator bidirectional_device_iterator_tag() {return bidirectional_device_iterator_tag();}
 };
 
 struct random_access_cuda_device_iterator_tag
-		: bidirectional_cuda_device_iterator_tag {
-	operator random_access_device_iterator_tag () {return random_access_device_iterator_tag();}
+        : bidirectional_cuda_device_iterator_tag {
+    operator random_access_device_iterator_tag() {return random_access_device_iterator_tag();}
 };
 
 
@@ -54,28 +54,28 @@ struct random_access_cuda_device_iterator_tag
 struct omp_device_iterator_tag {};
 
 struct input_omp_device_iterator_tag
-		: omp_device_iterator_tag {
-	operator input_device_iterator_tag () {return input_device_iterator_tag();}
+        : omp_device_iterator_tag {
+    operator input_device_iterator_tag() {return input_device_iterator_tag();}
 };
 
 struct output_omp_device_iterator_tag
-		: omp_device_iterator_tag {
-	operator output_device_iterator_tag () {return output_device_iterator_tag();}
+        : omp_device_iterator_tag {
+    operator output_device_iterator_tag() {return output_device_iterator_tag();}
 };
 
 struct forward_omp_device_iterator_tag
-		: input_omp_device_iterator_tag {
-	operator forward_device_iterator_tag () {return forward_device_iterator_tag();}
+        : input_omp_device_iterator_tag {
+    operator forward_device_iterator_tag() {return forward_device_iterator_tag();}
 };
 
 struct bidirectional_omp_device_iterator_tag
-		: forward_omp_device_iterator_tag {
-	operator bidirectional_device_iterator_tag () {return bidirectional_device_iterator_tag();}
+        : forward_omp_device_iterator_tag {
+    operator bidirectional_device_iterator_tag() {return bidirectional_device_iterator_tag();}
 };
 
 struct random_access_omp_device_iterator_tag
-		: bidirectional_omp_device_iterator_tag {
-	operator random_access_device_iterator_tag () {return random_access_device_iterator_tag();}
+        : bidirectional_omp_device_iterator_tag {
+    operator random_access_device_iterator_tag() {return random_access_device_iterator_tag();}
 };
 
 } // end namespace detail

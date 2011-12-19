@@ -26,26 +26,26 @@ namespace detail {
 namespace device {
 
 template < typename InputIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator copy(InputIterator begin,
-					InputIterator end,
-					OutputIterator result) {
-	return thrust::detail::device::dispatch::copy(begin, end, result,
-			typename thrust::iterator_space<InputIterator>::type(),
-			typename thrust::iterator_space<OutputIterator>::type());
+                    InputIterator end,
+                    OutputIterator result) {
+    return thrust::detail::device::dispatch::copy(begin, end, result,
+            typename thrust::iterator_space<InputIterator>::type(),
+            typename thrust::iterator_space<OutputIterator>::type());
 }
 
 
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename OutputIterator,
-		 typename Predicate >
+         typename InputIterator2,
+         typename OutputIterator,
+         typename Predicate >
 OutputIterator copy_if(InputIterator1 first,
-					   InputIterator1 last,
-					   InputIterator2 stencil,
-					   OutputIterator result,
-					   Predicate pred) {
-	return thrust::detail::device::generic::copy_if(first, last, stencil, result, pred);
+                       InputIterator1 last,
+                       InputIterator2 stencil,
+                       OutputIterator result,
+                       Predicate pred) {
+    return thrust::detail::device::generic::copy_if(first, last, stencil, result, pred);
 }
 
 } // end namespace device

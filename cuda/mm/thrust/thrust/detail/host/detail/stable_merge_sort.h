@@ -22,18 +22,18 @@ namespace host {
 namespace detail {
 
 template < typename RandomAccessIterator,
-		 typename StrictWeakOrdering >
+         typename StrictWeakOrdering >
 void stable_merge_sort(RandomAccessIterator begin,
-					   RandomAccessIterator end,
-					   StrictWeakOrdering comp);
+                       RandomAccessIterator end,
+                       StrictWeakOrdering comp);
 
 template < typename RandomAccessIterator1,
-		 typename RandomAccessIterator2,
-		 typename StrictWeakOrdering >
+         typename RandomAccessIterator2,
+         typename StrictWeakOrdering >
 void stable_merge_sort_by_key(RandomAccessIterator1 keys_begin,
-							  RandomAccessIterator1 keys_end,
-							  RandomAccessIterator2 values_begin,
-							  StrictWeakOrdering comp);
+                              RandomAccessIterator1 keys_end,
+                              RandomAccessIterator2 values_begin,
+                              StrictWeakOrdering comp);
 
 } // end namespace detail
 } // end namespace host

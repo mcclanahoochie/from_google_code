@@ -70,12 +70,12 @@ namespace thrust {
  *  \deprecated This function is is scheduled for promotion to \p thrust::gather in Thrust v1.3.
  */
 template < typename InputIterator,
-		 typename RandomAccessIterator,
-		 typename OutputIterator >
+         typename RandomAccessIterator,
+         typename OutputIterator >
 OutputIterator gather(InputIterator        map_first,
-					  InputIterator        map_last,
-					  RandomAccessIterator input_first,
-					  OutputIterator       result);
+                      InputIterator        map_last,
+                      RandomAccessIterator input_first,
+                      OutputIterator       result);
 
 
 /*! \p gather_if conditionally copies elements from a source array into a destination
@@ -100,14 +100,14 @@ OutputIterator gather(InputIterator        map_first,
  *  \deprecated This function is is scheduled for promotion to \p thrust::gather_if in Thrust v1.3.
  */
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename RandomAccessIterator,
-		 typename OutputIterator >
+         typename InputIterator2,
+         typename RandomAccessIterator,
+         typename OutputIterator >
 OutputIterator gather_if(InputIterator1       map_first,
-						 InputIterator1       map_last,
-						 InputIterator2       stencil,
-						 RandomAccessIterator input_first,
-						 OutputIterator       result);
+                         InputIterator1       map_last,
+                         InputIterator2       stencil,
+                         RandomAccessIterator input_first,
+                         OutputIterator       result);
 
 
 /*! \p gather_if conditionally copies elements from a source array into a destination
@@ -134,16 +134,16 @@ OutputIterator gather_if(InputIterator1       map_first,
  *  \deprecated This function is is scheduled for promotion to \p thrust::gather_if in Thrust v1.3.
  */
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename RandomAccessIterator,
-		 typename OutputIterator,
-		 typename Predicate >
+         typename InputIterator2,
+         typename RandomAccessIterator,
+         typename OutputIterator,
+         typename Predicate >
 OutputIterator gather_if(InputIterator1       map_first,
-						 InputIterator1       map_last,
-						 InputIterator2       stencil,
-						 RandomAccessIterator input_first,
-						 OutputIterator       result,
-						 Predicate            pred);
+                         InputIterator1       map_last,
+                         InputIterator2       stencil,
+                         RandomAccessIterator input_first,
+                         OutputIterator       result,
+                         Predicate            pred);
 
 /*! \} // gathering
  */

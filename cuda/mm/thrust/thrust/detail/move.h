@@ -25,17 +25,17 @@ namespace detail {
 
 template<typename InputIterator, typename OutputIterator>
 OutputIterator move(InputIterator first, InputIterator last, OutputIterator result) {
-	typedef typename thrust::iterator_space<InputIterator>::type  space1;
-	typedef typename thrust::iterator_space<OutputIterator>::type space2;
+    typedef typename thrust::iterator_space<InputIterator>::type  space1;
+    typedef typename thrust::iterator_space<OutputIterator>::type space2;
 
-	typedef typename thrust::detail::minimum_space<space1, space2>::type space;
-	typedef typename thrust::iterator_value<InputIterator>::type value_type;
+    typedef typename thrust::detail::minimum_space<space1, space2>::type space;
+    typedef typename thrust::iterator_value<InputIterator>::type value_type;
 
-	// do this the brain-dead way for now:
-	// make a temporary copy of [first,last), and copy it to first
-	// XXX find an in-place parallel algorithm that does this later
-	thrust::detail::raw_buffer<value_type, space> temp(first, last);
-	return thrust::copy(temp.begin(), temp.end(), result);
+    // do this the brain-dead way for now:
+    // make a temporary copy of [first,last), and copy it to first
+    // XXX find an in-place parallel algorithm that does this later
+    thrust::detail::raw_buffer<value_type, space> temp(first, last);
+    return thrust::copy(temp.begin(), temp.end(), result);
 } // end move()
 
 } // end detail

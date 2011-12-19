@@ -29,9 +29,9 @@ namespace device {
 
 template <typename InputIterator, typename Predicate>
 InputIterator find_if(InputIterator first,
-					  InputIterator last,
-					  Predicate pred) {
-	return thrust::detail::device::generic::find_if(first, last, pred);
+                      InputIterator last,
+                      Predicate pred) {
+    return thrust::detail::device::generic::find_if(first, last, pred);
 }
 
 } // end namespace device

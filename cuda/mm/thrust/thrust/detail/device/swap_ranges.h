@@ -28,11 +28,11 @@ namespace detail {
 namespace device {
 
 template < typename ForwardIterator1,
-		 typename ForwardIterator2 >
+         typename ForwardIterator2 >
 ForwardIterator2 swap_ranges(ForwardIterator1 first1,
-							 ForwardIterator1 last1,
-							 ForwardIterator2 first2) {
-	return thrust::detail::device::generic::swap_ranges(first1, last1, first2);
+                             ForwardIterator1 last1,
+                             ForwardIterator2 first2) {
+    return thrust::detail::device::generic::swap_ranges(first1, last1, first2);
 }
 
 } // end namespace device

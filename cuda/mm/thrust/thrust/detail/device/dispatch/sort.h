@@ -29,49 +29,49 @@ namespace device {
 namespace dispatch {
 
 template < typename RandomAccessIterator,
-		 typename StrictWeakOrdering >
+         typename StrictWeakOrdering >
 void stable_sort(RandomAccessIterator first,
-				 RandomAccessIterator last,
-				 StrictWeakOrdering comp,
-				 thrust::detail::omp_device_space_tag) {
-	// OpenMP implementation
-	thrust::detail::device::omp::stable_sort(first, last, comp);
+                 RandomAccessIterator last,
+                 StrictWeakOrdering comp,
+                 thrust::detail::omp_device_space_tag) {
+    // OpenMP implementation
+    thrust::detail::device::omp::stable_sort(first, last, comp);
 }
 
 template < typename RandomAccessIterator,
-		 typename StrictWeakOrdering >
+         typename StrictWeakOrdering >
 void stable_sort(RandomAccessIterator first,
-				 RandomAccessIterator last,
-				 StrictWeakOrdering comp,
-				 thrust::detail::cuda_device_space_tag) {
-	// CUDA implementation
-	thrust::detail::device::cuda::stable_sort(first, last, comp);
+                 RandomAccessIterator last,
+                 StrictWeakOrdering comp,
+                 thrust::detail::cuda_device_space_tag) {
+    // CUDA implementation
+    thrust::detail::device::cuda::stable_sort(first, last, comp);
 }
 
 template < typename RandomAccessKeyIterator,
-		 typename RandomAccessValueIterator,
-		 typename StrictWeakOrdering >
+         typename RandomAccessValueIterator,
+         typename StrictWeakOrdering >
 void stable_sort_by_key(RandomAccessKeyIterator keys_first,
-						RandomAccessKeyIterator keys_last,
-						RandomAccessValueIterator values_first,
-						StrictWeakOrdering comp,
-						thrust::detail::omp_device_space_tag,
-						thrust::detail::omp_device_space_tag) {
-	// OpenMP implementation
-	thrust::detail::device::omp::stable_sort_by_key(keys_first, keys_last, values_first, comp);
+                        RandomAccessKeyIterator keys_last,
+                        RandomAccessValueIterator values_first,
+                        StrictWeakOrdering comp,
+                        thrust::detail::omp_device_space_tag,
+                        thrust::detail::omp_device_space_tag) {
+    // OpenMP implementation
+    thrust::detail::device::omp::stable_sort_by_key(keys_first, keys_last, values_first, comp);
 }
 
 template < typename RandomAccessKeyIterator,
-		 typename RandomAccessValueIterator,
-		 typename StrictWeakOrdering >
+         typename RandomAccessValueIterator,
+         typename StrictWeakOrdering >
 void stable_sort_by_key(RandomAccessKeyIterator keys_first,
-						RandomAccessKeyIterator keys_last,
-						RandomAccessValueIterator values_first,
-						StrictWeakOrdering comp,
-						thrust::detail::cuda_device_space_tag,
-						thrust::detail::cuda_device_space_tag) {
-	// CUDA implementation
-	thrust::detail::device::cuda::stable_sort_by_key(keys_first, keys_last, values_first, comp);
+                        RandomAccessKeyIterator keys_last,
+                        RandomAccessValueIterator values_first,
+                        StrictWeakOrdering comp,
+                        thrust::detail::cuda_device_space_tag,
+                        thrust::detail::cuda_device_space_tag) {
+    // CUDA implementation
+    thrust::detail::device::cuda::stable_sort_by_key(keys_first, keys_last, values_first, comp);
 }
 
 } // end namespace dispatch

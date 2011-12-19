@@ -95,13 +95,13 @@ namespace thrust {
  *  \see \p is_sorted
  */
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename OutputIterator >
+         typename InputIterator2,
+         typename OutputIterator >
 OutputIterator set_intersection(InputIterator1 first1,
-								InputIterator1 last1,
-								InputIterator2 first2,
-								InputIterator2 last2,
-								OutputIterator result);
+                                InputIterator1 last1,
+                                InputIterator2 first2,
+                                InputIterator2 last2,
+                                OutputIterator result);
 
 /*! \} // end set_operations
  */

@@ -439,7 +439,7 @@ void drawBonds() {
     glBegin(GL_LINES);
     for (int atom = 0; atom < A; atom += 2) {
         idx1 = nblist[atom  ] * DIM_NUM;
-        idx2 = nblist[atom+1] * DIM_NUM;
+        idx2 = nblist[atom + 1] * DIM_NUM;
         if (idx1 < N && idx1 >= 0 && idx2 < N && idx2 >= 0) { // ??
             x1 = *(data + idx1);   //	x1 = xyz[idx1  ];
             y1 = *(data + idx1 + 1); //	y1 = xyz[idx1+1];
@@ -469,8 +469,8 @@ void drawAtoms() {
     //float r = sphere_r;
     for (int atom = 0; atom < N; atom += 3) {
         p[0] = xyz[  atom];
-        p[1] = xyz[1+atom];
-        p[2] = xyz[2+atom];
+        p[1] = xyz[1 + atom];
+        p[2] = xyz[2 + atom];
         glPushMatrix();
         glTranslatef(p[0], p[1], p[2]);
         //glutSolidSphere(r,5,5);
@@ -529,10 +529,10 @@ void motion(int x, int y) {
 //****************************************************************************80
 void keyboard(unsigned char key, int /*x*/, int /*y*/) {
     switch (key) {
-    case(27):
+    case (27):
         exit(0);
         break;
-    case('d'):
+    case ('d'):
         ++_display;
         if (_display > NUM_DISPLAY_MODES) { _display = 0; }
     default:
@@ -542,16 +542,16 @@ void keyboard(unsigned char key, int /*x*/, int /*y*/) {
 
 void keyboard2(int key, int /*x*/, int /*y*/) {
     switch (key) {
-    case(GLUT_KEY_LEFT):
+    case (GLUT_KEY_LEFT):
         break;
-    case(GLUT_KEY_RIGHT):
+    case (GLUT_KEY_RIGHT):
         break;
-    case(GLUT_KEY_UP):
+    case (GLUT_KEY_UP):
         sphere_r += 0.001;
         if (sphere_r > 0.05f) { sphere_r = 0.05f; }
         makeSphere();
         break;
-    case(GLUT_KEY_DOWN):
+    case (GLUT_KEY_DOWN):
         sphere_r -= 0.001;
         if (sphere_r < 0.001f) { sphere_r = 0.001f; }
         makeSphere();
@@ -842,8 +842,8 @@ float* r83vec_max(int n, float a[]) {
         //amax[i] = a[i+0*DIM_NUM];
         amax[i] = a[i];
         for (j = 1; j < n; ++j) {
-            if (amax[i] < a[i+j*DIM_NUM]) {
-                amax[i] = a[i+j*DIM_NUM];
+            if (amax[i] < a[i + j * DIM_NUM]) {
+                amax[i] = a[i + j * DIM_NUM];
             }
         }
     }
@@ -861,8 +861,8 @@ float* r83vec_min(int n, float a[]) {
         //amin[i] = a[i+0*DIM_NUM];
         amin[i] = a[i];
         for (j = 1; j < n; ++j) {
-            if (a[i+j*DIM_NUM] < amin[i]) {
-                amin[i] = a[i+j*DIM_NUM];
+            if (a[i + j * DIM_NUM] < amin[i]) {
+                amin[i] = a[i + j * DIM_NUM];
             }
         }
     }
@@ -874,9 +874,9 @@ void xyz_data_print(int point_num, float xyz[]) {
     int j;
     cout << "\n";
     for (j = 0; j < point_num; ++j) {
-        cout << setw(10) << xyz[0+j*3] << "  "
-             << setw(10) << xyz[1+j*3] << "  "
-             << setw(10) << xyz[2+j*3] << "\n";
+        cout << setw(10) << xyz[0 + j * 3] << "  "
+             << setw(10) << xyz[1 + j * 3] << "  "
+             << setw(10) << xyz[2 + j * 3] << "\n";
 
     }
     return;

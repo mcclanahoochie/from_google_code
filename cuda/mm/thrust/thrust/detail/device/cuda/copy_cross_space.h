@@ -36,70 +36,70 @@ namespace cuda {
 
 // general input to random access case
 template < typename InputIterator,
-		 typename RandomAccessIterator >
+         typename RandomAccessIterator >
 RandomAccessIterator copy_cross_space(InputIterator begin,
-									  InputIterator end,
-									  RandomAccessIterator result,
-									  thrust::incrementable_traversal_tag,
-									  thrust::random_access_traversal_tag) {
-	//std::cerr << std::endl;
-	//std::cerr << "general copy_host_to_device(): InputIterator: " << typeid(InputIterator).name() << std::endl;
-	//std::cerr << "general copy_host_to_device(): OutputIterator: " << typeid(OutputIterator).name() << std::endl;
+                                      InputIterator end,
+                                      RandomAccessIterator result,
+                                      thrust::incrementable_traversal_tag,
+                                      thrust::random_access_traversal_tag) {
+    //std::cerr << std::endl;
+    //std::cerr << "general copy_host_to_device(): InputIterator: " << typeid(InputIterator).name() << std::endl;
+    //std::cerr << "general copy_host_to_device(): OutputIterator: " << typeid(OutputIterator).name() << std::endl;
 
-	typedef typename thrust::iterator_value<InputIterator>::type InputType;
-	typedef typename thrust::iterator_space<InputIterator>::type InputSpace;
+    typedef typename thrust::iterator_value<InputIterator>::type InputType;
+    typedef typename thrust::iterator_space<InputIterator>::type InputSpace;
 
-	// allocate temporary storage
-	thrust::detail::raw_buffer<InputType, InputSpace> temp(begin, end);
-	result = thrust::copy(temp.begin(), temp.end(), result);
+    // allocate temporary storage
+    thrust::detail::raw_buffer<InputType, InputSpace> temp(begin, end);
+    result = thrust::copy(temp.begin(), temp.end(), result);
 
-	return result;
+    return result;
 }
 
 
 // random access to general output case
 template < typename RandomAccessIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator copy_cross_space(RandomAccessIterator begin,
-								RandomAccessIterator end,
-								OutputIterator result,
-								thrust::random_access_traversal_tag,
-								thrust::incrementable_traversal_tag) {
-	//std::cerr << std::endl;
-	//std::cerr << "general copy_device_to_host(): InputIterator: " << typeid(InputIterator).name() << std::endl;
-	//std::cerr << "general copy_device_to_host(): OutputIterator: " << typeid(OutputIterator).name() << std::endl;
+                                RandomAccessIterator end,
+                                OutputIterator result,
+                                thrust::random_access_traversal_tag,
+                                thrust::incrementable_traversal_tag) {
+    //std::cerr << std::endl;
+    //std::cerr << "general copy_device_to_host(): InputIterator: " << typeid(InputIterator).name() << std::endl;
+    //std::cerr << "general copy_device_to_host(): OutputIterator: " << typeid(OutputIterator).name() << std::endl;
 
-	typedef typename thrust::iterator_value<RandomAccessIterator>::type InputType;
-	typedef typename thrust::iterator_space<OutputIterator>::type OutputSpace;
+    typedef typename thrust::iterator_value<RandomAccessIterator>::type InputType;
+    typedef typename thrust::iterator_space<OutputIterator>::type OutputSpace;
 
-	// allocate temporary storage
-	thrust::detail::raw_buffer<InputType, OutputSpace> temp(begin, end);
-	result = thrust::copy(temp.begin(), temp.end(), result);
+    // allocate temporary storage
+    thrust::detail::raw_buffer<InputType, OutputSpace> temp(begin, end);
+    result = thrust::copy(temp.begin(), temp.end(), result);
 
-	return result;
+    return result;
 }
 
 
 // trivial copy
 template < typename RandomAccessIterator1,
-		 typename RandomAccessIterator2 >
+         typename RandomAccessIterator2 >
 RandomAccessIterator2 copy_cross_space(RandomAccessIterator1 begin,
-									   RandomAccessIterator1 end,
-									   RandomAccessIterator2 result,
-									   thrust::random_access_traversal_tag,
-									   thrust::random_access_traversal_tag,
-									   true_type) { // trivial copy
-	//std::cerr << std::endl;
-	//std::cerr << "random access copy_device_to_host(): trivial" << std::endl;
-	//std::cerr << "general copy_device_to_host(): InputIterator: " << typeid(InputIterator).name() << std::endl;
-	//std::cerr << "general copy_device_to_host(): OutputIterator: " << typeid(OutputIterator).name() << std::endl;
+                                       RandomAccessIterator1 end,
+                                       RandomAccessIterator2 result,
+                                       thrust::random_access_traversal_tag,
+                                       thrust::random_access_traversal_tag,
+                                       true_type) { // trivial copy
+    //std::cerr << std::endl;
+    //std::cerr << "random access copy_device_to_host(): trivial" << std::endl;
+    //std::cerr << "general copy_device_to_host(): InputIterator: " << typeid(InputIterator).name() << std::endl;
+    //std::cerr << "general copy_device_to_host(): OutputIterator: " << typeid(OutputIterator).name() << std::endl;
 
-	// how many elements to copy?
-	typename thrust::iterator_traits<RandomAccessIterator1>::difference_type n = end - begin;
+    // how many elements to copy?
+    typename thrust::iterator_traits<RandomAccessIterator1>::difference_type n = end - begin;
 
-	thrust::detail::device::cuda::trivial_copy_n(begin, n, result);
+    thrust::detail::device::cuda::trivial_copy_n(begin, n, result);
 
-	return result + n;
+    return result + n;
 }
 
 
@@ -107,44 +107,44 @@ namespace detail {
 
 // random access non-trivial iterator to random access iterator
 template < typename RandomAccessIterator1,
-		 typename RandomAccessIterator2 >
+         typename RandomAccessIterator2 >
 RandomAccessIterator2 non_trivial_random_access_copy_cross_space(RandomAccessIterator1 begin,
-		RandomAccessIterator1 end,
-		RandomAccessIterator2 result,
-		false_type) { // InputIterator is non-trivial
-	// copy the input to a temporary input space buffer of OutputType
-	typedef typename thrust::iterator_value<RandomAccessIterator2>::type OutputType;
-	typedef typename thrust::iterator_space<RandomAccessIterator1>::type InputSpace;
+        RandomAccessIterator1 end,
+        RandomAccessIterator2 result,
+        false_type) { // InputIterator is non-trivial
+    // copy the input to a temporary input space buffer of OutputType
+    typedef typename thrust::iterator_value<RandomAccessIterator2>::type OutputType;
+    typedef typename thrust::iterator_space<RandomAccessIterator1>::type InputSpace;
 
-	// allocate temporary storage
-	thrust::detail::raw_buffer<OutputType, InputSpace> temp(begin, end);
-	result = thrust::copy(temp.begin(), temp.end(), result);
+    // allocate temporary storage
+    thrust::detail::raw_buffer<OutputType, InputSpace> temp(begin, end);
+    result = thrust::copy(temp.begin(), temp.end(), result);
 
-	return result;
+    return result;
 }
 
 template < typename RandomAccessIterator1,
-		 typename RandomAccessIterator2 >
+         typename RandomAccessIterator2 >
 RandomAccessIterator2 non_trivial_random_access_copy_cross_space(RandomAccessIterator1 begin,
-		RandomAccessIterator1 end,
-		RandomAccessIterator2 result,
-		true_type) { // InputIterator is trivial
-	// copy the input to a temporary result space buffer of InputType
-	typedef typename thrust::iterator_value<RandomAccessIterator1>::type InputType;
-	typedef typename thrust::iterator_space<RandomAccessIterator2>::type OutputSpace;
+        RandomAccessIterator1 end,
+        RandomAccessIterator2 result,
+        true_type) { // InputIterator is trivial
+    // copy the input to a temporary result space buffer of InputType
+    typedef typename thrust::iterator_value<RandomAccessIterator1>::type InputType;
+    typedef typename thrust::iterator_space<RandomAccessIterator2>::type OutputSpace;
 
-	typename thrust::iterator_difference<RandomAccessIterator1>::type n = thrust::distance(begin, end);
+    typename thrust::iterator_difference<RandomAccessIterator1>::type n = thrust::distance(begin, end);
 
-	// allocate temporary storage
-	thrust::detail::raw_buffer<InputType, OutputSpace> temp(n);
+    // allocate temporary storage
+    thrust::detail::raw_buffer<InputType, OutputSpace> temp(n);
 
-	// force a trivial copy
-	thrust::detail::device::cuda::trivial_copy_n(begin, n, temp.begin());
+    // force a trivial copy
+    thrust::detail::device::cuda::trivial_copy_n(begin, n, temp.begin());
 
-	// finally, copy to the result
-	result = thrust::copy(temp.begin(), temp.end(), result);
+    // finally, copy to the result
+    result = thrust::copy(temp.begin(), temp.end(), result);
 
-	return result;
+    return result;
 }
 
 } // end detail
@@ -152,34 +152,34 @@ RandomAccessIterator2 non_trivial_random_access_copy_cross_space(RandomAccessIte
 
 // random access iterator to random access host iterator with non-trivial copy
 template < typename RandomAccessIterator1,
-		 typename RandomAccessIterator2 >
+         typename RandomAccessIterator2 >
 RandomAccessIterator2 copy_cross_space(RandomAccessIterator1 begin,
-									   RandomAccessIterator1 end,
-									   RandomAccessIterator2 result,
-									   thrust::random_access_traversal_tag,
-									   thrust::random_access_traversal_tag,
-									   false_type) {
-	//std::cerr << std::endl;
-	//std::cerr << "random access copy_device_to_host(): non-trivial" << std::endl;
-	//std::cerr << "general copy_device_to_host(): InputIterator: " << typeid(InputIterator).name() << std::endl;
-	//std::cerr << "general copy_device_to_host(): OutputIterator: " << typeid(OutputIterator).name() << std::endl;
+                                       RandomAccessIterator1 end,
+                                       RandomAccessIterator2 result,
+                                       thrust::random_access_traversal_tag,
+                                       thrust::random_access_traversal_tag,
+                                       false_type) {
+    //std::cerr << std::endl;
+    //std::cerr << "random access copy_device_to_host(): non-trivial" << std::endl;
+    //std::cerr << "general copy_device_to_host(): InputIterator: " << typeid(InputIterator).name() << std::endl;
+    //std::cerr << "general copy_device_to_host(): OutputIterator: " << typeid(OutputIterator).name() << std::endl;
 
-	// dispatch a non-trivial random access cross space copy based on whether or not the InputIterator is trivial
-	return detail::non_trivial_random_access_copy_cross_space(begin, end, result,
-			typename thrust::detail::is_trivial_iterator<RandomAccessIterator1>::type());
+    // dispatch a non-trivial random access cross space copy based on whether or not the InputIterator is trivial
+    return detail::non_trivial_random_access_copy_cross_space(begin, end, result,
+            typename thrust::detail::is_trivial_iterator<RandomAccessIterator1>::type());
 }
 
 // random access iterator to random access iterator
 template < typename RandomAccessIterator1,
-		 typename RandomAccessIterator2 >
+         typename RandomAccessIterator2 >
 RandomAccessIterator2 copy_cross_space(RandomAccessIterator1 begin,
-									   RandomAccessIterator1 end,
-									   RandomAccessIterator2 result,
-									   thrust::random_access_traversal_tag input_traversal,
-									   thrust::random_access_traversal_tag output_traversal) {
-	// dispatch on whether this is a trivial copy
-	return copy_cross_space(begin, end, result, input_traversal, output_traversal,
-							typename thrust::detail::dispatch::is_trivial_copy<RandomAccessIterator1, RandomAccessIterator2>::type());
+                                       RandomAccessIterator1 end,
+                                       RandomAccessIterator2 result,
+                                       thrust::random_access_traversal_tag input_traversal,
+                                       thrust::random_access_traversal_tag output_traversal) {
+    // dispatch on whether this is a trivial copy
+    return copy_cross_space(begin, end, result, input_traversal, output_traversal,
+                            typename thrust::detail::dispatch::is_trivial_copy<RandomAccessIterator1, RandomAccessIterator2>::type());
 }
 
 /////////////////
@@ -187,13 +187,13 @@ RandomAccessIterator2 copy_cross_space(RandomAccessIterator1 begin,
 /////////////////
 
 template < typename InputIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator copy_cross_space(InputIterator begin,
-								InputIterator end,
-								OutputIterator result) {
-	return copy_cross_space(begin, end, result,
-							typename thrust::iterator_traversal<InputIterator>::type(),
-							typename thrust::iterator_traversal<OutputIterator>::type());
+                                InputIterator end,
+                                OutputIterator result) {
+    return copy_cross_space(begin, end, result,
+                            typename thrust::iterator_traversal<InputIterator>::type(),
+                            typename thrust::iterator_traversal<OutputIterator>::type());
 }
 
 } // end cuda

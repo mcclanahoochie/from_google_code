@@ -40,98 +40,98 @@ namespace scalar {
 template<typename RandomAccessIterator, typename T, typename BinaryPredicate>
 __device__
 RandomAccessIterator lower_bound(RandomAccessIterator first, RandomAccessIterator last,
-								 const T& val,
-								 BinaryPredicate comp) {
-	typedef typename thrust::iterator_difference<RandomAccessIterator>::type difference_type;
+                                 const T& val,
+                                 BinaryPredicate comp) {
+    typedef typename thrust::iterator_difference<RandomAccessIterator>::type difference_type;
 
-	// XXX should read len = distance(first,last)
-	difference_type len = last - first;
+    // XXX should read len = distance(first,last)
+    difference_type len = last - first;
 
-	while (len > 0) {
-		difference_type half = len >> 1;
-		RandomAccessIterator middle = first;
+    while (len > 0) {
+        difference_type half = len >> 1;
+        RandomAccessIterator middle = first;
 
-		// XXX should read advance(middle,half)
-		middle += half;
+        // XXX should read advance(middle,half)
+        middle += half;
 
-		if (comp(dereference(middle), val)) {
-			first = middle;
-			++first;
-			len = len - half - 1;
-		} else {
-			len = half;
-		}
-	}
+        if (comp(dereference(middle), val)) {
+            first = middle;
+            ++first;
+            len = len - half - 1;
+        } else {
+            len = half;
+        }
+    }
 
-	return first;
+    return first;
 }
 
 template<typename RandomAccessIterator, typename T, typename BinaryPredicate>
 __device__
 RandomAccessIterator upper_bound(RandomAccessIterator first, RandomAccessIterator last,
-								 const T& val,
-								 BinaryPredicate comp) {
-	typedef typename thrust::iterator_difference<RandomAccessIterator>::type difference_type;
+                                 const T& val,
+                                 BinaryPredicate comp) {
+    typedef typename thrust::iterator_difference<RandomAccessIterator>::type difference_type;
 
-	// XXX should read len = distance(first,last)
-	difference_type len = last - first;
+    // XXX should read len = distance(first,last)
+    difference_type len = last - first;
 
-	while (len > 0) {
-		difference_type half = len >> 1;
-		RandomAccessIterator middle = first;
+    while (len > 0) {
+        difference_type half = len >> 1;
+        RandomAccessIterator middle = first;
 
-		// XXX should read advance(middle,half)
-		middle += half;
+        // XXX should read advance(middle,half)
+        middle += half;
 
-		if (comp(val, dereference(middle))) {
-			len = half;
-		} else {
-			first = middle;
-			++first;
-			len = len - half - 1;
-		}
-	}
+        if (comp(val, dereference(middle))) {
+            len = half;
+        } else {
+            first = middle;
+            ++first;
+            len = len - half - 1;
+        }
+    }
 
-	return first;
+    return first;
 }
 
 template<typename RandomAccessIterator, typename T, typename BinaryPredicate>
 __device__
 pair<RandomAccessIterator, RandomAccessIterator>
 equal_range(RandomAccessIterator first, RandomAccessIterator last,
-			const T& val,
-			BinaryPredicate comp) {
-	typedef typename thrust::iterator_difference<RandomAccessIterator>::type difference_type;
+            const T& val,
+            BinaryPredicate comp) {
+    typedef typename thrust::iterator_difference<RandomAccessIterator>::type difference_type;
 
-	// XXX this should read difference_type len = distance(first,last);
-	difference_type len = last - first;
+    // XXX this should read difference_type len = distance(first,last);
+    difference_type len = last - first;
 
-	difference_type half;
-	RandomAccessIterator middle, left, right;
+    difference_type half;
+    RandomAccessIterator middle, left, right;
 
-	while (len > 0) {
-		half = len >> 1;
-		middle = first;
+    while (len > 0) {
+        half = len >> 1;
+        middle = first;
 
-		// XXX this should read advance(middle,half);
-		middle += half;
+        // XXX this should read advance(middle,half);
+        middle += half;
 
-		if (comp(dereference(middle), val)) {
-			first = middle;
-			++first;
-			len = len - half - 1;
-		} else if (comp(val, dereference(middle))) {
-			len = half;
-		} else {
-			left = scalar::lower_bound(first, middle, val, comp);
-			// XXX this should read advance(first, len);
-			first += len;
-			right = scalar::upper_bound(++middle, first, val, comp);
-			return thrust::make_pair(left, right);
-		}
-	}
+        if (comp(dereference(middle), val)) {
+            first = middle;
+            ++first;
+            len = len - half - 1;
+        } else if (comp(val, dereference(middle))) {
+            len = half;
+        } else {
+            left = scalar::lower_bound(first, middle, val, comp);
+            // XXX this should read advance(first, len);
+            first += len;
+            right = scalar::upper_bound(++middle, first, val, comp);
+            return thrust::make_pair(left, right);
+        }
+    }
 
-	return thrust::make_pair(first, first);
+    return thrust::make_pair(first, first);
 }
 
 } // end scalar

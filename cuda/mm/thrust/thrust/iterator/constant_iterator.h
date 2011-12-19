@@ -93,96 +93,96 @@ namespace thrust {
  *  \see make_constant_iterator
  */
 template < typename Value,
-		 typename Incrementable = use_default,
-		 typename Space = use_default >
+         typename Incrementable = use_default,
+         typename Space = use_default >
 class constant_iterator
-		: public detail::constant_iterator_base<Value, Incrementable, Space>::type {
-	/*! \cond
-	 */
-	friend class thrust::experimental::iterator_core_access;
-	typedef typename detail::constant_iterator_base<Value, Incrementable, Space>::type          super_t;
-	typedef typename detail::constant_iterator_base<Value, Incrementable, Space>::incrementable incrementable;
-	typedef typename detail::constant_iterator_base<Value, Incrementable, Space>::base_iterator base_iterator;
+        : public detail::constant_iterator_base<Value, Incrementable, Space>::type {
+    /*! \cond
+     */
+    friend class thrust::experimental::iterator_core_access;
+    typedef typename detail::constant_iterator_base<Value, Incrementable, Space>::type          super_t;
+    typedef typename detail::constant_iterator_base<Value, Incrementable, Space>::incrementable incrementable;
+    typedef typename detail::constant_iterator_base<Value, Incrementable, Space>::base_iterator base_iterator;
 
 public:
-	typedef typename super_t::reference  reference;
-	typedef typename super_t::value_type value_type;
+    typedef typename super_t::reference  reference;
+    typedef typename super_t::value_type value_type;
 
-	/*! \endcond
-	 */
+    /*! \endcond
+     */
 
-	/*! Null constructor initializes this \p constant_iterator's constant using its
-	 *  null constructor.
-	 */
-	__host__ __device__
-	constant_iterator(void)
-		: super_t(), m_value() {};
+    /*! Null constructor initializes this \p constant_iterator's constant using its
+     *  null constructor.
+     */
+    __host__ __device__
+    constant_iterator(void)
+        : super_t(), m_value() {};
 
-	/*! Copy constructor copies the value of another \p constant_iterator into this
-	 *  \p constant_iterator.
-	 *
-	 *  \p rhs The constant_iterator to copy.
-	 */
-	__host__ __device__
-	constant_iterator(constant_iterator const& rhs)
-		: super_t(rhs.base()), m_value(rhs.m_value) {}
+    /*! Copy constructor copies the value of another \p constant_iterator into this
+     *  \p constant_iterator.
+     *
+     *  \p rhs The constant_iterator to copy.
+     */
+    __host__ __device__
+    constant_iterator(constant_iterator const& rhs)
+        : super_t(rhs.base()), m_value(rhs.m_value) {}
 
-	/*! This constructor receives a value to use as the constant value of this
-	 *  \p constant_iterator and an index specifying the location of this
-	 *  \p constant_iterator in a sequence.
-	 *
-	 *  \p v The value of this \p constant_iterator's constant value.
-	 *  \p i The index of this \p constant_iterator in a sequence. Defaults to the
-	 *       value returned by \c Incrementable's null constructor. For example,
-	 *       when <tt>Incrementable == int</tt>, \c 0.
-	 */
-	__host__ __device__
-	constant_iterator(value_type const& v, incrementable const& i = incrementable())
-		: super_t(base_iterator(i)), m_value(v) {}
+    /*! This constructor receives a value to use as the constant value of this
+     *  \p constant_iterator and an index specifying the location of this
+     *  \p constant_iterator in a sequence.
+     *
+     *  \p v The value of this \p constant_iterator's constant value.
+     *  \p i The index of this \p constant_iterator in a sequence. Defaults to the
+     *       value returned by \c Incrementable's null constructor. For example,
+     *       when <tt>Incrementable == int</tt>, \c 0.
+     */
+    __host__ __device__
+    constant_iterator(value_type const& v, incrementable const& i = incrementable())
+        : super_t(base_iterator(i)), m_value(v) {}
 
-	/*! This constructor is templated to allow construction from a value type and
-	 *  incrementable type related this this \p constant_iterator's respective types.
-	 *
-	 *  \p v The value of this \p constant_iterator's constant value.
-	 *  \p i The index of this \p constant_iterator in a sequence. Defaults to the
-	 *       value returned by \c Incrementable's null constructor. For example,
-	 *       when <tt>Incrementable == int</tt>, \c 0.
-	 */
-	template<typename OtherValue, typename OtherIncrementable>
-	__host__ __device__
-	constant_iterator(OtherValue const& v, OtherIncrementable const& i = incrementable())
-		: super_t(base_iterator(i)), m_value(v) {}
+    /*! This constructor is templated to allow construction from a value type and
+     *  incrementable type related this this \p constant_iterator's respective types.
+     *
+     *  \p v The value of this \p constant_iterator's constant value.
+     *  \p i The index of this \p constant_iterator in a sequence. Defaults to the
+     *       value returned by \c Incrementable's null constructor. For example,
+     *       when <tt>Incrementable == int</tt>, \c 0.
+     */
+    template<typename OtherValue, typename OtherIncrementable>
+    __host__ __device__
+    constant_iterator(OtherValue const& v, OtherIncrementable const& i = incrementable())
+        : super_t(base_iterator(i)), m_value(v) {}
 
-	/*! This method returns the value of this \p constant_iterator's constant value.
-	 *  \return A \c const reference to this \p constant_iterator's constant value.
-	 */
-	__host__ __device__
-	Value const& value(void) const
-	{ return m_value; }
+    /*! This method returns the value of this \p constant_iterator's constant value.
+     *  \return A \c const reference to this \p constant_iterator's constant value.
+     */
+    __host__ __device__
+    Value const& value(void) const
+    { return m_value; }
 
-	/*! \cond
-	 */
+    /*! \cond
+     */
 
 protected:
-	__host__ __device__
-	Value const& value_reference(void) const
-	{ return m_value; }
+    __host__ __device__
+    Value const& value_reference(void) const
+    { return m_value; }
 
-	__host__ __device__
-	Value& value_reference(void)
-	{ return m_value; }
+    __host__ __device__
+    Value& value_reference(void)
+    { return m_value; }
 
 private: // Core iterator interface
-	__host__ __device__
-	reference dereference(void) const {
-		return m_value;
-	}
+    __host__ __device__
+    reference dereference(void) const {
+        return m_value;
+    }
 
 private:
-	const Value m_value;
+    const Value m_value;
 
-	/*! \endcond
-	 */
+    /*! \endcond
+     */
 }; // end constant_iterator
 
 
@@ -203,7 +203,7 @@ private:
 template<typename V, typename I>
 inline __host__ __device__
 constant_iterator<V, I> make_constant_iterator(V x, I i = int()) {
-	return constant_iterator<V, I>(x, i);
+    return constant_iterator<V, I>(x, i);
 } // end make_constant_iterator()
 
 
@@ -219,7 +219,7 @@ constant_iterator<V, I> make_constant_iterator(V x, I i = int()) {
 template<typename V>
 inline __host__ __device__
 constant_iterator<V> make_constant_iterator(V x) {
-	return constant_iterator<V>(x, 0);
+    return constant_iterator<V>(x, 0);
 } // end make_constant_iterator()
 
 /*! \} // end fancyiterators

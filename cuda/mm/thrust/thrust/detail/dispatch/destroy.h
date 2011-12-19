@@ -32,32 +32,32 @@ namespace dispatch {
 
 template<typename ForwardIterator>
 void destroy(ForwardIterator first,
-			 ForwardIterator last,
-			 thrust::detail::true_type) { // has_trivial_destructor
-	// value_type has a trivial destructor; nothing to do
-	;
+             ForwardIterator last,
+             thrust::detail::true_type) { // has_trivial_destructor
+    // value_type has a trivial destructor; nothing to do
+    ;
 } // end destroy()
 
 namespace detail {
 
 template<typename T>
 struct destroyer {
-	__host__ __device__
-	void operator()(T& x) const {
-		x.~T();
-	} // end operator()()
+    __host__ __device__
+    void operator()(T& x) const {
+        x.~T();
+    } // end operator()()
 }; // end destroyer
 
 } // end detail
 
 template<typename ForwardIterator>
 void destroy(ForwardIterator first,
-			 ForwardIterator last,
-			 thrust::detail::false_type) {
-	typedef typename thrust::iterator_traits<ForwardIterator>::value_type value_type;
+             ForwardIterator last,
+             thrust::detail::false_type) {
+    typedef typename thrust::iterator_traits<ForwardIterator>::value_type value_type;
 
-	detail::destroyer<value_type> op;
-	thrust::for_each(first, last, op);
+    detail::destroyer<value_type> op;
+    thrust::for_each(first, last, op);
 } // end destroy()
 
 } // end dispatch

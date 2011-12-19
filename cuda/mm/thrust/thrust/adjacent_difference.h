@@ -57,7 +57,7 @@ namespace thrust {
  */
 template <typename InputIterator, typename OutputIterator>
 OutputIterator adjacent_difference(InputIterator first, InputIterator last,
-								   OutputIterator result);
+                                   OutputIterator result);
 
 /*! \p adjacent_difference calculates the differences of adjacent elements in the
  *  range <tt>[first, last)</tt>. That is, <tt>*first</tt> is assigned to
@@ -88,8 +88,8 @@ OutputIterator adjacent_difference(InputIterator first, InputIterator last,
  */
 template <typename InputIterator, typename OutputIterator, typename BinaryFunction>
 OutputIterator adjacent_difference(InputIterator first, InputIterator last,
-								   OutputIterator result,
-								   BinaryFunction binary_op);
+                                   OutputIterator result,
+                                   BinaryFunction binary_op);
 
 /*! \}
  */

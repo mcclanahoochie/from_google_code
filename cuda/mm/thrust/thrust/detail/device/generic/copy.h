@@ -32,19 +32,19 @@ namespace device {
 
 // XXX WAR circular #inclusion problems
 template < typename InputIterator,
-		 typename OutputIterator,
-		 typename UnaryFunction >
+         typename OutputIterator,
+         typename UnaryFunction >
 OutputIterator transform(InputIterator, InputIterator, OutputIterator, UnaryFunction);
 
 namespace generic {
 
 template < typename InputIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator copy(InputIterator  first,
-					InputIterator  last,
-					OutputIterator result) {
-	typedef typename thrust::iterator_value<InputIterator>::type T;
-	return thrust::detail::device::transform(first, last, result, thrust::identity<T>());
+                    InputIterator  last,
+                    OutputIterator result) {
+    typedef typename thrust::iterator_value<InputIterator>::type T;
+    return thrust::detail::device::transform(first, last, result, thrust::identity<T>());
 } // end copy()
 
 } // end generic

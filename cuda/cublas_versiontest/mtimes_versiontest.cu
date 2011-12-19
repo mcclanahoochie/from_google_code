@@ -37,7 +37,7 @@ int main(int argc, char* args[]) {
         cudaEventRecord(start, 0);
 
         for (int reps = 0; reps < REPS; ++reps)
-            { cublasSgemm('N', 'N', n, n, n, 1, d_A, n, d_B, n, 0, d_C, n); }
+        { cublasSgemm('N', 'N', n, n, n, 1, d_A, n, d_B, n, 0, d_C, n); }
 
         cudaEventRecord(stop, 0);
         cudaEventSynchronize(stop);

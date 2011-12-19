@@ -196,7 +196,7 @@ void prepare_output_gpu(int natoms, int nbins, int** nblist_out, int nbonds_sum,
             idx = h * width + n;
             if (h_gpu_nlist[idx] != EMPTY) {
                 nblist_tmp[added_bonds  ] = n;
-                nblist_tmp[added_bonds+1] = h_gpu_nlist[idx];
+                nblist_tmp[added_bonds + 1] = h_gpu_nlist[idx];
                 added_bonds += 2;
             }
         }

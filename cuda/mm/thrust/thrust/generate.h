@@ -60,10 +60,10 @@ namespace thrust {
  *  \see http://www.sgi.com/tech/stl/generate.html
  */
 template < typename ForwardIterator,
-		 typename Generator >
+         typename Generator >
 void generate(ForwardIterator first,
-			  ForwardIterator last,
-			  Generator gen);
+              ForwardIterator last,
+              Generator gen);
 
 /*! \} // end transformations
  */

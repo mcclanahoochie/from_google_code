@@ -27,15 +27,15 @@ namespace detail {
 
 template<typename BidirectionalIterator>
 struct reverse_iterator_base {
-	typedef thrust::experimental::iterator_adaptor <
-	thrust::reverse_iterator<BidirectionalIterator>,
-		   BidirectionalIterator,
-		   typename thrust::iterator_pointer<BidirectionalIterator>::type,
-		   typename thrust::iterator_value<BidirectionalIterator>::type,
-		   typename thrust::iterator_space<BidirectionalIterator>::type,
-		   typename thrust::iterator_traversal<BidirectionalIterator>::type,
-		   typename thrust::iterator_reference<BidirectionalIterator>::type
-		   > type;
+    typedef thrust::experimental::iterator_adaptor <
+    thrust::reverse_iterator<BidirectionalIterator>,
+           BidirectionalIterator,
+           typename thrust::iterator_pointer<BidirectionalIterator>::type,
+           typename thrust::iterator_value<BidirectionalIterator>::type,
+           typename thrust::iterator_space<BidirectionalIterator>::type,
+           typename thrust::iterator_traversal<BidirectionalIterator>::type,
+           typename thrust::iterator_reference<BidirectionalIterator>::type
+           > type;
 }; // end reverse_iterator_base
 
 } // end detail

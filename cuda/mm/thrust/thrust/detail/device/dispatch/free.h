@@ -28,15 +28,15 @@ namespace dispatch {
 
 template<unsigned int DummyParameterToAvoidInstantiation>
 void free(thrust::device_ptr<void> ptr,
-		  thrust::device_space_tag) {
-	thrust::detail::device::generic::free<0>(ptr);
+          thrust::device_space_tag) {
+    thrust::detail::device::generic::free<0>(ptr);
 } // end free()
 
 
 template<unsigned int DummyParameterToAvoidInstantiation>
 void free(thrust::device_ptr<void> ptr,
-		  thrust::detail::cuda_device_space_tag) {
-	thrust::detail::device::cuda::free<0>(ptr);
+          thrust::detail::cuda_device_space_tag) {
+    thrust::detail::device::cuda::free<0>(ptr);
 } // end free()
 
 } // end namespace dispatch

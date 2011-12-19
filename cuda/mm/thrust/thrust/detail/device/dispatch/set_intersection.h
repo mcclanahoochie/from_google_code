@@ -29,41 +29,41 @@ namespace device {
 namespace dispatch {
 
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename OutputIterator,
-		 typename StrictWeakOrdering,
-		 typename Space1,
-		 typename Space2,
-		 typename Space3 >
+         typename InputIterator2,
+         typename OutputIterator,
+         typename StrictWeakOrdering,
+         typename Space1,
+         typename Space2,
+         typename Space3 >
 OutputIterator set_intersection(InputIterator1 first1,
-								InputIterator1 last1,
-								InputIterator2 first2,
-								InputIterator2 last2,
-								OutputIterator result,
-								StrictWeakOrdering comp,
-								Space1,
-								Space2,
-								Space3) {
-	// generic backend
-	return thrust::detail::device::generic::set_intersection(first1, last1, first2, last2, result, comp);
+                                InputIterator1 last1,
+                                InputIterator2 first2,
+                                InputIterator2 last2,
+                                OutputIterator result,
+                                StrictWeakOrdering comp,
+                                Space1,
+                                Space2,
+                                Space3) {
+    // generic backend
+    return thrust::detail::device::generic::set_intersection(first1, last1, first2, last2, result, comp);
 } // end set_intersection()
 
 
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename OutputIterator,
-		 typename StrictWeakOrdering >
+         typename InputIterator2,
+         typename OutputIterator,
+         typename StrictWeakOrdering >
 OutputIterator set_intersection(InputIterator1 first1,
-								InputIterator1 last1,
-								InputIterator2 first2,
-								InputIterator2 last2,
-								OutputIterator result,
-								StrictWeakOrdering comp,
-								thrust::detail::cuda_device_space_tag,
-								thrust::detail::cuda_device_space_tag,
-								thrust::detail::cuda_device_space_tag) {
-	// refinement for the CUDA backend
-	return thrust::detail::device::cuda::set_intersection(first1, last1, first2, last2, result, comp);
+                                InputIterator1 last1,
+                                InputIterator2 first2,
+                                InputIterator2 last2,
+                                OutputIterator result,
+                                StrictWeakOrdering comp,
+                                thrust::detail::cuda_device_space_tag,
+                                thrust::detail::cuda_device_space_tag,
+                                thrust::detail::cuda_device_space_tag) {
+    // refinement for the CUDA backend
+    return thrust::detail::device::cuda::set_intersection(first1, last1, first2, last2, result, comp);
 } // end set_intersection()
 
 

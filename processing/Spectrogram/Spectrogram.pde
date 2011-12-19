@@ -78,7 +78,7 @@ void draw() {
     // start from there, and draw to the end of the array
     for (int i = 0; i < colmax - leftedge; ++i) {
         for (int j = 0; j < rowmax; ++j) {
-            sval = Math.min(255, sgram[i+leftedge][j]);
+            sval = Math.min(255, sgram[i + leftedge][j]);
             stroke(255 - sval, 255 - sval, sval * 1.1f);
             point(i, height - j);
         }

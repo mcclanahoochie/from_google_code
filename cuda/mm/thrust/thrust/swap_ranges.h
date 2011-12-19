@@ -69,10 +69,10 @@ namespace thrust {
  *  \see \c swap
  */
 template < typename ForwardIterator1,
-		 typename ForwardIterator2 >
+         typename ForwardIterator2 >
 ForwardIterator2 swap_ranges(ForwardIterator1 first1,
-							 ForwardIterator1 last1,
-							 ForwardIterator2 first2);
+                             ForwardIterator1 last1,
+                             ForwardIterator2 first2);
 
 /*! \} // copying
  */

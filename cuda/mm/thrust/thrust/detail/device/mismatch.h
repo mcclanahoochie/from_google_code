@@ -31,10 +31,10 @@ namespace device {
 
 template <typename InputIterator1, typename InputIterator2, typename BinaryPredicate>
 thrust::pair<InputIterator1, InputIterator2> mismatch(InputIterator1 first1,
-		InputIterator1 last1,
-		InputIterator2 first2,
-		BinaryPredicate pred) {
-	return thrust::detail::device::generic::mismatch(first1, last1, first2, pred);
+        InputIterator1 last1,
+        InputIterator2 first2,
+        BinaryPredicate pred) {
+    return thrust::detail::device::generic::mismatch(first1, last1, first2, pred);
 }
 
 } // end namespace device

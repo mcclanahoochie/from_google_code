@@ -34,31 +34,31 @@ namespace detail {
 
 template<typename Pointer>
 class normal_iterator
-	//: public experimental::iterator_adaptor< normal_iterator<Pointer>, Pointer, Pointer >
-	: public experimental::iterator_adaptor <
-	normal_iterator<Pointer>,
-	Pointer,
-	Pointer,
-	typename thrust::use_default,
-	typename thrust::use_default,
-	typename thrust::use_default,
-	//typename thrust::iterator_traits<Pointer>::reference
-	typename thrust::use_default
-		> {
+    //: public experimental::iterator_adaptor< normal_iterator<Pointer>, Pointer, Pointer >
+    : public experimental::iterator_adaptor <
+    normal_iterator<Pointer>,
+    Pointer,
+    Pointer,
+    typename thrust::use_default,
+    typename thrust::use_default,
+    typename thrust::use_default,
+    //typename thrust::iterator_traits<Pointer>::reference
+    typename thrust::use_default
+        > {
 public:
-	__host__ __device__
-	normal_iterator() {}
+    __host__ __device__
+    normal_iterator() {}
 
-	__host__ __device__
-	normal_iterator(Pointer p)
-		: normal_iterator::iterator_adaptor_(p) {}
+    __host__ __device__
+    normal_iterator(Pointer p)
+        : normal_iterator::iterator_adaptor_(p) {}
 
-	// XXX this needs enable_if_convertible
-	//     this is included primarily to create const_iterator from iterator
-	template<typename OtherIterator>
-	__host__ __device__
-	normal_iterator(OtherIterator const& other)
-		: normal_iterator::iterator_adaptor_(other.base()) {}
+    // XXX this needs enable_if_convertible
+    //     this is included primarily to create const_iterator from iterator
+    template<typename OtherIterator>
+    __host__ __device__
+    normal_iterator(OtherIterator const& other)
+        : normal_iterator::iterator_adaptor_(other.base()) {}
 
 }; // end normal_iterator
 
@@ -73,7 +73,7 @@ namespace device {
 // specialize dereference_result for normal_iterator with device_ptr as base
 template<typename T>
 struct dereference_result< normal_iterator< device_ptr<T> > > {
-	typedef typename dereference_result< device_ptr<T> >::type type;
+    typedef typename dereference_result< device_ptr<T> >::type type;
 }; // end dereference_result
 
 
@@ -91,15 +91,15 @@ dereference(device_ptr<T> iter, IndexType n);
 template<typename T>
 inline __host__ __device__
 typename dereference_result< normal_iterator< device_ptr<T> > >::type
-dereference(const normal_iterator< device_ptr<T> > &iter) {
-	return dereference(iter.base());
+dereference(const normal_iterator< device_ptr<T> >& iter) {
+    return dereference(iter.base());
 } // end dereference()
 
 template<typename T, typename IndexType>
 inline __host__ __device__
 typename dereference_result< normal_iterator< device_ptr<T> > >::type
-dereference(const normal_iterator< device_ptr<T> > &iter, IndexType n) {
-	return dereference(iter.base(), n);
+dereference(const normal_iterator< device_ptr<T> >& iter, IndexType n) {
+    return dereference(iter.base(), n);
 } // end dereference()
 
 } // end device

@@ -38,55 +38,55 @@ namespace device {
 template<typename T>
 class internal_allocator {
 public:
-	typedef T                                 value_type;
-	typedef device_ptr<T>                     pointer;
-	typedef device_ptr<const T>               const_pointer;
-	typedef device_reference<T>               reference;
-	typedef device_reference<const T>         const_reference;
-	typedef std::size_t                       size_type;
-	typedef typename pointer::difference_type difference_type;
+    typedef T                                 value_type;
+    typedef device_ptr<T>                     pointer;
+    typedef device_ptr<const T>               const_pointer;
+    typedef device_reference<T>               reference;
+    typedef device_reference<const T>         const_reference;
+    typedef std::size_t                       size_type;
+    typedef typename pointer::difference_type difference_type;
 
-	// convert a internal_allocator<T> to device_malloc_allocator<U>
-	template<typename U>
-	struct rebind {
-		typedef internal_allocator<U> other;
-	}; // end rebind
+    // convert a internal_allocator<T> to device_malloc_allocator<U>
+    template<typename U>
+    struct rebind {
+        typedef internal_allocator<U> other;
+    }; // end rebind
 
-	inline internal_allocator() {}
+    inline internal_allocator() {}
 
-	inline ~internal_allocator() {}
+    inline ~internal_allocator() {}
 
-	inline internal_allocator(internal_allocator const&) {}
+    inline internal_allocator(internal_allocator const&) {}
 
-	template<typename U>
-	inline internal_allocator(internal_allocator<U> const&) {}
+    template<typename U>
+    inline internal_allocator(internal_allocator<U> const&) {}
 
-	// address
-	inline pointer address(reference r) { return &r; }
+    // address
+    inline pointer address(reference r) { return &r; }
 
-	inline const_pointer address(const_reference r) { return &r; }
+    inline const_pointer address(const_reference r) { return &r; }
 
-	// memory allocation
-	inline pointer allocate(size_type cnt,
-							const_pointer = const_pointer(static_cast<T*>(0))) {
-		if (cnt > this->max_size()) {
-			throw std::bad_alloc();
-		} // end if
+    // memory allocation
+    inline pointer allocate(size_type cnt,
+                            const_pointer = const_pointer(static_cast<T*>(0))) {
+        if (cnt > this->max_size()) {
+            throw std::bad_alloc();
+        } // end if
 
-		return pointer(device_malloc<T>(cnt));
-	} // end allocate()
+        return pointer(device_malloc<T>(cnt));
+    } // end allocate()
 
-	inline void deallocate(pointer p, size_type cnt) throw() {
-		thrust::detail::device::no_throw_free(p);
-	} // end deallocate()
+    inline void deallocate(pointer p, size_type cnt) throw() {
+        thrust::detail::device::no_throw_free(p);
+    } // end deallocate()
 
-	inline size_type max_size() const {
-		return std::numeric_limits<size_type>::max() / sizeof(T);
-	} // end max_size()
+    inline size_type max_size() const {
+        return std::numeric_limits<size_type>::max() / sizeof(T);
+    } // end max_size()
 
-	inline bool operator==(internal_allocator const&) { return true; }
+    inline bool operator==(internal_allocator const&) { return true; }
 
-	inline bool operator!=(internal_allocator const& a) {return !operator==(a); }
+    inline bool operator!=(internal_allocator const& a) {return !operator==(a); }
 }; // end internal_allocator
 
 } // end namespace device

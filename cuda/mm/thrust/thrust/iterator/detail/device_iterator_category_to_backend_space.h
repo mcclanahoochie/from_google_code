@@ -26,30 +26,30 @@ namespace detail {
 
 template<typename DeviceCategory>
 struct device_iterator_category_to_backend_space
-		// convertible to cuda?
-		: eval_if <
-		is_convertible<DeviceCategory, thrust::detail::cuda_device_iterator_tag>::value,
+        // convertible to cuda?
+        : eval_if <
+        is_convertible<DeviceCategory, thrust::detail::cuda_device_iterator_tag>::value,
 
-		detail::identity_<thrust::detail::cuda_device_space_tag>,
+        detail::identity_<thrust::detail::cuda_device_space_tag>,
 
-		// convertible to omp?
-		eval_if <
-		is_convertible<DeviceCategory, thrust::detail::omp_device_iterator_tag>::value,
+        // convertible to omp?
+        eval_if <
+        is_convertible<DeviceCategory, thrust::detail::omp_device_iterator_tag>::value,
 
-		detail::identity_<thrust::detail::omp_device_space_tag>,
+        detail::identity_<thrust::detail::omp_device_space_tag>,
 
-		// convertible to device_space_tag?
-		eval_if <
-		is_convertible<DeviceCategory, thrust::device_space_tag>::value,
+        // convertible to device_space_tag?
+        eval_if <
+        is_convertible<DeviceCategory, thrust::device_space_tag>::value,
 
-		detail::identity_<thrust::device_space_tag>,
+        detail::identity_<thrust::device_space_tag>,
 
-		// unknown space
-		detail::identity_<void>
-		>
-		>
-		>
-	{};
+        // unknown space
+        detail::identity_<void>
+        >
+        >
+        >
+{};
 
 } // end detail
 

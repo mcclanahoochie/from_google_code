@@ -43,61 +43,61 @@ namespace thrust {
  */
 template <typename T1, typename T2>
 struct pair {
-	/*! \p first_type is the type of \p pair's first object type.
-	 */
-	typedef T1 first_type;
+    /*! \p first_type is the type of \p pair's first object type.
+     */
+    typedef T1 first_type;
 
-	/*! \p second_type is the type of \p pair's second object type.
-	 */
-	typedef T2 second_type;
+    /*! \p second_type is the type of \p pair's second object type.
+     */
+    typedef T2 second_type;
 
-	/*! The \p pair's first object.
-	 */
-	first_type first;
+    /*! The \p pair's first object.
+     */
+    first_type first;
 
-	/*! The \p pair's second object.
-	 */
-	second_type second;
+    /*! The \p pair's second object.
+     */
+    second_type second;
 
-	/*! \p pair's default constructor constructs \p first
-	 *  and \p second using \c first_type & \c second_type's
-	 *  default constructors, respectively.
-	 */
-	__host__ __device__ pair(void);
+    /*! \p pair's default constructor constructs \p first
+     *  and \p second using \c first_type & \c second_type's
+     *  default constructors, respectively.
+     */
+    __host__ __device__ pair(void);
 
-	/*! This constructor accepts two objects to copy into this \p pair.
-	 *
-	 *  \param x The object to copy into \p first.
-	 *  \param y The object to copy into \p second.
-	 */
-	inline __host__ __device__
-	pair(const T1& x, const T2& y);
+    /*! This constructor accepts two objects to copy into this \p pair.
+     *
+     *  \param x The object to copy into \p first.
+     *  \param y The object to copy into \p second.
+     */
+    inline __host__ __device__
+    pair(const T1& x, const T2& y);
 
-	/*! This copy constructor copies from a \p pair whose types are
-	 *  convertible to this \p pair's \c first_type and \c second_type,
-	 *  respectively.
-	 *
-	 *  \param p The \p pair to copy from.
-	 *
-	 *  \tparam U1 is convertible to \c first_type.
-	 *  \tparam U2 is convertible to \c second_type.
-	 */
-	template <typename U1, typename U2>
-	inline __host__ __device__
-	pair(const pair<U1, U2> &p);
+    /*! This copy constructor copies from a \p pair whose types are
+     *  convertible to this \p pair's \c first_type and \c second_type,
+     *  respectively.
+     *
+     *  \param p The \p pair to copy from.
+     *
+     *  \tparam U1 is convertible to \c first_type.
+     *  \tparam U2 is convertible to \c second_type.
+     */
+    template <typename U1, typename U2>
+    inline __host__ __device__
+    pair(const pair<U1, U2>& p);
 
-	/*! This copy constructor copies from a <tt>std::pair</tt> whose types are
-	 *  convertible to this \p pair's \c first_type and \c second_type,
-	 *  respectively.
-	 *
-	 *  \param p The <tt>std::pair</tt> to copy from.
-	 *
-	 *  \tparam U1 is convertible to \c first_type.
-	 *  \tparam U2 is convertible to \c second_type.
-	 */
-	template <typename U1, typename U2>
-	inline __host__ __device__
-	pair(const std::pair<U1, U2> &p);
+    /*! This copy constructor copies from a <tt>std::pair</tt> whose types are
+     *  convertible to this \p pair's \c first_type and \c second_type,
+     *  respectively.
+     *
+     *  \param p The <tt>std::pair</tt> to copy from.
+     *
+     *  \tparam U1 is convertible to \c first_type.
+     *  \tparam U2 is convertible to \c second_type.
+     */
+    template <typename U1, typename U2>
+    inline __host__ __device__
+    pair(const std::pair<U1, U2>& p);
 }; // end pair
 
 
@@ -112,7 +112,7 @@ struct pair {
  */
 template <typename T1, typename T2>
 inline __host__ __device__
-bool operator==(const pair<T1, T2> &x, const pair<T1, T2> &y);
+bool operator==(const pair<T1, T2>& x, const pair<T1, T2>& y);
 
 
 /*! This operator tests two pairs for ascending ordering.
@@ -126,7 +126,7 @@ bool operator==(const pair<T1, T2> &x, const pair<T1, T2> &y);
  */
 template <typename T1, typename T2>
 inline __host__ __device__
-bool operator<(const pair<T1, T2> &x, const pair<T1, T2> &y);
+bool operator<(const pair<T1, T2>& x, const pair<T1, T2>& y);
 
 
 /*! This operator tests two pairs for inequality.
@@ -140,7 +140,7 @@ bool operator<(const pair<T1, T2> &x, const pair<T1, T2> &y);
  */
 template <typename T1, typename T2>
 inline __host__ __device__
-bool operator!=(const pair<T1, T2> &x, const pair<T1, T2> &y);
+bool operator!=(const pair<T1, T2>& x, const pair<T1, T2>& y);
 
 
 /*! This operator tests two pairs for descending ordering.
@@ -154,7 +154,7 @@ bool operator!=(const pair<T1, T2> &x, const pair<T1, T2> &y);
  */
 template <typename T1, typename T2>
 inline __host__ __device__
-bool operator>(const pair<T1, T2> &x, const pair<T1, T2> &y);
+bool operator>(const pair<T1, T2>& x, const pair<T1, T2>& y);
 
 
 /*! This operator tests two pairs for ascending ordering or equivalence.
@@ -168,7 +168,7 @@ bool operator>(const pair<T1, T2> &x, const pair<T1, T2> &y);
  */
 template <typename T1, typename T2>
 inline __host__ __device__
-bool operator<=(const pair<T1, T2> &x, const pair<T1, T2> &y);
+bool operator<=(const pair<T1, T2>& x, const pair<T1, T2>& y);
 
 
 /*! This operator tests two pairs for descending ordering or equivalence.
@@ -182,7 +182,7 @@ bool operator<=(const pair<T1, T2> &x, const pair<T1, T2> &y);
  */
 template <typename T1, typename T2>
 inline __host__ __device__
-bool operator>=(const pair<T1, T2> &x, const pair<T1, T2> &y);
+bool operator>=(const pair<T1, T2>& x, const pair<T1, T2>& y);
 
 
 /*! This convenience function creates a \p pair from two objects.

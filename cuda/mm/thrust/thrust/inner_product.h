@@ -74,7 +74,7 @@ namespace thrust {
  */
 template <typename InputIterator1, typename InputIterator2, typename OutputType>
 OutputType inner_product(InputIterator1 first1, InputIterator1 last1,
-						 InputIterator2 first2, OutputType init);
+                         InputIterator2 first2, OutputType init);
 
 /*! \p inner_product calculates an inner product of the ranges
  *  <tt>[first1, last1)</tt> and <tt>[first2, first2 + (last1 - first1))</tt>.
@@ -110,10 +110,10 @@ OutputType inner_product(InputIterator1 first1, InputIterator1 last1,
  *  \see http://www.sgi.com/tech/stl/inner_product.html
  */
 template < typename InputIterator1, typename InputIterator2, typename OutputType,
-		 typename BinaryFunction1, typename BinaryFunction2 >
+         typename BinaryFunction1, typename BinaryFunction2 >
 OutputType inner_product(InputIterator1 first1, InputIterator1 last1,
-						 InputIterator2 first2, OutputType init,
-						 BinaryFunction1 binary_op1, BinaryFunction2 binary_op2);
+                         InputIterator2 first2, OutputType init,
+                         BinaryFunction1 binary_op1, BinaryFunction2 binary_op2);
 
 /*! \} // end transformed_reductions
  *  \} // end reductions

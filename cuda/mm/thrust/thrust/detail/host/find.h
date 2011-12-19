@@ -29,9 +29,9 @@ namespace host {
 
 template <typename InputIterator, typename Predicate>
 InputIterator find_if(InputIterator first,
-					  InputIterator last,
-					  Predicate pred) {
-	return std::find_if(first, last, pred);
+                      InputIterator last,
+                      Predicate pred) {
+    return std::find_if(first, last, pred);
 }
 
 } // end namespace host

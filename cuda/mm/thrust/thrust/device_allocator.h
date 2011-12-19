@@ -45,17 +45,17 @@ template<typename T> class device_allocator;
 template<>
 class device_allocator<void> {
 public:
-	typedef void                              value_type;
-	typedef device_ptr<void>                  pointer;
-	typedef device_ptr<const void>            const_pointer;
-	typedef std::size_t                       size_type;
-	typedef pointer::difference_type difference_type;
+    typedef void                              value_type;
+    typedef device_ptr<void>                  pointer;
+    typedef device_ptr<const void>            const_pointer;
+    typedef std::size_t                       size_type;
+    typedef pointer::difference_type difference_type;
 
-	// convert a device_allocator<void> to device_allocator<U>
-	template<typename U>
-	struct rebind {
-		typedef device_allocator<U> other;
-	}; // end rebind
+    // convert a device_allocator<void> to device_allocator<U>
+    template<typename U>
+    struct rebind {
+        typedef device_allocator<U> other;
+    }; // end rebind
 }; // end device_allocator<void>
 
 /*! \p device_allocator is a device memory allocator.
@@ -67,26 +67,26 @@ public:
  */
 template<typename T>
 class device_allocator
-		: public device_new_allocator<T> {
+        : public device_new_allocator<T> {
 public:
-	// convert a device_allocator<T> to device_allocator<U>
-	template<typename U>
-	struct rebind {
-		typedef device_allocator<U> other;
-	}; // end rebind
+    // convert a device_allocator<T> to device_allocator<U>
+    template<typename U>
+    struct rebind {
+        typedef device_allocator<U> other;
+    }; // end rebind
 
-	__host__ __device__
-	inline device_allocator() {}
+    __host__ __device__
+    inline device_allocator() {}
 
-	__host__ __device__
-	inline device_allocator(device_allocator const&) {}
+    __host__ __device__
+    inline device_allocator(device_allocator const&) {}
 
-	__host__ __device__
-	inline device_allocator(void* p) {}
+    __host__ __device__
+    inline device_allocator(void* p) {}
 
-	template<typename U>
-	__host__ __device__
-	inline device_allocator(device_allocator<U> const&) {}
+    template<typename U>
+    __host__ __device__
+    inline device_allocator(device_allocator<U> const&) {}
 }; // end device_allocator
 
 /*! \}

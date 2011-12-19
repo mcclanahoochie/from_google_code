@@ -63,102 +63,102 @@ namespace random {
  */
 template<typename UIntType, size_t w, size_t s, size_t r>
 class subtract_with_carry_engine {
-	/*! \cond
-	 */
+    /*! \cond
+     */
 private:
-	static const UIntType modulus = UIntType(1) << w;
-	/*! \endcond
-	 */
+    static const UIntType modulus = UIntType(1) << w;
+    /*! \endcond
+     */
 
 public:
-	// types
+    // types
 
-	/*! \typedef result_type
-	 *  \brief The type of the unsigned integer produced by this \p subtract_with_carry_engine.
-	 */
-	typedef UIntType result_type;
+    /*! \typedef result_type
+     *  \brief The type of the unsigned integer produced by this \p subtract_with_carry_engine.
+     */
+    typedef UIntType result_type;
 
-	// engine characteristics
+    // engine characteristics
 
-	/*! The word size of the produced values.
-	 */
-	static const size_t word_size = w;
+    /*! The word size of the produced values.
+     */
+    static const size_t word_size = w;
 
-	/*! The size of the short lag used in the generation algorithm.
-	 */
-	static const size_t short_lag = s;
+    /*! The size of the short lag used in the generation algorithm.
+     */
+    static const size_t short_lag = s;
 
-	/*! The size of the long lag used in the generation algorithm.
-	 */
-	static const size_t long_lag = r;
+    /*! The size of the long lag used in the generation algorithm.
+     */
+    static const size_t long_lag = r;
 
-	/*! The smallest value this \p subtract_with_carry_engine may potentially produce.
-	 */
-	static const result_type min = 0;
+    /*! The smallest value this \p subtract_with_carry_engine may potentially produce.
+     */
+    static const result_type min = 0;
 
-	/*! The largest value this \p subtract_with_carry_engine may potentially produce.
-	 */
-	static const result_type max = modulus - 1;
+    /*! The largest value this \p subtract_with_carry_engine may potentially produce.
+     */
+    static const result_type max = modulus - 1;
 
-	/*! The default seed of this \p subtract_with_carry_engine.
-	 */
-	static const result_type default_seed = 19780503u;
+    /*! The default seed of this \p subtract_with_carry_engine.
+     */
+    static const result_type default_seed = 19780503u;
 
-	// constructors and seeding functions
+    // constructors and seeding functions
 
-	/*! This constructor, which optionally accepts a seed, initializes a new
-	 *  \p subtract_with_carry_engine.
-	 *
-	 *  \param value The seed used to intialize this \p subtract_with_carry_engine's state.
-	 */
-	__host__ __device__
-	explicit subtract_with_carry_engine(result_type value = default_seed);
+    /*! This constructor, which optionally accepts a seed, initializes a new
+     *  \p subtract_with_carry_engine.
+     *
+     *  \param value The seed used to intialize this \p subtract_with_carry_engine's state.
+     */
+    __host__ __device__
+    explicit subtract_with_carry_engine(result_type value = default_seed);
 
-	/*! This method initializes this \p subtract_with_carry_engine's state, and optionally accepts
-	 *  a seed value.
-	 *
-	 *  \param value The seed used to initializes this \p subtract_with_carry_engine's state.
-	 */
-	__host__ __device__
-	void seed(result_type value = default_seed);
+    /*! This method initializes this \p subtract_with_carry_engine's state, and optionally accepts
+     *  a seed value.
+     *
+     *  \param value The seed used to initializes this \p subtract_with_carry_engine's state.
+     */
+    __host__ __device__
+    void seed(result_type value = default_seed);
 
-	// generating functions
+    // generating functions
 
-	/*! This member function produces a new random value and updates this \p subtract_with_carry_engine's state.
-	 *  \return A new random number.
-	 */
-	__host__ __device__
-	result_type operator()(void);
+    /*! This member function produces a new random value and updates this \p subtract_with_carry_engine's state.
+     *  \return A new random number.
+     */
+    __host__ __device__
+    result_type operator()(void);
 
-	/*! This member function advances this \p subtract_with_carry_engine's state a given number of times
-	 *  and discards the results.
-	 *
-	 *  \param z The number of random values to discard.
-	 *  \note This function is provided because an implementation may be able to accelerate it.
-	 */
-	__host__ __device__
-	void discard(unsigned long long z);
+    /*! This member function advances this \p subtract_with_carry_engine's state a given number of times
+     *  and discards the results.
+     *
+     *  \param z The number of random values to discard.
+     *  \note This function is provided because an implementation may be able to accelerate it.
+     */
+    __host__ __device__
+    void discard(unsigned long long z);
 
-	/*! \cond
-	 */
+    /*! \cond
+     */
 private:
-	result_type m_x[long_lag];
-	unsigned int m_k;
-	int m_carry;
+    result_type m_x[long_lag];
+    unsigned int m_k;
+    int m_carry;
 
-	friend struct thrust::random::detail::random_core_access;
+    friend struct thrust::random::detail::random_core_access;
 
-	__host__ __device__
-	bool equal(const subtract_with_carry_engine& rhs) const;
+    __host__ __device__
+    bool equal(const subtract_with_carry_engine& rhs) const;
 
-	template<typename CharT, typename Traits>
-	std::basic_ostream<CharT, Traits>& stream_out(std::basic_ostream<CharT, Traits> &os) const;
+    template<typename CharT, typename Traits>
+    std::basic_ostream<CharT, Traits>& stream_out(std::basic_ostream<CharT, Traits>& os) const;
 
-	template<typename CharT, typename Traits>
-	std::basic_istream<CharT, Traits>& stream_in(std::basic_istream<CharT, Traits> &is);
+    template<typename CharT, typename Traits>
+    std::basic_istream<CharT, Traits>& stream_in(std::basic_istream<CharT, Traits>& is);
 
-	/*! \endcond
-	 */
+    /*! \endcond
+     */
 }; // end subtract_with_carry_engine
 
 
@@ -169,8 +169,8 @@ private:
  */
 template<typename UIntType_, size_t w_, size_t s_, size_t r_>
 __host__ __device__
-bool operator==(const subtract_with_carry_engine<UIntType_, w_, s_, r_> &lhs,
-				const subtract_with_carry_engine<UIntType_, w_, s_, r_> &rhs);
+bool operator==(const subtract_with_carry_engine<UIntType_, w_, s_, r_>& lhs,
+                const subtract_with_carry_engine<UIntType_, w_, s_, r_>& rhs);
 
 
 /*! This function checks two \p subtract_with_carry_engines for inequality.
@@ -180,8 +180,8 @@ bool operator==(const subtract_with_carry_engine<UIntType_, w_, s_, r_> &lhs,
  */
 template<typename UIntType_, size_t w_, size_t s_, size_t r_>
 __host__ __device__
-bool operator!=(const subtract_with_carry_engine<UIntType_, w_, s_, r_>&lhs,
-				const subtract_with_carry_engine<UIntType_, w_, s_, r_>&rhs);
+bool operator!=(const subtract_with_carry_engine<UIntType_, w_, s_, r_>& lhs,
+                const subtract_with_carry_engine<UIntType_, w_, s_, r_>& rhs);
 
 
 /*! This function streams a subtract_with_carry_engine to a \p std::basic_ostream.
@@ -190,10 +190,10 @@ bool operator!=(const subtract_with_carry_engine<UIntType_, w_, s_, r_>&lhs,
  *  \return \p os
  */
 template < typename UIntType_, size_t w_, size_t s_, size_t r_,
-		 typename CharT, typename Traits >
+         typename CharT, typename Traits >
 std::basic_ostream<CharT, Traits>&
-operator<<(std::basic_ostream<CharT, Traits> &os,
-		   const subtract_with_carry_engine<UIntType_, w_, s_, r_> &e);
+operator<<(std::basic_ostream<CharT, Traits>& os,
+           const subtract_with_carry_engine<UIntType_, w_, s_, r_>& e);
 
 
 /*! This function streams a subtract_with_carry_engine in from a std::basic_istream.
@@ -202,10 +202,10 @@ operator<<(std::basic_ostream<CharT, Traits> &os,
  *  \return \p is
  */
 template < typename UIntType_, size_t w_, size_t s_, size_t r_,
-		 typename CharT, typename Traits >
+         typename CharT, typename Traits >
 std::basic_istream<CharT, Traits>&
-operator>>(std::basic_istream<CharT, Traits> &is,
-		   subtract_with_carry_engine<UIntType_, w_, s_, r_> &e);
+operator>>(std::basic_istream<CharT, Traits>& is,
+           subtract_with_carry_engine<UIntType_, w_, s_, r_>& e);
 
 
 /*! \} // end random_number_engine_templates

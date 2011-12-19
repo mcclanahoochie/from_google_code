@@ -27,19 +27,19 @@ namespace omp {
 
 // entry point
 template < typename InputIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator copy(InputIterator first,
-					InputIterator last,
-					OutputIterator result) {
-	typedef typename thrust::iterator_traversal<InputIterator>::type traversal1;
-	typedef typename thrust::iterator_traversal<OutputIterator>::type traversal2;
+                    InputIterator last,
+                    OutputIterator result) {
+    typedef typename thrust::iterator_traversal<InputIterator>::type traversal1;
+    typedef typename thrust::iterator_traversal<OutputIterator>::type traversal2;
 
-	// XXX minimum_traversal doesn't exist, but it should?
-	//typedef typename thrust::detail::minimum_traversal<traversal1,traversal2>::type minimum_traversal;
-	typedef typename thrust::detail::minimum_category<traversal1, traversal2>::type minimum_traversal;
+    // XXX minimum_traversal doesn't exist, but it should?
+    //typedef typename thrust::detail::minimum_traversal<traversal1,traversal2>::type minimum_traversal;
+    typedef typename thrust::detail::minimum_category<traversal1, traversal2>::type minimum_traversal;
 
-	// dispatch on min traversal
-	return thrust::detail::device::omp::dispatch::copy(first, last, result, minimum_traversal());
+    // dispatch on min traversal
+    return thrust::detail::device::omp::dispatch::copy(first, last, result, minimum_traversal());
 }
 
 

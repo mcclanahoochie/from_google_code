@@ -36,85 +36,85 @@ namespace dispatch {
 // Host Paths //
 ////////////////
 template < typename InputIterator,
-		 typename OutputType,
-		 typename BinaryFunction >
+         typename OutputType,
+         typename BinaryFunction >
 OutputType reduce(InputIterator first,
-				  InputIterator last,
-				  OutputType init,
-				  BinaryFunction binary_op,
-				  thrust::host_space_tag) {
-	return thrust::detail::host::reduce(first, last, init, binary_op);
+                  InputIterator last,
+                  OutputType init,
+                  BinaryFunction binary_op,
+                  thrust::host_space_tag) {
+    return thrust::detail::host::reduce(first, last, init, binary_op);
 }
 
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename OutputIterator1,
-		 typename OutputIterator2,
-		 typename BinaryPredicate,
-		 typename BinaryFunction >
+         typename InputIterator2,
+         typename OutputIterator1,
+         typename OutputIterator2,
+         typename BinaryPredicate,
+         typename BinaryFunction >
 thrust::pair<OutputIterator1, OutputIterator2>
 reduce_by_key(InputIterator1 keys_first,
-			  InputIterator1 keys_last,
-			  InputIterator2 values_first,
-			  OutputIterator1 keys_output,
-			  OutputIterator2 values_output,
-			  BinaryPredicate binary_pred,
-			  BinaryFunction binary_op,
-			  thrust::host_space_tag,
-			  thrust::host_space_tag,
-			  thrust::host_space_tag,
-			  thrust::host_space_tag) {
-	return thrust::detail::host::reduce_by_key(keys_first, keys_last, values_first, keys_output, values_output, binary_pred, binary_op);
+              InputIterator1 keys_last,
+              InputIterator2 values_first,
+              OutputIterator1 keys_output,
+              OutputIterator2 values_output,
+              BinaryPredicate binary_pred,
+              BinaryFunction binary_op,
+              thrust::host_space_tag,
+              thrust::host_space_tag,
+              thrust::host_space_tag,
+              thrust::host_space_tag) {
+    return thrust::detail::host::reduce_by_key(keys_first, keys_last, values_first, keys_output, values_output, binary_pred, binary_op);
 }
 
 //////////////////
 // Device Paths //
 //////////////////
 template < typename InputIterator,
-		 typename OutputType,
-		 typename BinaryFunction >
+         typename OutputType,
+         typename BinaryFunction >
 OutputType reduce(InputIterator first,
-				  InputIterator last,
-				  OutputType init,
-				  BinaryFunction binary_op,
-				  thrust::device_space_tag) {
-	return thrust::detail::device::reduce(first, last, init, binary_op);
+                  InputIterator last,
+                  OutputType init,
+                  BinaryFunction binary_op,
+                  thrust::device_space_tag) {
+    return thrust::detail::device::reduce(first, last, init, binary_op);
 }
 
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename OutputIterator1,
-		 typename OutputIterator2,
-		 typename BinaryPredicate,
-		 typename BinaryFunction >
+         typename InputIterator2,
+         typename OutputIterator1,
+         typename OutputIterator2,
+         typename BinaryPredicate,
+         typename BinaryFunction >
 thrust::pair<OutputIterator1, OutputIterator2>
 reduce_by_key(InputIterator1 keys_first,
-			  InputIterator1 keys_last,
-			  InputIterator2 values_first,
-			  OutputIterator1 keys_output,
-			  OutputIterator2 values_output,
-			  BinaryPredicate binary_pred,
-			  BinaryFunction binary_op,
-			  thrust::device_space_tag,
-			  thrust::device_space_tag,
-			  thrust::device_space_tag,
-			  thrust::device_space_tag) {
-	return thrust::detail::device::reduce_by_key(keys_first, keys_last, values_first, keys_output, values_output, binary_pred, binary_op);
+              InputIterator1 keys_last,
+              InputIterator2 values_first,
+              OutputIterator1 keys_output,
+              OutputIterator2 values_output,
+              BinaryPredicate binary_pred,
+              BinaryFunction binary_op,
+              thrust::device_space_tag,
+              thrust::device_space_tag,
+              thrust::device_space_tag,
+              thrust::device_space_tag) {
+    return thrust::detail::device::reduce_by_key(keys_first, keys_last, values_first, keys_output, values_output, binary_pred, binary_op);
 }
 
 //////////////
 // Any Path //
 //////////////
 template < typename InputIterator,
-		 typename OutputType,
-		 typename BinaryFunction >
+         typename OutputType,
+         typename BinaryFunction >
 OutputType reduce(InputIterator first,
-				  InputIterator last,
-				  OutputType init,
-				  BinaryFunction binary_op,
-				  thrust::any_space_tag) {
-	// default to device path
-	return thrust::detail::dispatch::reduce(first, last, init, binary_op, thrust::device_space_tag());
+                  InputIterator last,
+                  OutputType init,
+                  BinaryFunction binary_op,
+                  thrust::any_space_tag) {
+    // default to device path
+    return thrust::detail::dispatch::reduce(first, last, init, binary_op, thrust::device_space_tag());
 }
 
 } // end namespace dispatch

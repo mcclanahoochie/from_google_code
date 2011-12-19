@@ -69,7 +69,7 @@ namespace thrust {
  */
 template <typename InputIterator1, typename InputIterator2>
 bool equal(InputIterator1 first1, InputIterator1 last1,
-		   InputIterator2 first2);
+           InputIterator2 first2);
 
 /*! \p equal returns \c true if the two ranges <tt>[first1, last1)</tt>
  *  and <tt>[first2, first2 + (last1 - first1))</tt> are identical when
@@ -94,9 +94,9 @@ bool equal(InputIterator1 first1, InputIterator1 last1,
  *  \see http://www.sgi.com/tech/stl/equal.html
  */
 template < typename InputIterator1, typename InputIterator2,
-		 typename BinaryPredicate >
+         typename BinaryPredicate >
 bool equal(InputIterator1 first1, InputIterator1 last1,
-		   InputIterator2 first2, BinaryPredicate binary_pred);
+           InputIterator2 first2, BinaryPredicate binary_pred);
 
 /*! \} // end comparisons
  *  \} // end reductions

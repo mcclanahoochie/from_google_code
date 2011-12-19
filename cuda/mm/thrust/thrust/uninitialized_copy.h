@@ -90,8 +90,8 @@ namespace thrust {
  */
 template<typename InputIterator, typename ForwardIterator>
 ForwardIterator uninitialized_copy(InputIterator first,
-								   InputIterator last,
-								   ForwardIterator result);
+                                   InputIterator last,
+                                   ForwardIterator result);
 
 /*! \} // copying
  */

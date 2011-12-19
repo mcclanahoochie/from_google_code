@@ -29,13 +29,13 @@ namespace device {
 namespace cuda {
 
 template < typename InputIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator copy(InputIterator begin,
-					InputIterator end,
-					OutputIterator result) {
-	return thrust::detail::device::cuda::dispatch::copy(begin, end, result,
-			typename thrust::iterator_space<InputIterator>::type(),
-			typename thrust::iterator_space<OutputIterator>::type());
+                    InputIterator end,
+                    OutputIterator result) {
+    return thrust::detail::device::cuda::dispatch::copy(begin, end, result,
+            typename thrust::iterator_space<InputIterator>::type(),
+            typename thrust::iterator_space<OutputIterator>::type());
 }
 
 } // end cuda

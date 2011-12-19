@@ -83,14 +83,14 @@ namespace thrust {
  *  \see \c reduce
  */
 template < typename InputIterator,
-		 typename UnaryFunction,
-		 typename OutputType,
-		 typename BinaryFunction >
+         typename UnaryFunction,
+         typename OutputType,
+         typename BinaryFunction >
 OutputType transform_reduce(InputIterator first,
-							InputIterator last,
-							UnaryFunction unary_op,
-							OutputType init,
-							BinaryFunction binary_op);
+                            InputIterator last,
+                            UnaryFunction unary_op,
+                            OutputType init,
+                            BinaryFunction binary_op);
 
 /*! \} // end transformed_reductions
  *  \} // end reductions

@@ -22,14 +22,14 @@
 namespace thrust {
 
 struct any_space_tag {
-	// use conversion operators instead of inheritance to avoid ambiguous conversion errors
-	operator host_space_tag () {return host_space_tag();};
+    // use conversion operators instead of inheritance to avoid ambiguous conversion errors
+    operator host_space_tag() {return host_space_tag();};
 
-	operator device_space_tag () {return device_space_tag();};
+    operator device_space_tag() {return device_space_tag();};
 
-	operator detail::cuda_device_space_tag () {return detail::cuda_device_space_tag();};
+    operator detail::cuda_device_space_tag() {return detail::cuda_device_space_tag();};
 
-	operator detail::omp_device_space_tag () {return detail::omp_device_space_tag();};
+    operator detail::omp_device_space_tag() {return detail::omp_device_space_tag();};
 };
 
 } // end thrust

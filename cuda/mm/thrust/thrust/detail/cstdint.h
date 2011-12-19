@@ -26,13 +26,13 @@ template < int word_size = sizeof(int*) > struct divine_uint64_t;
 // 32b machine type
 template<>
 struct divine_uint64_t<4> {
-	typedef unsigned long long int type;
+    typedef unsigned long long int type;
 };
 
 // 64b machine type
 template<>
 struct divine_uint64_t<8> {
-	typedef unsigned long long int type;
+    typedef unsigned long long int type;
 };
 
 typedef unsigned int            uint32_t;
@@ -45,13 +45,13 @@ template < int word_size = sizeof(int*) > struct divine_intptr_t;
 // use uint32_t on 32b platforms
 template<>
 struct divine_intptr_t<4> {
-	typedef thrust::detail::uint32_t type;
+    typedef thrust::detail::uint32_t type;
 };
 
 // use uint64_t on 64b platforms
 template<>
 struct divine_intptr_t<8> {
-	typedef thrust::detail::uint64_t type;
+    typedef thrust::detail::uint64_t type;
 };
 
 typedef divine_intptr_t<>::type   intptr_t;

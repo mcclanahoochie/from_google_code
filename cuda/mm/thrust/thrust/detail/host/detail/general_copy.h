@@ -28,14 +28,14 @@ namespace detail {
 
 
 template < typename InputIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator general_copy(InputIterator first,
-							InputIterator last,
-							OutputIterator result) {
-	for (; first != last; ++first, ++result) {
-		*result = *first;
-	}
-	return result;
+                            InputIterator last,
+                            OutputIterator result) {
+    for (; first != last; ++first, ++result) {
+        *result = *first;
+    }
+    return result;
 } // end general_copy()
 
 

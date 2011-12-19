@@ -28,39 +28,39 @@ namespace detail {
 namespace device {
 
 template < typename ForwardIterator,
-		 typename Predicate >
+         typename Predicate >
 ForwardIterator stable_partition(ForwardIterator first,
-								 ForwardIterator last,
-								 Predicate pred) {
-	return thrust::detail::device::generic::stable_partition(first, last, pred);
+                                 ForwardIterator last,
+                                 Predicate pred) {
+    return thrust::detail::device::generic::stable_partition(first, last, pred);
 }
 
 template < typename ForwardIterator1,
-		 typename ForwardIterator2,
-		 typename Predicate >
+         typename ForwardIterator2,
+         typename Predicate >
 ForwardIterator2 stable_partition_copy(ForwardIterator1 first,
-									   ForwardIterator1 last,
-									   ForwardIterator2 result,
-									   Predicate pred) {
-	return thrust::detail::device::generic::stable_partition_copy(first, last, result, pred);
+                                       ForwardIterator1 last,
+                                       ForwardIterator2 result,
+                                       Predicate pred) {
+    return thrust::detail::device::generic::stable_partition_copy(first, last, result, pred);
 }
 
 template < typename ForwardIterator,
-		 typename Predicate >
+         typename Predicate >
 ForwardIterator partition(ForwardIterator first,
-						  ForwardIterator last,
-						  Predicate pred) {
-	return thrust::detail::device::generic::partition(first, last, pred);
+                          ForwardIterator last,
+                          Predicate pred) {
+    return thrust::detail::device::generic::partition(first, last, pred);
 }
 
 template < typename ForwardIterator1,
-		 typename ForwardIterator2,
-		 typename Predicate >
+         typename ForwardIterator2,
+         typename Predicate >
 ForwardIterator2 partition_copy(ForwardIterator1 first,
-								ForwardIterator1 last,
-								ForwardIterator2 result,
-								Predicate pred) {
-	return thrust::detail::device::generic::partition_copy(first, last, result, pred);
+                                ForwardIterator1 last,
+                                ForwardIterator2 result,
+                                Predicate pred) {
+    return thrust::detail::device::generic::partition_copy(first, last, result, pred);
 }
 
 } // end namespace device

@@ -34,22 +34,22 @@ namespace detail {
 namespace dispatch {
 
 template < typename InputIterator,
-		 typename ForwardIterator >
+         typename ForwardIterator >
 ForwardIterator uninitialized_copy(InputIterator first,
-								   InputIterator last,
-								   ForwardIterator result,
-								   thrust::host_space_tag) {
-	return std::uninitialized_copy(first, last, result);
+                                   InputIterator last,
+                                   ForwardIterator result,
+                                   thrust::host_space_tag) {
+    return std::uninitialized_copy(first, last, result);
 } // end uninitialized_copy()
 
 
 template < typename InputIterator,
-		 typename ForwardIterator >
+         typename ForwardIterator >
 ForwardIterator uninitialized_copy(InputIterator first,
-								   InputIterator last,
-								   ForwardIterator result,
-								   thrust::device_space_tag) {
-	return thrust::detail::device::uninitialized_copy(first, last, result);
+                                   InputIterator last,
+                                   ForwardIterator result,
+                                   thrust::device_space_tag) {
+    return thrust::detail::device::uninitialized_copy(first, last, result);
 } // end uninitialized_copy()
 
 

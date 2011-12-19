@@ -73,7 +73,7 @@ namespace thrust {
  */
 template<typename InputIterator> typename
 thrust::iterator_traits<InputIterator>::value_type reduce(InputIterator
-		first, InputIterator last);
+        first, InputIterator last);
 
 /*! \p reduce is a generalization of summation: it computes the sum (or some
  *  other binary operation) of all the elements in the range <tt>[first,
@@ -116,8 +116,8 @@ thrust::iterator_traits<InputIterator>::value_type reduce(InputIterator
  */
 template<typename InputIterator, typename T>
 T reduce(InputIterator first,
-		 InputIterator last,
-		 T init);
+         InputIterator last,
+         T init);
 
 /*! \p reduce is a generalization of summation: it computes the sum (or some
  *  other binary operation) of all the elements in the range <tt>[first,
@@ -165,12 +165,12 @@ T reduce(InputIterator first,
  *  \see http://www.sgi.com/tech/stl/accumulate.html
  */
 template < typename InputIterator,
-		 typename T,
-		 typename BinaryFunction >
+         typename T,
+         typename BinaryFunction >
 T reduce(InputIterator first,
-		 InputIterator last,
-		 T init,
-		 BinaryFunction binary_op);
+         InputIterator last,
+         T init,
+         BinaryFunction binary_op);
 
 /*! \p reduce_by_key is a generalization of \p reduce to key-value pairs.
  *  For each group of consecutive keys in the range <tt>[keys_first, keys_last)</tt>
@@ -220,15 +220,15 @@ T reduce(InputIterator first,
  *  \see unique_copy_key
  */
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename OutputIterator1,
-		 typename OutputIterator2 >
+         typename InputIterator2,
+         typename OutputIterator1,
+         typename OutputIterator2 >
 thrust::pair<OutputIterator1, OutputIterator2>
 reduce_by_key(InputIterator1 keys_first,
-			  InputIterator1 keys_last,
-			  InputIterator2 values_first,
-			  OutputIterator1 keys_output,
-			  OutputIterator2 values_output);
+              InputIterator1 keys_last,
+              InputIterator2 values_first,
+              OutputIterator1 keys_output,
+              OutputIterator2 values_output);
 
 /*! \p reduce_by_key is a generalization of \p reduce to key-value pairs.
  *  For each group of consecutive keys in the range <tt>[keys_first, keys_last)</tt>
@@ -281,17 +281,17 @@ reduce_by_key(InputIterator1 keys_first,
  *  \see unique_copy_key
  */
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename OutputIterator1,
-		 typename OutputIterator2,
-		 typename BinaryPredicate >
+         typename InputIterator2,
+         typename OutputIterator1,
+         typename OutputIterator2,
+         typename BinaryPredicate >
 thrust::pair<OutputIterator1, OutputIterator2>
 reduce_by_key(InputIterator1 keys_first,
-			  InputIterator1 keys_last,
-			  InputIterator2 values_first,
-			  OutputIterator1 keys_output,
-			  OutputIterator2 values_output,
-			  BinaryPredicate binary_pred);
+              InputIterator1 keys_last,
+              InputIterator2 values_first,
+              OutputIterator1 keys_output,
+              OutputIterator2 values_output,
+              BinaryPredicate binary_pred);
 
 /*! \p reduce_by_key is a generalization of \p reduce to key-value pairs.
  *  For each group of consecutive keys in the range <tt>[keys_first, keys_last)</tt>
@@ -351,19 +351,19 @@ reduce_by_key(InputIterator1 keys_first,
  *  \see unique_copy_key
  */
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename OutputIterator1,
-		 typename OutputIterator2,
-		 typename BinaryPredicate,
-		 typename BinaryFunction >
+         typename InputIterator2,
+         typename OutputIterator1,
+         typename OutputIterator2,
+         typename BinaryPredicate,
+         typename BinaryFunction >
 thrust::pair<OutputIterator1, OutputIterator2>
 reduce_by_key(InputIterator1 keys_first,
-			  InputIterator1 keys_last,
-			  InputIterator2 values_first,
-			  OutputIterator1 keys_output,
-			  OutputIterator2 values_output,
-			  BinaryPredicate binary_pred,
-			  BinaryFunction binary_op);
+              InputIterator1 keys_last,
+              InputIterator2 values_first,
+              OutputIterator1 keys_output,
+              OutputIterator2 values_output,
+              BinaryPredicate binary_pred,
+              BinaryFunction binary_op);
 
 /*! \} // end reductions
  */

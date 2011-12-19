@@ -85,10 +85,10 @@ namespace thrust {
  *  \see remove_copy_if
  */
 template < typename ForwardIterator,
-		 typename T >
+         typename T >
 ForwardIterator remove(ForwardIterator first,
-					   ForwardIterator last,
-					   const T& value);
+                       ForwardIterator last,
+                       const T& value);
 
 /*! \p remove_copy copies elements that are not equal to \p value from the range
  *  <tt>[first, last)</tt> to a range beginning at \p result. The return value is
@@ -130,12 +130,12 @@ ForwardIterator remove(ForwardIterator first,
  *  \see remove_copy_if
  */
 template < typename InputIterator,
-		 typename OutputIterator,
-		 typename T >
+         typename OutputIterator,
+         typename T >
 OutputIterator remove_copy(InputIterator first,
-						   InputIterator last,
-						   OutputIterator result,
-						   const T& value);
+                           InputIterator last,
+                           OutputIterator result,
+                           const T& value);
 
 /*! \p remove_if removes from the range <tt>[first, last)</tt> every element \p x
  *  such that <tt>pred(x)</tt> is \c true. That is, \p remove_if returns an
@@ -201,10 +201,10 @@ OutputIterator remove_copy(InputIterator first,
  *  \see remove_copy_if
  */
 template < typename ForwardIterator,
-		 typename Predicate >
+         typename Predicate >
 ForwardIterator remove_if(ForwardIterator first,
-						  ForwardIterator last,
-						  Predicate pred);
+                          ForwardIterator last,
+                          Predicate pred);
 
 /*! \p remove_copy_if copies elements from the range <tt>[first,last)</tt> to a
  *  range beginning at \p result, except that elements for which \p pred is
@@ -256,12 +256,12 @@ ForwardIterator remove_if(ForwardIterator first,
  *  \see remove_if
  */
 template < typename InputIterator,
-		 typename OutputIterator,
-		 typename Predicate >
+         typename OutputIterator,
+         typename Predicate >
 OutputIterator remove_copy_if(InputIterator first,
-							  InputIterator last,
-							  OutputIterator result,
-							  Predicate pred);
+                              InputIterator last,
+                              OutputIterator result,
+                              Predicate pred);
 
 /*! \p remove_if removes from the range <tt>[first, last)</tt> every element \p x
  *  such that <tt>pred(x)</tt> is \c true. That is, \p remove_if returns an
@@ -307,12 +307,12 @@ OutputIterator remove_copy_if(InputIterator first,
  *  \see remove_copy_if
  */
 template < typename ForwardIterator,
-		 typename InputIterator,
-		 typename Predicate >
+         typename InputIterator,
+         typename Predicate >
 ForwardIterator remove_if(ForwardIterator first,
-						  ForwardIterator last,
-						  InputIterator stencil,
-						  Predicate pred);
+                          ForwardIterator last,
+                          InputIterator stencil,
+                          Predicate pred);
 
 /*! \p remove_copy_if copies elements from the range <tt>[first,last)</tt> to a
  *  range beginning at \p result, except that elements for which \p pred of the
@@ -360,14 +360,14 @@ ForwardIterator remove_if(ForwardIterator first,
  *  \see copy_if
  */
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename OutputIterator,
-		 typename Predicate >
+         typename InputIterator2,
+         typename OutputIterator,
+         typename Predicate >
 OutputIterator remove_copy_if(InputIterator1 first,
-							  InputIterator1 last,
-							  InputIterator2 stencil,
-							  OutputIterator result,
-							  Predicate pred);
+                              InputIterator1 last,
+                              InputIterator2 stencil,
+                              OutputIterator result,
+                              Predicate pred);
 
 /*! \} // end stream_compaction
  */

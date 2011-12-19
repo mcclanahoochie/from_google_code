@@ -77,10 +77,10 @@ namespace thrust {
  *
  */
 template < typename InputIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator inclusive_scan(InputIterator first,
-							  InputIterator last,
-							  OutputIterator result);
+                              InputIterator last,
+                              OutputIterator result);
 
 /*! \p inclusive_scan computes an inclusive prefix sum operation. The
  *  term 'inclusive' means that each result includes the corresponding
@@ -124,12 +124,12 @@ OutputIterator inclusive_scan(InputIterator first,
  *  \see http://www.sgi.com/tech/stl/partial_sum.html
  */
 template < typename InputIterator,
-		 typename OutputIterator,
-		 typename AssociativeOperator >
+         typename OutputIterator,
+         typename AssociativeOperator >
 OutputIterator inclusive_scan(InputIterator first,
-							  InputIterator last,
-							  OutputIterator result,
-							  AssociativeOperator binary_op);
+                              InputIterator last,
+                              OutputIterator result,
+                              AssociativeOperator binary_op);
 
 /*! \p exclusive_scan computes an exclusive prefix sum operation. The
  *  term 'exclusive' means that each result does not include the
@@ -169,10 +169,10 @@ OutputIterator inclusive_scan(InputIterator first,
  *  \see http://www.sgi.com/tech/stl/partial_sum.html
  */
 template < typename InputIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator exclusive_scan(InputIterator first,
-							  InputIterator last,
-							  OutputIterator result);
+                              InputIterator last,
+                              OutputIterator result);
 
 
 /*! \p exclusive_scan computes an exclusive prefix sum operation. The
@@ -213,12 +213,12 @@ OutputIterator exclusive_scan(InputIterator first,
  *  \see http://www.sgi.com/tech/stl/partial_sum.html
  */
 template < typename InputIterator,
-		 typename OutputIterator,
-		 typename T >
+         typename OutputIterator,
+         typename T >
 OutputIterator exclusive_scan(InputIterator first,
-							  InputIterator last,
-							  OutputIterator result,
-							  const T init);
+                              InputIterator last,
+                              OutputIterator result,
+                              const T init);
 
 /*! \p exclusive_scan computes an exclusive prefix sum operation. The
  *  term 'exclusive' means that each result does not include the
@@ -266,14 +266,14 @@ OutputIterator exclusive_scan(InputIterator first,
  *  \see http://www.sgi.com/tech/stl/partial_sum.html
  */
 template < typename InputIterator,
-		 typename OutputIterator,
-		 typename T,
-		 typename AssociativeOperator >
+         typename OutputIterator,
+         typename T,
+         typename AssociativeOperator >
 OutputIterator exclusive_scan(InputIterator first,
-							  InputIterator last,
-							  OutputIterator result,
-							  const T init,
-							  AssociativeOperator binary_op);
+                              InputIterator last,
+                              OutputIterator result,
+                              const T init,
+                              AssociativeOperator binary_op);
 
 /*! \} // end prefix sums
  */

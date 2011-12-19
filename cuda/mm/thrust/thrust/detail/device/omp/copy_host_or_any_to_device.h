@@ -25,10 +25,10 @@ namespace device {
 namespace omp {
 
 template < typename InputIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator copy_host_or_any_to_device(InputIterator first,
-		InputIterator last,
-		OutputIterator result);
+        InputIterator last,
+        OutputIterator result);
 
 } // end omp
 

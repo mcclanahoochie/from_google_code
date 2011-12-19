@@ -36,16 +36,16 @@ namespace dispatch {
 // and the ToIterator's value_type has_trivial_assign
 template<typename FromIterator, typename ToIterator>
 struct is_trivial_copy :
-		integral_constant <
-		bool,
-		is_same <
-		typename thrust::iterator_value<FromIterator>::type,
-		typename thrust::iterator_value<ToIterator>::type
-		>::value
-		&& is_trivial_iterator<FromIterator>::value
-		&& is_trivial_iterator<ToIterator>::value
-		&& has_trivial_assign<typename thrust::iterator_value<ToIterator>::type>::value
-		> {};
+        integral_constant <
+        bool,
+        is_same <
+        typename thrust::iterator_value<FromIterator>::type,
+        typename thrust::iterator_value<ToIterator>::type
+        >::value
+        && is_trivial_iterator<FromIterator>::value
+        && is_trivial_iterator<ToIterator>::value
+        && has_trivial_assign<typename thrust::iterator_value<ToIterator>::type>::value
+        > {};
 
 } // end namespace dispatch
 

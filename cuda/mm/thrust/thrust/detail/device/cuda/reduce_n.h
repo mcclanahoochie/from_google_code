@@ -27,13 +27,13 @@ namespace device {
 namespace cuda {
 
 template < typename InputIterator,
-		 typename SizeType,
-		 typename OutputType,
-		 typename BinaryFunction >
+         typename SizeType,
+         typename OutputType,
+         typename BinaryFunction >
 OutputType reduce_n(InputIterator first,
-					SizeType n,
-					OutputType init,
-					BinaryFunction binary_op);
+                    SizeType n,
+                    OutputType init,
+                    BinaryFunction binary_op);
 
 } // end namespace cuda
 } // end namespace device

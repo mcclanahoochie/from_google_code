@@ -31,10 +31,10 @@ namespace detail {
 
 template<typename T>
 T* trivial_copy_n(const T* first,
-				  std::ptrdiff_t n,
-				  T* result) {
-	std::memmove(result, first, n * sizeof(T));
-	return result + n;
+                  std::ptrdiff_t n,
+                  T* result) {
+    std::memmove(result, first, n * sizeof(T));
+    return result + n;
 } // end trivial_copy_n()
 
 

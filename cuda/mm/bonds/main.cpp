@@ -89,13 +89,13 @@ void CreateRandomXYZData() {
     for (int i = 0; i < N - 2; i += 3) {
         temp = sin(i * N / ((double)(N) + 1.0)) * (high - low) + low;
         //temp = sin(rand()/((double)(RAND_MAX)+1.0))*(high-low)+low;
-        xyz0[i+0] = temp;
+        xyz0[i + 0] = temp;
         temp = cos(i * N / ((double)(N) + 1.0)) * (high - low) + low;
         //temp = cos(rand()/((double)(RAND_MAX)+1.0))*(high-low)+low;
-        xyz0[i+1] = temp;
+        xyz0[i + 1] = temp;
         temp = tan(i / ((double)(N) + 1.0)) * (high - low) + low;
 //		temp = tan(rand()/((double)(RAND_MAX)+1.0))*(high-low)+low;
-        xyz0[i+2] = temp;
+        xyz0[i + 2] = temp;
     }
 }
 

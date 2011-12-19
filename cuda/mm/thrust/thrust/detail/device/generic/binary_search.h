@@ -28,45 +28,45 @@ namespace generic {
 
 template <class ForwardIterator, class T, class StrictWeakOrdering>
 ForwardIterator lower_bound(ForwardIterator begin,
-							ForwardIterator end,
-							const T& value,
-							StrictWeakOrdering comp);
+                            ForwardIterator end,
+                            const T& value,
+                            StrictWeakOrdering comp);
 
 template <class ForwardIterator, class T, class StrictWeakOrdering>
 ForwardIterator upper_bound(ForwardIterator begin,
-							ForwardIterator end,
-							const T& value,
-							StrictWeakOrdering comp);
+                            ForwardIterator end,
+                            const T& value,
+                            StrictWeakOrdering comp);
 
 template <class ForwardIterator, class T, class StrictWeakOrdering>
 bool binary_search(ForwardIterator begin,
-				   ForwardIterator end,
-				   const T& value,
-				   StrictWeakOrdering comp);
+                   ForwardIterator end,
+                   const T& value,
+                   StrictWeakOrdering comp);
 
 template <class ForwardIterator, class InputIterator, class OutputIterator, class StrictWeakOrdering>
 OutputIterator lower_bound(ForwardIterator begin,
-						   ForwardIterator end,
-						   InputIterator values_begin,
-						   InputIterator values_end,
-						   OutputIterator output,
-						   StrictWeakOrdering comp);
+                           ForwardIterator end,
+                           InputIterator values_begin,
+                           InputIterator values_end,
+                           OutputIterator output,
+                           StrictWeakOrdering comp);
 
 template <class ForwardIterator, class InputIterator, class OutputIterator, class StrictWeakOrdering>
 OutputIterator upper_bound(ForwardIterator begin,
-						   ForwardIterator end,
-						   InputIterator values_begin,
-						   InputIterator values_end,
-						   OutputIterator output,
-						   StrictWeakOrdering comp);
+                           ForwardIterator end,
+                           InputIterator values_begin,
+                           InputIterator values_end,
+                           OutputIterator output,
+                           StrictWeakOrdering comp);
 
 template <class ForwardIterator, class InputIterator, class OutputIterator, class StrictWeakOrdering>
 OutputIterator binary_search(ForwardIterator begin,
-							 ForwardIterator end,
-							 InputIterator values_begin,
-							 InputIterator values_end,
-							 OutputIterator output,
-							 StrictWeakOrdering comp);
+                             ForwardIterator end,
+                             InputIterator values_begin,
+                             InputIterator values_end,
+                             OutputIterator output,
+                             StrictWeakOrdering comp);
 
 } // end namespace generic
 } // end namespace device

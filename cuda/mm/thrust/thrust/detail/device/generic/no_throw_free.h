@@ -33,11 +33,11 @@ namespace generic {
 
 template<unsigned int DummyParameterToAvoidInstantiation>
 void no_throw_free(thrust::device_ptr<void> ptr) throw() {
-	try {
-		thrust::device_free(ptr);
-	} catch (...) {
-		;
-	}
+    try {
+        thrust::device_free(ptr);
+    } catch (...) {
+        ;
+    }
 } // end no_throw_free()
 
 

@@ -27,10 +27,10 @@ namespace device {
 namespace generic {
 
 template < typename ForwardIterator,
-		 typename Generator >
+         typename Generator >
 void generate(ForwardIterator first,
-			  ForwardIterator last,
-			  Generator gen);
+              ForwardIterator last,
+              Generator gen);
 
 } // end namespace generate
 } // end namespace device

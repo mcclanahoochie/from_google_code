@@ -48,7 +48,7 @@ template<int x> struct static_assert_test {};
 
 template<typename, bool x>
 struct depend_on_instantiation {
-	static const bool value = x;
+    static const bool value = x;
 };
 
 } // end detail

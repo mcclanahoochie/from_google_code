@@ -29,13 +29,13 @@ namespace detail {
 
 template<typename RandomAccessIterator>
 void stable_radix_sort(RandomAccessIterator first,
-					   RandomAccessIterator last);
+                       RandomAccessIterator last);
 
 template < typename RandomAccessIterator1,
-		 typename RandomAccessIterator2 >
+         typename RandomAccessIterator2 >
 void stable_radix_sort_by_key(RandomAccessIterator1 keys_first,
-							  RandomAccessIterator1 keys_last,
-							  RandomAccessIterator2 values_first);
+                              RandomAccessIterator1 keys_last,
+                              RandomAccessIterator2 values_first);
 
 } // end namespace detail
 } // end namespace cuda

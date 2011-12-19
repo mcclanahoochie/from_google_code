@@ -105,71 +105,71 @@ struct permutation_iterator_friend;
  *  \see make_permutation_iterator
  */
 template < typename ElementIterator,
-		 typename IndexIterator >
+         typename IndexIterator >
 class permutation_iterator
-	: public thrust::detail::permutation_iterator_base <
-	ElementIterator,
-	IndexIterator
-		>::type {
-	/*! \cond
-	 */
+    : public thrust::detail::permutation_iterator_base <
+    ElementIterator,
+    IndexIterator
+        >::type {
+    /*! \cond
+     */
 private:
-	typedef typename detail::permutation_iterator_base<ElementIterator, IndexIterator>::type super_t;
+    typedef typename detail::permutation_iterator_base<ElementIterator, IndexIterator>::type super_t;
 
-	friend class experimental::iterator_core_access;
-	/*! \endcond
-	 */
+    friend class experimental::iterator_core_access;
+    /*! \endcond
+     */
 
 public:
-	/*! Null constructor calls the null constructor of this \p permutation_iterator's
-	 *  element iterator.
-	 */
-	__host__ __device__
-	permutation_iterator()
-		: m_element_iterator() {}
+    /*! Null constructor calls the null constructor of this \p permutation_iterator's
+     *  element iterator.
+     */
+    __host__ __device__
+    permutation_iterator()
+        : m_element_iterator() {}
 
-	/*! Constructor accepts an \c ElementIterator into a range of values and an
-	 *  \c IndexIterator into a range of indices defining the indexing scheme on the
-	 *  values.
-	 *
-	 *  \param x An \c ElementIterator pointing this \p permutation_iterator's range of values.
-	 *  \param y An \c IndexIterator pointing to an indexing scheme to use on \p x.
-	 */
-	__host__ __device__
-	explicit permutation_iterator(ElementIterator x, IndexIterator y)
-		: super_t(y), m_element_iterator(x) {}
+    /*! Constructor accepts an \c ElementIterator into a range of values and an
+     *  \c IndexIterator into a range of indices defining the indexing scheme on the
+     *  values.
+     *
+     *  \param x An \c ElementIterator pointing this \p permutation_iterator's range of values.
+     *  \param y An \c IndexIterator pointing to an indexing scheme to use on \p x.
+     */
+    __host__ __device__
+    explicit permutation_iterator(ElementIterator x, IndexIterator y)
+        : super_t(y), m_element_iterator(x) {}
 
-	/*! Copy constructor accepts a related \p permutation_iterator.
-	 *  \param r A compatible \p permutation_iterator to copy from.
-	 */
-	template<typename OtherElementIterator, typename OtherIndexIterator>
-	__host__ __device__
-	permutation_iterator(permutation_iterator<OtherElementIterator, OtherIndexIterator> const& r
-						 // XXX remove these guards when we have static_assert
-						 , typename detail::enable_if_convertible<OtherElementIterator, ElementIterator>::type* = 0
-								 , typename detail::enable_if_convertible<OtherIndexIterator, IndexIterator>::type* = 0
-						)
-		: super_t(r.base()), m_element_iterator(r.m_element_iterator)
-	{}
+    /*! Copy constructor accepts a related \p permutation_iterator.
+     *  \param r A compatible \p permutation_iterator to copy from.
+     */
+    template<typename OtherElementIterator, typename OtherIndexIterator>
+    __host__ __device__
+    permutation_iterator(permutation_iterator<OtherElementIterator, OtherIndexIterator> const& r
+                         // XXX remove these guards when we have static_assert
+                         , typename detail::enable_if_convertible<OtherElementIterator, ElementIterator>::type* = 0
+                                 , typename detail::enable_if_convertible<OtherIndexIterator, IndexIterator>::type* = 0
+                        )
+        : super_t(r.base()), m_element_iterator(r.m_element_iterator)
+    {}
 
-	/*! \cond
-	 */
+    /*! \cond
+     */
 private:
-	__host__ __device__
-	typename super_t::reference dereference() const {
-		return *(m_element_iterator + *this->base());
-	}
+    __host__ __device__
+    typename super_t::reference dereference() const {
+        return *(m_element_iterator + *this->base());
+    }
 
-	// make friends for the copy constructor
-	template<typename, typename> friend class permutation_iterator;
+    // make friends for the copy constructor
+    template<typename, typename> friend class permutation_iterator;
 
-	// XXX WAR this problem with the omp compile
-	//     remove this when we no longer need device::dereference
-	friend struct detail::permutation_iterator_friend;
+    // XXX WAR this problem with the omp compile
+    //     remove this when we no longer need device::dereference
+    friend struct detail::permutation_iterator_friend;
 
-	ElementIterator m_element_iterator;
-	/*! \endcond
-	 */
+    ElementIterator m_element_iterator;
+    /*! \endcond
+     */
 }; // end permutation_iterator
 
 
@@ -186,7 +186,7 @@ private:
 template<typename ElementIterator, typename IndexIterator>
 __host__ __device__
 permutation_iterator<ElementIterator, IndexIterator> make_permutation_iterator(ElementIterator e, IndexIterator i) {
-	return permutation_iterator<ElementIterator, IndexIterator>(e, i);
+    return permutation_iterator<ElementIterator, IndexIterator>(e, i);
 }
 
 /*! \} // end fancyiterators

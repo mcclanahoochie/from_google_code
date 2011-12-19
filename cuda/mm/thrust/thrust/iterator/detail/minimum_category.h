@@ -41,60 +41,60 @@ struct minimum_category_impl
 //    typedef void type;
 //}
 //# endif
-		;
+        ;
 
 template <class T1, class T2>
 struct error_not_related_by_convertibility;
 
 template <>
 struct minimum_category_impl<true, false> {
-	template <class T1, class T2> struct apply {
-		typedef T2 type;
-	}; // end apply
+    template <class T1, class T2> struct apply {
+        typedef T2 type;
+    }; // end apply
 }; // end minimum_category_impl
 
 template <>
 struct minimum_category_impl<false, true> {
-	template <class T1, class T2> struct apply {
-		typedef T1 type;
-	}; // end apply
+    template <class T1, class T2> struct apply {
+        typedef T1 type;
+    }; // end apply
 }; // end minimum_category_impl
 
 template <>
 struct minimum_category_impl<true, true> {
-	template <class T1, class T2> struct apply {
-		//BOOST_STATIC_ASSERT((is_same<T1,T2>::value));
-		typedef T1 type;
-	}; // end apply
+    template <class T1, class T2> struct apply {
+        //BOOST_STATIC_ASSERT((is_same<T1,T2>::value));
+        typedef T1 type;
+    }; // end apply
 }; // end minimum_category_impl
 
 template <>
 struct minimum_category_impl<false, false> {
-	template <class T1, class T2> struct apply
-			: error_not_related_by_convertibility<T1, T2> {
-	}; // end apply
+    template <class T1, class T2> struct apply
+            : error_not_related_by_convertibility<T1, T2> {
+    }; // end apply
 }; // end minimum_category_impl
 
 template < class T1 = _1, class T2 = _2 >
 struct minimum_category {
-	typedef minimum_category_impl <
-	::thrust::detail::is_convertible<T1, T2>::value
-	, ::thrust::detail::is_convertible<T2, T1>::value
-	> outer;
+    typedef minimum_category_impl <
+    ::thrust::detail::is_convertible<T1, T2>::value
+    , ::thrust::detail::is_convertible<T2, T1>::value
+    > outer;
 
-	typedef typename outer::template apply<T1, T2> inner;
-	typedef typename inner::type type;
+    typedef typename outer::template apply<T1, T2> inner;
+    typedef typename inner::type type;
 
-	//BOOST_MPL_AUX_LAMBDA_SUPPORT(2,minimum_category,(T1,T2))
+    //BOOST_MPL_AUX_LAMBDA_SUPPORT(2,minimum_category,(T1,T2))
 }; // end minimum_category
 
 template <>
 struct minimum_category<_1, _2> {
-	template <class T1, class T2>
-	struct apply : minimum_category<T1, T2>
-		{};
+    template <class T1, class T2>
+    struct apply : minimum_category<T1, T2>
+    {};
 
-	//BOOST_MPL_AUX_LAMBDA_SUPPORT_SPEC(2,minimum_category,(_1,_2))
+    //BOOST_MPL_AUX_LAMBDA_SUPPORT_SPEC(2,minimum_category,(_1,_2))
 }; // end minimum_category
 
 } // end detail

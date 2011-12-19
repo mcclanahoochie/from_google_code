@@ -75,7 +75,7 @@ __global__ void gpu_compute_bonds_kernel(
 
             // neighbors
             if (h < maxNeighbors) {
-                nlist[h* width+idx_global] = bond_idx;
+                nlist[h * width + idx_global] = bond_idx;
                 ++h;
             }
         }

@@ -27,22 +27,22 @@ namespace cuda {
 namespace warp {
 
 template < typename InputType,
-		 typename InputIterator >
+         typename InputIterator >
 __device__
 InputType any(const unsigned int thread_lane, InputType val, InputIterator sdata) {
 #if __CUDA_ARCH__ >= 120
-	// optimization, use __any(cond)
-	return __any(val);
+    // optimization, use __any(cond)
+    return __any(val);
 #else
-	sdata[threadIdx.x] = val;
+    sdata[threadIdx.x] = val;
 
-	if (thread_lane >=  1) { sdata[threadIdx.x] = val = val | sdata[threadIdx.x -  1]; }
-	if (thread_lane >=  2) { sdata[threadIdx.x] = val = val | sdata[threadIdx.x -  2]; }
-	if (thread_lane >=  4) { sdata[threadIdx.x] = val = val | sdata[threadIdx.x -  4]; }
-	if (thread_lane >=  8) { sdata[threadIdx.x] = val = val | sdata[threadIdx.x -  8]; }
-	if (thread_lane >= 16) { sdata[threadIdx.x] = val = val | sdata[threadIdx.x - 16]; }
+    if (thread_lane >=  1) { sdata[threadIdx.x] = val = val | sdata[threadIdx.x -  1]; }
+    if (thread_lane >=  2) { sdata[threadIdx.x] = val = val | sdata[threadIdx.x -  2]; }
+    if (thread_lane >=  4) { sdata[threadIdx.x] = val = val | sdata[threadIdx.x -  4]; }
+    if (thread_lane >=  8) { sdata[threadIdx.x] = val = val | sdata[threadIdx.x -  8]; }
+    if (thread_lane >= 16) { sdata[threadIdx.x] = val = val | sdata[threadIdx.x - 16]; }
 
-	return sdata[threadIdx.x - thread_lane + 32];
+    return sdata[threadIdx.x - thread_lane + 32];
 #endif
 }
 

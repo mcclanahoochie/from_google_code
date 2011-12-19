@@ -25,16 +25,16 @@ namespace detail {
 namespace host {
 
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename OutputIterator,
-		 typename StrictWeakOrdering >
+         typename InputIterator2,
+         typename OutputIterator,
+         typename StrictWeakOrdering >
 OutputIterator set_intersection(InputIterator1 first1,
-								InputIterator1 last1,
-								InputIterator2 first2,
-								InputIterator2 last2,
-								OutputIterator result,
-								StrictWeakOrdering comp) {
-	return std::set_intersection(first1, last1, first2, last2, result, comp);
+                                InputIterator1 last1,
+                                InputIterator2 first2,
+                                InputIterator2 last2,
+                                OutputIterator result,
+                                StrictWeakOrdering comp) {
+    return std::set_intersection(first1, last1, first2, last2, result, comp);
 } // end set_intersection()
 
 } // end host

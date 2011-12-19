@@ -29,21 +29,21 @@ namespace device {
 namespace dispatch {
 
 template < typename InputIterator,
-		 typename UnaryFunction >
+         typename UnaryFunction >
 void for_each(InputIterator first,
-			  InputIterator last,
-			  UnaryFunction f,
-			  thrust::detail::omp_device_space_tag) {
-	thrust::detail::device::omp::for_each(first, last, f);
+              InputIterator last,
+              UnaryFunction f,
+              thrust::detail::omp_device_space_tag) {
+    thrust::detail::device::omp::for_each(first, last, f);
 }
 
 template < typename InputIterator,
-		 typename UnaryFunction >
+         typename UnaryFunction >
 void for_each(InputIterator first,
-			  InputIterator last,
-			  UnaryFunction f,
-			  thrust::detail::cuda_device_space_tag) {
-	thrust::detail::device::cuda::for_each(first, last, f);
+              InputIterator last,
+              UnaryFunction f,
+              thrust::detail::cuda_device_space_tag) {
+    thrust::detail::device::cuda::for_each(first, last, f);
 }
 
 } // end dispatch

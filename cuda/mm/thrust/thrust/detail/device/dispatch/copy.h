@@ -31,44 +31,44 @@ namespace dispatch {
 //     but we can't implement copy(host,omp) & copy(omp,host)
 //     with generic::copy
 template < typename InputIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator copy(InputIterator first,
-					InputIterator last,
-					OutputIterator result,
-					thrust::detail::false_type) { // neither space is CUDA
-	return thrust::detail::device::omp::copy(first, last, result);
+                    InputIterator last,
+                    OutputIterator result,
+                    thrust::detail::false_type) { // neither space is CUDA
+    return thrust::detail::device::omp::copy(first, last, result);
 } // end copy()
 
 
 // at least one space is CUDA
 template < typename InputIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator copy(InputIterator first,
-					InputIterator last,
-					OutputIterator result,
-					thrust::detail::true_type) { // one of the spaces is CUDA
-	return thrust::detail::device::cuda::copy(first, last, result);
+                    InputIterator last,
+                    OutputIterator result,
+                    thrust::detail::true_type) { // one of the spaces is CUDA
+    return thrust::detail::device::cuda::copy(first, last, result);
 } // end copy()
 
 
 // entry point
 template < typename InputIterator,
-		 typename OutputIterator,
-		 typename Space1,
-		 typename Space2 >
+         typename OutputIterator,
+         typename Space1,
+         typename Space2 >
 OutputIterator copy(InputIterator first,
-					InputIterator last,
-					OutputIterator result,
-					Space1,
-					Space2) {
-	// inspect both spaces
-	typedef typename thrust::detail::integral_constant < bool,
-			thrust::detail::is_convertible<Space1, thrust::detail::cuda_device_space_tag>::value ||
-			thrust::detail::is_convertible<Space2, thrust::detail::cuda_device_space_tag>::value
-			> is_one_of_the_spaces_cuda;
+                    InputIterator last,
+                    OutputIterator result,
+                    Space1,
+                    Space2) {
+    // inspect both spaces
+    typedef typename thrust::detail::integral_constant < bool,
+            thrust::detail::is_convertible<Space1, thrust::detail::cuda_device_space_tag>::value ||
+            thrust::detail::is_convertible<Space2, thrust::detail::cuda_device_space_tag>::value
+            > is_one_of_the_spaces_cuda;
 
-	return copy(first, last, result,
-				is_one_of_the_spaces_cuda());
+    return copy(first, last, result,
+                is_one_of_the_spaces_cuda());
 } // end copy()
 
 } // end namespace dispatch

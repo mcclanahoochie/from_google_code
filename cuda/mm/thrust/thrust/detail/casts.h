@@ -29,31 +29,31 @@ namespace detail {
 namespace dispatch {
 
 template<typename TrivialIterator>
-typename thrust::iterator_traits<TrivialIterator>::value_type *
+typename thrust::iterator_traits<TrivialIterator>::value_type*
 raw_pointer_cast(TrivialIterator i,
-				 thrust::random_access_host_iterator_tag) {
-	typedef typename thrust::iterator_traits<TrivialIterator>::value_type* Pointer;
+                 thrust::random_access_host_iterator_tag) {
+    typedef typename thrust::iterator_traits<TrivialIterator>::value_type* Pointer;
 
-	// cast away constness
-	return const_cast<Pointer>(&*i);
+    // cast away constness
+    return const_cast<Pointer>(&*i);
 } // end raw_pointer_cast()
 
 // this path will work for device_ptr & device_vector::iterator
 template<typename TrivialIterator>
-typename thrust::iterator_traits<TrivialIterator>::value_type *
+typename thrust::iterator_traits<TrivialIterator>::value_type*
 raw_pointer_cast(TrivialIterator i,
-				 thrust::random_access_device_iterator_tag) {
-	typedef typename thrust::iterator_traits<TrivialIterator>::value_type* Pointer;
+                 thrust::random_access_device_iterator_tag) {
+    typedef typename thrust::iterator_traits<TrivialIterator>::value_type* Pointer;
 
-	// cast away constness
-	return const_cast<Pointer>((&*i).get());
+    // cast away constness
+    return const_cast<Pointer>((&*i).get());
 } // end raw_pointer_cast()
 
 } // end dispatch
 
 template<typename TrivialIterator>
 typename thrust::iterator_traits<TrivialIterator>::value_type* raw_pointer_cast(TrivialIterator i) {
-	return detail::dispatch::raw_pointer_cast(i, thrust::iterator_traits<TrivialIterator>::iterator_category());
+    return detail::dispatch::raw_pointer_cast(i, thrust::iterator_traits<TrivialIterator>::iterator_category());
 } // end raw_pointer_cast()
 
 } // end detail

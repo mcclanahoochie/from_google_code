@@ -37,122 +37,122 @@ template<typename> class normal_iterator;
 
 template<typename T, typename Space>
 struct choose_raw_buffer_allocator
-		: eval_if <
-		// catch any_space_tag and output an error
-		is_convertible<Space, thrust::any_space_tag>::value,
+        : eval_if <
+        // catch any_space_tag and output an error
+        is_convertible<Space, thrust::any_space_tag>::value,
 
-		void,
+        void,
 
-		eval_if <
-		// XXX this check is technically incorrect: any could convert to host
-		is_convertible<Space, thrust::host_space_tag>::value,
+        eval_if <
+        // XXX this check is technically incorrect: any could convert to host
+        is_convertible<Space, thrust::host_space_tag>::value,
 
-		identity_< std::allocator<T> >,
+        identity_< std::allocator<T> >,
 
-		// XXX add backend-specific allocators here?
+        // XXX add backend-specific allocators here?
 
-		eval_if <
-		// XXX this check is technically incorrect: any could convert to device
-		is_convertible<Space, thrust::device_space_tag>::value,
+        eval_if <
+        // XXX this check is technically incorrect: any could convert to device
+        is_convertible<Space, thrust::device_space_tag>::value,
 
-		identity_< thrust::detail::device::internal_allocator<T> >,
+        identity_< thrust::detail::device::internal_allocator<T> >,
 
-		void
-		>
-		>
-		>
-	{};
+        void
+        >
+        >
+        >
+{};
 
 
 template<typename T, typename Space>
 class raw_buffer {
 public:
-	typedef typename choose_raw_buffer_allocator<T, Space>::type allocator_type;
-	typedef T                                                   value_type;
-	typedef typename allocator_type::pointer                    pointer;
-	typedef typename allocator_type::const_pointer              const_pointer;
-	typedef typename allocator_type::reference                  reference;
-	typedef typename allocator_type::const_reference            const_reference;
-	typedef typename std::size_t                                size_type;
-	typedef typename allocator_type::difference_type            difference_type;
+    typedef typename choose_raw_buffer_allocator<T, Space>::type allocator_type;
+    typedef T                                                   value_type;
+    typedef typename allocator_type::pointer                    pointer;
+    typedef typename allocator_type::const_pointer              const_pointer;
+    typedef typename allocator_type::reference                  reference;
+    typedef typename allocator_type::const_reference            const_reference;
+    typedef typename std::size_t                                size_type;
+    typedef typename allocator_type::difference_type            difference_type;
 
-	typedef normal_iterator<pointer>                            iterator;
-	typedef normal_iterator<const_pointer>                      const_iterator;
+    typedef normal_iterator<pointer>                            iterator;
+    typedef normal_iterator<const_pointer>                      const_iterator;
 
-	explicit raw_buffer(size_type n);
+    explicit raw_buffer(size_type n);
 
-	template<typename InputIterator>
-	raw_buffer(InputIterator first, InputIterator last);
+    template<typename InputIterator>
+    raw_buffer(InputIterator first, InputIterator last);
 
-	~raw_buffer(void);
+    ~raw_buffer(void);
 
-	size_type size(void) const;
+    size_type size(void) const;
 
-	iterator begin(void);
+    iterator begin(void);
 
-	const_iterator begin(void) const;
+    const_iterator begin(void) const;
 
-	const_iterator cbegin(void) const;
+    const_iterator cbegin(void) const;
 
-	iterator end(void);
+    iterator end(void);
 
-	const_iterator end(void) const;
+    const_iterator end(void) const;
 
-	const_iterator cend(void) const;
+    const_iterator cend(void) const;
 
-	reference operator[](size_type n);
+    reference operator[](size_type n);
 
-	const_reference operator[](size_type n) const;
+    const_reference operator[](size_type n) const;
 
 
 protected:
-	allocator_type m_allocator;
+    allocator_type m_allocator;
 
-	iterator m_begin, m_end;
+    iterator m_begin, m_end;
 
 private:
-	// disallow assignment
-	raw_buffer& operator=(const raw_buffer&);
+    // disallow assignment
+    raw_buffer& operator=(const raw_buffer&);
 }; // end raw_buffer
 
 
 template<typename T>
 class raw_omp_device_buffer
-		: public raw_buffer<T, thrust::detail::omp_device_space_tag > {
+        : public raw_buffer<T, thrust::detail::omp_device_space_tag > {
 private:
-	typedef raw_buffer<T, thrust::detail::omp_device_space_tag > super_t;
+    typedef raw_buffer<T, thrust::detail::omp_device_space_tag > super_t;
 
 public:
-	explicit raw_omp_device_buffer(typename super_t::size_type n): super_t(n) {}
+    explicit raw_omp_device_buffer(typename super_t::size_type n): super_t(n) {}
 
-	template<typename InputIterator>
-	raw_omp_device_buffer(InputIterator first, InputIterator last): super_t(first, last) {}
+    template<typename InputIterator>
+    raw_omp_device_buffer(InputIterator first, InputIterator last): super_t(first, last) {}
 }; // end raw_omp_device_buffer
 
 template<typename T>
 class raw_cuda_device_buffer
-		: public raw_buffer<T, thrust::detail::cuda_device_space_tag > {
+        : public raw_buffer<T, thrust::detail::cuda_device_space_tag > {
 private:
-	typedef raw_buffer<T, thrust::detail::cuda_device_space_tag > super_t;
+    typedef raw_buffer<T, thrust::detail::cuda_device_space_tag > super_t;
 
 public:
-	explicit raw_cuda_device_buffer(typename super_t::size_type n): super_t(n) {}
+    explicit raw_cuda_device_buffer(typename super_t::size_type n): super_t(n) {}
 
-	template<typename InputIterator>
-	raw_cuda_device_buffer(InputIterator first, InputIterator last): super_t(first, last) {}
+    template<typename InputIterator>
+    raw_cuda_device_buffer(InputIterator first, InputIterator last): super_t(first, last) {}
 }; // end raw_cuda_device_buffer
 
 template<typename T>
 class raw_host_buffer
-		: public raw_buffer<T, thrust::host_space_tag > {
+        : public raw_buffer<T, thrust::host_space_tag > {
 private:
-	typedef raw_buffer<T, thrust::host_space_tag > super_t;
+    typedef raw_buffer<T, thrust::host_space_tag > super_t;
 
 public:
-	explicit raw_host_buffer(typename super_t::size_type n): super_t(n) {}
+    explicit raw_host_buffer(typename super_t::size_type n): super_t(n) {}
 
-	template<typename InputIterator>
-	raw_host_buffer(InputIterator first, InputIterator last): super_t(first, last) {}
+    template<typename InputIterator>
+    raw_host_buffer(InputIterator first, InputIterator last): super_t(first, last) {}
 }; // end raw_host_buffer
 
 
@@ -160,14 +160,14 @@ public:
 template<typename Iterator>
 class iterator_range {
 public:
-	iterator_range(Iterator first, Iterator last)
-		: m_begin(first), m_end(last) {}
+    iterator_range(Iterator first, Iterator last)
+        : m_begin(first), m_end(last) {}
 
-	Iterator begin(void) const { return m_begin; }
-	Iterator end(void) const { return m_end; }
+    Iterator begin(void) const { return m_begin; }
+    Iterator end(void) const { return m_end; }
 
 private:
-	Iterator m_begin, m_end;
+    Iterator m_begin, m_end;
 };
 
 
@@ -175,35 +175,35 @@ private:
 // copy of the range.  else, use a raw_buffer
 template<typename Iterator1, typename Iterator2>
 struct move_to_space_base
-		: public eval_if <
-		is_convertible <
-		typename thrust::iterator_space<Iterator1>::type,
-		typename thrust::iterator_space<Iterator2>::type
-		>::value,
-		identity_ <
-		iterator_range<Iterator1>
-		> ,
-		identity_ <
-		raw_buffer <
-		typename thrust::iterator_value<Iterator1>::type,
-		typename thrust::iterator_space<Iterator2>::type
-		>
-		>
-		>
-	{};
+        : public eval_if <
+        is_convertible <
+        typename thrust::iterator_space<Iterator1>::type,
+        typename thrust::iterator_space<Iterator2>::type
+        >::value,
+        identity_ <
+        iterator_range<Iterator1>
+        > ,
+        identity_ <
+        raw_buffer <
+        typename thrust::iterator_value<Iterator1>::type,
+        typename thrust::iterator_space<Iterator2>::type
+        >
+        >
+        >
+{};
 
 
 template<typename Iterator1, typename Iterator2>
 class move_to_space
-	: public move_to_space_base <
-	Iterator1,
-	Iterator2
-		>::type {
-	typedef typename move_to_space_base<Iterator1, Iterator2>::type super_t;
+    : public move_to_space_base <
+    Iterator1,
+    Iterator2
+        >::type {
+    typedef typename move_to_space_base<Iterator1, Iterator2>::type super_t;
 
 public:
-	move_to_space(Iterator1 first, Iterator1 last)
-		: super_t(first, last) {}
+    move_to_space(Iterator1 first, Iterator1 last)
+        : super_t(first, last) {}
 };
 
 } // end detail

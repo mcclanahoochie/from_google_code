@@ -41,65 +41,65 @@ namespace detail {
 // TODO eliminate these three specializations when we no longer need device::dereference()
 // device to device
 template < typename InputIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator copy(InputIterator first,
-					InputIterator last,
-					OutputIterator result,
-					thrust::detail::omp_device_space_tag,
-					thrust::detail::omp_device_space_tag) {
-	return thrust::detail::device::omp::copy_device_to_device(first, last, result);
+                    InputIterator last,
+                    OutputIterator result,
+                    thrust::detail::omp_device_space_tag,
+                    thrust::detail::omp_device_space_tag) {
+    return thrust::detail::device::omp::copy_device_to_device(first, last, result);
 }
 
 
 // host or any to device
 template < typename InputIterator,
-		 typename OutputIterator,
-		 typename HostOrAnySpaceTag >
+         typename OutputIterator,
+         typename HostOrAnySpaceTag >
 OutputIterator copy(InputIterator first,
-					InputIterator last,
-					OutputIterator result,
-					HostOrAnySpaceTag,
-					thrust::detail::omp_device_space_tag) {
-	return thrust::detail::device::omp::copy_host_or_any_to_device(first, last, result);
+                    InputIterator last,
+                    OutputIterator result,
+                    HostOrAnySpaceTag,
+                    thrust::detail::omp_device_space_tag) {
+    return thrust::detail::device::omp::copy_host_or_any_to_device(first, last, result);
 }
 
 
 // device to host or any
 template < typename InputIterator,
-		 typename OutputIterator,
-		 typename HostOrAnySpaceTag >
+         typename OutputIterator,
+         typename HostOrAnySpaceTag >
 OutputIterator copy(InputIterator first,
-					InputIterator last,
-					OutputIterator result,
-					thrust::detail::omp_device_space_tag,
-					HostOrAnySpaceTag) {
-	return thrust::detail::device::omp::copy_device_to_host_or_any(first, last, result);
+                    InputIterator last,
+                    OutputIterator result,
+                    thrust::detail::omp_device_space_tag,
+                    HostOrAnySpaceTag) {
+    return thrust::detail::device::omp::copy_device_to_host_or_any(first, last, result);
 }
 
 } // end detail
 
 // random access to random access
 template < typename InputIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator copy(InputIterator first,
-					InputIterator last,
-					OutputIterator result,
-					thrust::random_access_traversal_tag) {
-	// dispatch on space
-	return thrust::detail::device::omp::dispatch::detail::copy(first, last, result,
-			typename thrust::iterator_space<InputIterator>::type(),
-			typename thrust::iterator_space<OutputIterator>::type());
+                    InputIterator last,
+                    OutputIterator result,
+                    thrust::random_access_traversal_tag) {
+    // dispatch on space
+    return thrust::detail::device::omp::dispatch::detail::copy(first, last, result,
+            typename thrust::iterator_space<InputIterator>::type(),
+            typename thrust::iterator_space<OutputIterator>::type());
 }
 
 // incrementable to incrementable
 template < typename InputIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator copy(InputIterator first,
-					InputIterator last,
-					OutputIterator result,
-					thrust::incrementable_traversal_tag) {
-	// serialize on the host
-	return std::copy(first, last, result);
+                    InputIterator last,
+                    OutputIterator result,
+                    thrust::incrementable_traversal_tag) {
+    // serialize on the host
+    return std::copy(first, last, result);
 }
 
 } // end dispatch

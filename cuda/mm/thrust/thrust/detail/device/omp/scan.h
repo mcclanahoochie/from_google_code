@@ -27,22 +27,22 @@ namespace device {
 namespace omp {
 
 template < typename InputIterator,
-		 typename OutputIterator,
-		 typename AssociativeOperator >
+         typename OutputIterator,
+         typename AssociativeOperator >
 OutputIterator inclusive_scan(InputIterator first,
-							  InputIterator last,
-							  OutputIterator result,
-							  AssociativeOperator binary_op);
+                              InputIterator last,
+                              OutputIterator result,
+                              AssociativeOperator binary_op);
 
 template < typename InputIterator,
-		 typename OutputIterator,
-		 typename T,
-		 typename AssociativeOperator >
+         typename OutputIterator,
+         typename T,
+         typename AssociativeOperator >
 OutputIterator exclusive_scan(InputIterator first,
-							  InputIterator last,
-							  OutputIterator result,
-							  T init,
-							  AssociativeOperator binary_op);
+                              InputIterator last,
+                              OutputIterator result,
+                              T init,
+                              AssociativeOperator binary_op);
 
 } // end namespace omp
 } // end namespace device

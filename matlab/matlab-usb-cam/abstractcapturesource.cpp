@@ -49,7 +49,7 @@ void AbstractCaptureSource::convertFrame(unsigned char* video_ptr, IplImage* img
 }
 IplImage* AbstractCaptureSource::getNextFrame() {
     if (cvGrabFrame(this->capture))
-        { return cvRetrieveFrame(this->capture); }
+    { return cvRetrieveFrame(this->capture); }
     else
-        { return NULL; }
+    { return NULL; }
 }

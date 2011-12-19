@@ -86,8 +86,8 @@ namespace thrust {
  */
 template<typename ForwardIterator, typename T>
 void uninitialized_fill(ForwardIterator first,
-						ForwardIterator last,
-						const T& x);
+                        ForwardIterator last,
+                        const T& x);
 
 /*! \} // end filling
  *  \} // transformations

@@ -32,11 +32,11 @@ namespace detail {
 
 template<typename ForwardIterator>
 void destroy(ForwardIterator first,
-			 ForwardIterator last) {
-	typedef typename thrust::iterator_traits<ForwardIterator>::value_type value_type;
+             ForwardIterator last) {
+    typedef typename thrust::iterator_traits<ForwardIterator>::value_type value_type;
 
-	thrust::detail::dispatch::destroy(first, last,
-									  thrust::detail::has_trivial_destructor<value_type>());
+    thrust::detail::dispatch::destroy(first, last,
+                                      thrust::detail::has_trivial_destructor<value_type>());
 } // end destroy()
 
 } // end detail

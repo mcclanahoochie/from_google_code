@@ -58,109 +58,109 @@ namespace random {
 template<typename UIntType, size_t w, size_t k, size_t q, size_t s>
 class linear_feedback_shift_engine {
 public:
-	// types
+    // types
 
-	/*! \typedef result_type
-	 *  \brief The type of the unsigned integer produced by this \p linear_feedback_shift_engine.
-	 */
-	typedef UIntType result_type;
+    /*! \typedef result_type
+     *  \brief The type of the unsigned integer produced by this \p linear_feedback_shift_engine.
+     */
+    typedef UIntType result_type;
 
-	// engine characteristics
+    // engine characteristics
 
-	/*! The word size of the produced values.
-	 */
-	static const size_t word_size = w;
+    /*! The word size of the produced values.
+     */
+    static const size_t word_size = w;
 
-	/*! A constant used in the generation algorithm.
-	 */
-	static const size_t exponent1 = k;
+    /*! A constant used in the generation algorithm.
+     */
+    static const size_t exponent1 = k;
 
-	/*! A constant used in the generation algorithm.
-	 */
-	static const size_t exponent2 = q;
+    /*! A constant used in the generation algorithm.
+     */
+    static const size_t exponent2 = q;
 
-	/*! The step size used in the generation algorithm.
-	 */
-	static const size_t step_size = s;
+    /*! The step size used in the generation algorithm.
+     */
+    static const size_t step_size = s;
 
-	/*! \cond
-	 */
+    /*! \cond
+     */
 private:
-	static const result_type wordmask =
-		detail::linear_feedback_shift_engine_wordmask <
-		result_type,
-		w
-		>::value;
-	/*! \endcond
-	 */
+    static const result_type wordmask =
+        detail::linear_feedback_shift_engine_wordmask <
+        result_type,
+        w
+        >::value;
+    /*! \endcond
+     */
 
 public:
 
-	/*! The smallest value this \p linear_feedback_shift_engine may potentially produce.
-	 */
-	static const result_type min = 0;
+    /*! The smallest value this \p linear_feedback_shift_engine may potentially produce.
+     */
+    static const result_type min = 0;
 
-	/*! The largest value this \p linear_feedback_shift_engine may potentially produce.
-	 */
-	static const result_type max = wordmask;
+    /*! The largest value this \p linear_feedback_shift_engine may potentially produce.
+     */
+    static const result_type max = wordmask;
 
-	/*! The default seed of this \p linear_feedback_shift_engine.
-	 */
-	static const result_type default_seed = 341u;
+    /*! The default seed of this \p linear_feedback_shift_engine.
+     */
+    static const result_type default_seed = 341u;
 
-	// constructors and seeding functions
+    // constructors and seeding functions
 
-	/*! This constructor, which optionally accepts a seed, initializes a new
-	 *  \p linear_feedback_shift_engine.
-	 *
-	 *  \param value The seed used to intialize this \p linear_feedback_shift_engine's state.
-	 */
-	__host__ __device__
-	explicit linear_feedback_shift_engine(result_type value = default_seed);
+    /*! This constructor, which optionally accepts a seed, initializes a new
+     *  \p linear_feedback_shift_engine.
+     *
+     *  \param value The seed used to intialize this \p linear_feedback_shift_engine's state.
+     */
+    __host__ __device__
+    explicit linear_feedback_shift_engine(result_type value = default_seed);
 
-	/*! This method initializes this \p linear_feedback_shift_engine's state, and optionally accepts
-	 *  a seed value.
-	 *
-	 *  \param value The seed used to initializes this \p linear_feedback_shift_engine's state.
-	 */
-	__host__ __device__
-	void seed(result_type value = default_seed);
+    /*! This method initializes this \p linear_feedback_shift_engine's state, and optionally accepts
+     *  a seed value.
+     *
+     *  \param value The seed used to initializes this \p linear_feedback_shift_engine's state.
+     */
+    __host__ __device__
+    void seed(result_type value = default_seed);
 
-	// generating functions
+    // generating functions
 
-	/*! This member function produces a new random value and updates this \p linear_feedback_shift_engine's state.
-	 *  \return A new random number.
-	 */
-	__host__ __device__
-	result_type operator()(void);
+    /*! This member function produces a new random value and updates this \p linear_feedback_shift_engine's state.
+     *  \return A new random number.
+     */
+    __host__ __device__
+    result_type operator()(void);
 
-	/*! This member function advances this \p linear_feedback_shift_engine's state a given number of times
-	 *  and discards the results.
-	 *
-	 *  \param z The number of random values to discard.
-	 *  \note This function is provided because an implementation may be able to accelerate it.
-	 */
-	__host__ __device__
-	void discard(unsigned long long z);
+    /*! This member function advances this \p linear_feedback_shift_engine's state a given number of times
+     *  and discards the results.
+     *
+     *  \param z The number of random values to discard.
+     *  \note This function is provided because an implementation may be able to accelerate it.
+     */
+    __host__ __device__
+    void discard(unsigned long long z);
 
-	/*! \cond
-	 */
+    /*! \cond
+     */
 private:
-	result_type m_value;
+    result_type m_value;
 
-	friend struct thrust::random::detail::random_core_access;
+    friend struct thrust::random::detail::random_core_access;
 
-	__host__ __device__
-	bool equal(const linear_feedback_shift_engine& rhs) const;
+    __host__ __device__
+    bool equal(const linear_feedback_shift_engine& rhs) const;
 
-	template<typename CharT, typename Traits>
-	std::basic_ostream<CharT, Traits>& stream_out(std::basic_ostream<CharT, Traits> &os) const;
+    template<typename CharT, typename Traits>
+    std::basic_ostream<CharT, Traits>& stream_out(std::basic_ostream<CharT, Traits>& os) const;
 
-	template<typename CharT, typename Traits>
-	std::basic_istream<CharT, Traits>& stream_in(std::basic_istream<CharT, Traits> &is);
+    template<typename CharT, typename Traits>
+    std::basic_istream<CharT, Traits>& stream_in(std::basic_istream<CharT, Traits>& is);
 
-	/*! \endcond
-	 */
+    /*! \endcond
+     */
 }; // end linear_feedback_shift_engine
 
 
@@ -171,8 +171,8 @@ private:
  */
 template<typename UIntType_, size_t w_, size_t k_, size_t q_, size_t s_>
 __host__ __device__
-bool operator==(const linear_feedback_shift_engine<UIntType_, w_, k_, q_, s_> &lhs,
-				const linear_feedback_shift_engine<UIntType_, w_, k_, q_, s_> &rhs);
+bool operator==(const linear_feedback_shift_engine<UIntType_, w_, k_, q_, s_>& lhs,
+                const linear_feedback_shift_engine<UIntType_, w_, k_, q_, s_>& rhs);
 
 
 /*! This function checks two \p linear_feedback_shift_engines for inequality.
@@ -182,8 +182,8 @@ bool operator==(const linear_feedback_shift_engine<UIntType_, w_, k_, q_, s_> &l
  */
 template<typename UIntType_, size_t w_, size_t k_, size_t q_, size_t s_>
 __host__ __device__
-bool operator!=(const linear_feedback_shift_engine<UIntType_, w_, k_, q_, s_> &lhs,
-				const linear_feedback_shift_engine<UIntType_, w_, k_, q_, s_> &rhs);
+bool operator!=(const linear_feedback_shift_engine<UIntType_, w_, k_, q_, s_>& lhs,
+                const linear_feedback_shift_engine<UIntType_, w_, k_, q_, s_>& rhs);
 
 
 /*! This function streams a linear_feedback_shift_engine to a \p std::basic_ostream.
@@ -192,10 +192,10 @@ bool operator!=(const linear_feedback_shift_engine<UIntType_, w_, k_, q_, s_> &l
  *  \return \p os
  */
 template < typename UIntType_, size_t w_, size_t k_, size_t q_, size_t s_,
-		 typename CharT, typename Traits >
+         typename CharT, typename Traits >
 std::basic_ostream<CharT, Traits>&
-operator<<(std::basic_ostream<CharT, Traits> &os,
-		   const linear_feedback_shift_engine<UIntType_, w_, k_, q_, s_> &e);
+operator<<(std::basic_ostream<CharT, Traits>& os,
+           const linear_feedback_shift_engine<UIntType_, w_, k_, q_, s_>& e);
 
 
 /*! This function streams a linear_feedback_shift_engine in from a std::basic_istream.
@@ -204,10 +204,10 @@ operator<<(std::basic_ostream<CharT, Traits> &os,
  *  \return \p is
  */
 template < typename UIntType_, size_t w_, size_t k_, size_t q_, size_t s_,
-		 typename CharT, typename Traits >
+         typename CharT, typename Traits >
 std::basic_istream<CharT, Traits>&
-operator>>(std::basic_istream<CharT, Traits> &is,
-		   linear_feedback_shift_engine<UIntType_, w_, k_, q_, s_> &e);
+operator>>(std::basic_istream<CharT, Traits>& is,
+           linear_feedback_shift_engine<UIntType_, w_, k_, q_, s_>& e);
 
 
 /*! \} // end random_number_engine_templates

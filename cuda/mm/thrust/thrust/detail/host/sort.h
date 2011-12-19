@@ -26,32 +26,32 @@ namespace detail {
 namespace host {
 
 template < typename RandomAccessIterator,
-		 typename StrictWeakOrdering >
+         typename StrictWeakOrdering >
 void sort(RandomAccessIterator first,
-		  RandomAccessIterator last,
-		  StrictWeakOrdering comp);
+          RandomAccessIterator last,
+          StrictWeakOrdering comp);
 
 template < typename RandomAccessIterator,
-		 typename StrictWeakOrdering >
+         typename StrictWeakOrdering >
 void stable_sort(RandomAccessIterator first,
-				 RandomAccessIterator last,
-				 StrictWeakOrdering comp);
+                 RandomAccessIterator last,
+                 StrictWeakOrdering comp);
 
 template < typename RandomAccessIterator1,
-		 typename RandomAccessIterator2,
-		 typename StrictWeakOrdering >
+         typename RandomAccessIterator2,
+         typename StrictWeakOrdering >
 void sort_by_key(RandomAccessIterator1 keys_first,
-				 RandomAccessIterator1 keys_last,
-				 RandomAccessIterator2 values_first,
-				 StrictWeakOrdering comp);
+                 RandomAccessIterator1 keys_last,
+                 RandomAccessIterator2 values_first,
+                 StrictWeakOrdering comp);
 
 template < typename RandomAccessIterator1,
-		 typename RandomAccessIterator2,
-		 typename StrictWeakOrdering >
+         typename RandomAccessIterator2,
+         typename StrictWeakOrdering >
 void stable_sort_by_key(RandomAccessIterator1 keys_first,
-						RandomAccessIterator1 keys_last,
-						RandomAccessIterator2 values_first,
-						StrictWeakOrdering comp);
+                        RandomAccessIterator1 keys_last,
+                        RandomAccessIterator2 values_first,
+                        StrictWeakOrdering comp);
 
 } // end namespace host
 } // end namespace detail

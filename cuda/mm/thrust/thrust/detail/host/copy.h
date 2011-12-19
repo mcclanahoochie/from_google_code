@@ -31,35 +31,35 @@ namespace host {
 
 
 template < typename InputIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator copy(InputIterator first,
-					InputIterator last,
-					OutputIterator result) {
-	return thrust::detail::host::dispatch::copy(first, last, result,
-			typename thrust::detail::dispatch::is_trivial_copy<InputIterator, OutputIterator>::type());
+                    InputIterator last,
+                    OutputIterator result) {
+    return thrust::detail::host::dispatch::copy(first, last, result,
+            typename thrust::detail::dispatch::is_trivial_copy<InputIterator, OutputIterator>::type());
 } // end copy()
 
 
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename OutputIterator,
-		 typename Predicate >
+         typename InputIterator2,
+         typename OutputIterator,
+         typename Predicate >
 OutputIterator copy_if(InputIterator1 first,
-					   InputIterator1 last,
-					   InputIterator2 stencil,
-					   OutputIterator result,
-					   Predicate pred) {
-	while (first != last) {
-		if (pred(*stencil)) {
-			*result = *first;
-			++result;
-		} // end if
+                       InputIterator1 last,
+                       InputIterator2 stencil,
+                       OutputIterator result,
+                       Predicate pred) {
+    while (first != last) {
+        if (pred(*stencil)) {
+            *result = *first;
+            ++result;
+        } // end if
 
-		++first;
-		++stencil;
-	} // end while
+        ++first;
+        ++stencil;
+    } // end while
 
-	return result;
+    return result;
 } // end copy_if()
 
 } // end host

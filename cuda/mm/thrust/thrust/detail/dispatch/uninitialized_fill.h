@@ -34,40 +34,40 @@ namespace dispatch {
 
 // trivial copy constructor path
 template < typename ForwardIterator,
-		 typename T >
+         typename T >
 void uninitialized_fill(ForwardIterator first,
-						ForwardIterator last,
-						const T& x,
-						thrust::detail::true_type) { // has_trivial_copy_constructor
-	thrust::fill(first, last, x);
+                        ForwardIterator last,
+                        const T& x,
+                        thrust::detail::true_type) { // has_trivial_copy_constructor
+    thrust::fill(first, last, x);
 } // end uninitialized_fill()
 
 namespace detail {
 
 template<typename T>
 struct copy_constructor {
-	T exemplar;
+    T exemplar;
 
-	copy_constructor(T x): exemplar(x) {}
+    copy_constructor(T x): exemplar(x) {}
 
-	__host__ __device__
-	void operator()(T& x) {
-		::new(static_cast<void*>(&x)) T(exemplar);
-	} // end operator()()
+    __host__ __device__
+    void operator()(T& x) {
+        ::new(static_cast<void*>(&x)) T(exemplar);
+    } // end operator()()
 }; // end copy_constructor
 
 } // end detail
 
 // non-trivial copy constructor path
 template < typename ForwardIterator,
-		 typename T >
+         typename T >
 void uninitialized_fill(ForwardIterator first,
-						ForwardIterator last,
-						const T& x,
-						thrust::detail::false_type) { // has_trivial_copy_constructor
-	typedef typename iterator_traits<ForwardIterator>::value_type ValueType;
+                        ForwardIterator last,
+                        const T& x,
+                        thrust::detail::false_type) { // has_trivial_copy_constructor
+    typedef typename iterator_traits<ForwardIterator>::value_type ValueType;
 
-	thrust::for_each(first, last, detail::copy_constructor<ValueType>(x));
+    thrust::for_each(first, last, detail::copy_constructor<ValueType>(x));
 } // end uninitialized_fill()
 
 } // end dispatch

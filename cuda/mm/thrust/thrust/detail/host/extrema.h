@@ -31,17 +31,17 @@ namespace host {
 
 template <typename ForwardIterator, typename BinaryPredicate>
 thrust::pair<ForwardIterator, ForwardIterator> minmax_element(ForwardIterator first,
-		ForwardIterator last,
-		BinaryPredicate comp) {
-	ForwardIterator imin = first;
-	ForwardIterator imax = first;
+        ForwardIterator last,
+        BinaryPredicate comp) {
+    ForwardIterator imin = first;
+    ForwardIterator imax = first;
 
-	for (; first != last; first++) {
-		if (comp(*first, *imin)) { imin = first; }
-		if (comp(*imax, *first)) { imax = first; }
-	}
+    for (; first != last; first++) {
+        if (comp(*first, *imin)) { imin = first; }
+        if (comp(*imax, *first)) { imax = first; }
+    }
 
-	return thrust::make_pair(imin, imax);
+    return thrust::make_pair(imin, imax);
 }
 
 } // end namespace host

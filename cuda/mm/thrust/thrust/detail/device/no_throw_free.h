@@ -29,9 +29,9 @@ namespace device {
 
 
 inline void no_throw_free(thrust::device_ptr<void> ptr) throw() {
-	typedef thrust::iterator_space< thrust::device_ptr<void> >::type Space;
+    typedef thrust::iterator_space< thrust::device_ptr<void> >::type Space;
 
-	thrust::detail::device::dispatch::no_throw_free<0>(ptr, Space());
+    thrust::detail::device::dispatch::no_throw_free<0>(ptr, Space());
 } // end no_throw_
 
 

@@ -49,10 +49,10 @@ namespace thrust {
  *  \see http://www.sgi.com/tech/stl/for_each.html
  */
 template < typename InputIterator,
-		 typename UnaryFunction >
+         typename UnaryFunction >
 void for_each(InputIterator first,
-			  InputIterator last,
-			  UnaryFunction f);
+              InputIterator last,
+              UnaryFunction f);
 
 /*! \} // end modifying
  */

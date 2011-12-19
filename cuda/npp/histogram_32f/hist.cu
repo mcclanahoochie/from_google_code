@@ -48,7 +48,7 @@ int main(int argc, char** args) {
     CUDA(cudaMemcpy(d_minmax, &h_minmax, 2 * sizeof(float), cudaMemcpyHostToDevice));
 
     // bin spacing
-    float levels[bins+1];
+    float levels[bins + 1];
     float scalar = (max - min) / (float)(bins);
     for (int i = 0; i < bins + 1 ; ++i) { levels[i] = (i * scalar); }
     levels[bins] = FLT_MAX; // last bin is catch all

@@ -31,29 +31,29 @@ namespace dispatch {
 ////////////////////////////
 
 template < typename InputIterator,
-		 typename OutputIterator,
-		 typename AssociativeOperator >
+         typename OutputIterator,
+         typename AssociativeOperator >
 OutputIterator inclusive_scan(InputIterator first,
-							  InputIterator last,
-							  OutputIterator result,
-							  AssociativeOperator binary_op,
-							  thrust::detail::omp_device_space_tag,
-							  thrust::detail::omp_device_space_tag) {
-	return thrust::detail::device::omp::inclusive_scan(first, last, result, binary_op);
+                              InputIterator last,
+                              OutputIterator result,
+                              AssociativeOperator binary_op,
+                              thrust::detail::omp_device_space_tag,
+                              thrust::detail::omp_device_space_tag) {
+    return thrust::detail::device::omp::inclusive_scan(first, last, result, binary_op);
 }
 
 template < typename InputIterator,
-		 typename OutputIterator,
-		 typename T,
-		 typename AssociativeOperator >
+         typename OutputIterator,
+         typename T,
+         typename AssociativeOperator >
 OutputIterator exclusive_scan(InputIterator first,
-							  InputIterator last,
-							  OutputIterator result,
-							  T init,
-							  AssociativeOperator binary_op,
-							  thrust::detail::omp_device_space_tag,
-							  thrust::detail::omp_device_space_tag) {
-	return thrust::detail::device::omp::exclusive_scan(first, last, result, init, binary_op);
+                              InputIterator last,
+                              OutputIterator result,
+                              T init,
+                              AssociativeOperator binary_op,
+                              thrust::detail::omp_device_space_tag,
+                              thrust::detail::omp_device_space_tag) {
+    return thrust::detail::device::omp::exclusive_scan(first, last, result, init, binary_op);
 }
 
 
@@ -62,29 +62,29 @@ OutputIterator exclusive_scan(InputIterator first,
 //////////////////////////
 
 template < typename InputIterator,
-		 typename OutputIterator,
-		 typename AssociativeOperator >
+         typename OutputIterator,
+         typename AssociativeOperator >
 OutputIterator inclusive_scan(InputIterator first,
-							  InputIterator last,
-							  OutputIterator result,
-							  AssociativeOperator binary_op,
-							  thrust::detail::cuda_device_space_tag,
-							  thrust::detail::cuda_device_space_tag) {
-	return thrust::detail::device::cuda::inclusive_scan(first, last, result, binary_op);
+                              InputIterator last,
+                              OutputIterator result,
+                              AssociativeOperator binary_op,
+                              thrust::detail::cuda_device_space_tag,
+                              thrust::detail::cuda_device_space_tag) {
+    return thrust::detail::device::cuda::inclusive_scan(first, last, result, binary_op);
 }
 
 template < typename InputIterator,
-		 typename OutputIterator,
-		 typename T,
-		 typename AssociativeOperator >
+         typename OutputIterator,
+         typename T,
+         typename AssociativeOperator >
 OutputIterator exclusive_scan(InputIterator first,
-							  InputIterator last,
-							  OutputIterator result,
-							  T init,
-							  AssociativeOperator binary_op,
-							  thrust::detail::cuda_device_space_tag,
-							  thrust::detail::cuda_device_space_tag) {
-	return thrust::detail::device::cuda::exclusive_scan(first, last, result, init, binary_op);
+                              InputIterator last,
+                              OutputIterator result,
+                              T init,
+                              AssociativeOperator binary_op,
+                              thrust::detail::cuda_device_space_tag,
+                              thrust::detail::cuda_device_space_tag) {
+    return thrust::detail::device::cuda::exclusive_scan(first, last, result, init, binary_op);
 }
 
 } // end namespace dispatch

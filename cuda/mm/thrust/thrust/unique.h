@@ -67,7 +67,7 @@ namespace thrust {
  */
 template <typename ForwardIterator>
 ForwardIterator unique(ForwardIterator first,
-					   ForwardIterator last);
+                       ForwardIterator last);
 
 /*! For each group of consecutive elements in the range <tt>[first, last)</tt>
  *  with the same value, \p unique removes all but the first element of
@@ -108,10 +108,10 @@ ForwardIterator unique(ForwardIterator first,
  *  \see unique_copy
  */
 template < typename ForwardIterator,
-		 typename BinaryPredicate >
+         typename BinaryPredicate >
 ForwardIterator unique(ForwardIterator first,
-					   ForwardIterator last,
-					   BinaryPredicate binary_pred);
+                       ForwardIterator last,
+                       BinaryPredicate binary_pred);
 
 
 /*! \p unique_copy copies elements from the range <tt>[first, last)</tt>
@@ -159,10 +159,10 @@ ForwardIterator unique(ForwardIterator first,
  *  \see http://www.sgi.com/tech/stl/unique_copy.html
  */
 template < typename InputIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator unique_copy(InputIterator first,
-						   InputIterator last,
-						   OutputIterator output);
+                           InputIterator last,
+                           OutputIterator output);
 
 
 /*! \p unique_copy copies elements from the range <tt>[first, last)</tt>
@@ -203,12 +203,12 @@ OutputIterator unique_copy(InputIterator first,
  *  \see http://www.sgi.com/tech/stl/unique_copy.html
  */
 template < typename InputIterator,
-		 typename OutputIterator,
-		 typename BinaryPredicate >
+         typename OutputIterator,
+         typename BinaryPredicate >
 OutputIterator unique_copy(InputIterator first,
-						   InputIterator last,
-						   OutputIterator output,
-						   BinaryPredicate binary_pred);
+                           InputIterator last,
+                           OutputIterator output,
+                           BinaryPredicate binary_pred);
 
 
 /*! \p unique_by_key is a generalization of \p unique to key-value pairs.
@@ -258,11 +258,11 @@ OutputIterator unique_copy(InputIterator first,
  *  \see reduce_by_key
  */
 template < typename ForwardIterator1,
-		 typename ForwardIterator2 >
+         typename ForwardIterator2 >
 thrust::pair<ForwardIterator1, ForwardIterator2>
 unique_by_key(ForwardIterator1 keys_first,
-			  ForwardIterator1 keys_last,
-			  ForwardIterator2 values_first);
+              ForwardIterator1 keys_last,
+              ForwardIterator2 values_first);
 
 
 /*! \p unique_by_key is a generalization of \p unique to key-value pairs.
@@ -311,13 +311,13 @@ unique_by_key(ForwardIterator1 keys_first,
  *  \see reduce_by_key
  */
 template < typename ForwardIterator1,
-		 typename ForwardIterator2,
-		 typename BinaryPredicate >
+         typename ForwardIterator2,
+         typename BinaryPredicate >
 thrust::pair<ForwardIterator1, ForwardIterator2>
 unique_by_key(ForwardIterator1 keys_first,
-			  ForwardIterator1 keys_last,
-			  ForwardIterator2 values_first,
-			  BinaryPredicate binary_pred);
+              ForwardIterator1 keys_last,
+              ForwardIterator2 values_first,
+              BinaryPredicate binary_pred);
 
 
 /*! \p unique_copy_by_key is a generalization of \p unique_copy to key-value pairs.
@@ -368,15 +368,15 @@ unique_by_key(ForwardIterator1 keys_first,
  *  \see reduce_by_key
  */
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename OutputIterator1,
-		 typename OutputIterator2 >
+         typename InputIterator2,
+         typename OutputIterator1,
+         typename OutputIterator2 >
 thrust::pair<OutputIterator1, OutputIterator2>
 unique_copy_by_key(InputIterator1 keys_first,
-				   InputIterator1 keys_last,
-				   InputIterator2 values_first,
-				   OutputIterator1 keys_output,
-				   OutputIterator2 values_output);
+                   InputIterator1 keys_last,
+                   InputIterator2 values_first,
+                   OutputIterator1 keys_output,
+                   OutputIterator2 values_output);
 
 /*! \p unique_copy_by_key is a generalization of \p unique_copy to key-value pairs.
  *  For each group of consecutive keys in the range <tt>[keys_first, keys_last)</tt>
@@ -429,17 +429,17 @@ unique_copy_by_key(InputIterator1 keys_first,
  *  \see reduce_by_key
  */
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename OutputIterator1,
-		 typename OutputIterator2,
-		 typename BinaryPredicate >
+         typename InputIterator2,
+         typename OutputIterator1,
+         typename OutputIterator2,
+         typename BinaryPredicate >
 thrust::pair<OutputIterator1, OutputIterator2>
 unique_copy_by_key(InputIterator1 keys_first,
-				   InputIterator1 keys_last,
-				   InputIterator2 values_first,
-				   OutputIterator1 keys_output,
-				   OutputIterator2 values_output,
-				   BinaryPredicate binary_pred);
+                   InputIterator1 keys_last,
+                   InputIterator2 values_first,
+                   OutputIterator1 keys_output,
+                   OutputIterator2 values_output,
+                   BinaryPredicate binary_pred);
 
 /*! \} // end stream_compaction
  */

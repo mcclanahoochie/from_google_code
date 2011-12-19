@@ -84,9 +84,9 @@ void parse_arguments(int nlhs, const mxArray* prhs[], int nrhs, char** filename,
     /* Check for proper number of arguments. */
 //	  std::cout << nrhs << std::endl;
     if (nrhs != 2 && nrhs != 4)
-        { mexErrMsgTxt("Two or four inputs required."); }
+    { mexErrMsgTxt("Two or four inputs required."); }
     else if (nlhs > 1)
-        { mexErrMsgTxt("Too many output arguments."); }
+    { mexErrMsgTxt("Too many output arguments."); }
     if (nrhs == 4) {
         (*first_frame) = mxGetScalar(prhs[2]);
         (*last_frame) = mxGetScalar(prhs[3]);
@@ -96,11 +96,11 @@ void parse_arguments(int nlhs, const mxArray* prhs[], int nrhs, char** filename,
 
     /* Input must be a string. */
     if (mxIsChar(prhs[0]) != 1)
-        { mexErrMsgTxt("Input must be a string."); }
+    { mexErrMsgTxt("Input must be a string."); }
 
     /* Input must be a row vector. */
     if (mxGetM(prhs[0]) != 1)
-        { mexErrMsgTxt("Input must be a row vector."); }
+    { mexErrMsgTxt("Input must be a row vector."); }
 
     /* Get the length of the input string. */
     buflen = (mxGetM(prhs[0]) * mxGetN(prhs[0])) + 1;
@@ -112,5 +112,5 @@ void parse_arguments(int nlhs, const mxArray* prhs[], int nrhs, char** filename,
      * input_buf. */
     status = mxGetString(prhs[0], (*filename), buflen);
     if (status != 0)
-        { mexWarnMsgTxt("Not enough space. String is truncated."); }
+    { mexWarnMsgTxt("Not enough space. String is truncated."); }
 }

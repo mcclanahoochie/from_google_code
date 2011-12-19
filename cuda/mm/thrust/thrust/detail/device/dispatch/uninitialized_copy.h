@@ -35,27 +35,27 @@ namespace dispatch {
 
 // trivial copy constructor path
 template < typename InputIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator uninitialized_copy(InputIterator first,
-								  InputIterator last,
-								  OutputIterator result,
-								  thrust::detail::true_type) { // has_trivial_copy_constructor
-	return thrust::copy(first, last, result);
+                                  InputIterator last,
+                                  OutputIterator result,
+                                  thrust::detail::true_type) { // has_trivial_copy_constructor
+    return thrust::copy(first, last, result);
 } // end uninitialized_copy()
 
 
 namespace detail {
 
 template < typename InputType,
-		 typename OutputType >
+         typename OutputType >
 struct uninitialized_copy_functor {
-	__host__ __device__
-	void operator()(thrust::tuple<const InputType&, OutputType&> t) {
-		const InputType& in = thrust::get<0>(t);
-		OutputType& out = thrust::get<1>(t);
+    __host__ __device__
+    void operator()(thrust::tuple<const InputType&, OutputType&> t) {
+        const InputType& in = thrust::get<0>(t);
+        OutputType& out = thrust::get<1>(t);
 
-		::new(static_cast<void*>(&out)) OutputType(in);
-	} // end operator()()
+        ::new(static_cast<void*>(&out)) OutputType(in);
+    } // end operator()()
 }; // end uninitialized_copy_functor
 
 } // end detail
@@ -63,33 +63,33 @@ struct uninitialized_copy_functor {
 
 // non-trivial copy constructor path
 template < typename InputIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator uninitialized_copy(InputIterator first,
-								  InputIterator last,
-								  OutputIterator result,
-								  thrust::detail::false_type) { // has_trivial_copy_constructor
-	// zip up the iterators
-	typedef thrust::tuple<InputIterator, OutputIterator> IteratorTuple;
-	typedef thrust::zip_iterator<IteratorTuple> ZipIterator;
+                                  InputIterator last,
+                                  OutputIterator result,
+                                  thrust::detail::false_type) { // has_trivial_copy_constructor
+    // zip up the iterators
+    typedef thrust::tuple<InputIterator, OutputIterator> IteratorTuple;
+    typedef thrust::zip_iterator<IteratorTuple> ZipIterator;
 
-	ZipIterator begin = thrust::make_zip_iterator(thrust::make_tuple(first, result));
-	ZipIterator end = begin;
+    ZipIterator begin = thrust::make_zip_iterator(thrust::make_tuple(first, result));
+    ZipIterator end = begin;
 
-	// get a zip_iterator pointing to the end
-	const typename thrust::iterator_difference<InputIterator>::type n = thrust::distance(first, last);
-	thrust::advance(end, n);
+    // get a zip_iterator pointing to the end
+    const typename thrust::iterator_difference<InputIterator>::type n = thrust::distance(first, last);
+    thrust::advance(end, n);
 
-	// create a functor
-	typedef typename iterator_traits<InputIterator>::value_type InputType;
-	typedef typename iterator_traits<OutputIterator>::value_type OutputType;
+    // create a functor
+    typedef typename iterator_traits<InputIterator>::value_type InputType;
+    typedef typename iterator_traits<OutputIterator>::value_type OutputType;
 
-	detail::uninitialized_copy_functor<InputType, OutputType> f;
+    detail::uninitialized_copy_functor<InputType, OutputType> f;
 
-	// do the for_each
-	thrust::for_each(begin, end, f);
+    // do the for_each
+    thrust::for_each(begin, end, f);
 
-	// return the end of the output range
-	return get<1>(end.get_iterator_tuple());
+    // return the end of the output range
+    return get<1>(end.get_iterator_tuple());
 } // end uninitialized_fill()
 
 

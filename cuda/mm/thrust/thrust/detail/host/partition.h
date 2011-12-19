@@ -33,52 +33,52 @@ namespace detail {
 namespace host {
 
 template < typename ForwardIterator,
-		 typename Predicate >
+         typename Predicate >
 ForwardIterator partition(ForwardIterator first,
-						  ForwardIterator last,
-						  Predicate pred) {
-	return std::partition(first, last, pred);
+                          ForwardIterator last,
+                          Predicate pred) {
+    return std::partition(first, last, pred);
 }
 
 
 template < typename ForwardIterator,
-		 typename Predicate >
+         typename Predicate >
 ForwardIterator stable_partition(ForwardIterator first,
-								 ForwardIterator last,
-								 Predicate pred) {
-	return std::stable_partition(first, last, pred);
+                                 ForwardIterator last,
+                                 Predicate pred) {
+    return std::stable_partition(first, last, pred);
 }
 
 template < typename ForwardIterator1,
-		 typename ForwardIterator2,
-		 typename Predicate >
+         typename ForwardIterator2,
+         typename Predicate >
 ForwardIterator2 stable_partition_copy(ForwardIterator1 first,
-									   ForwardIterator1 last,
-									   ForwardIterator2 result,
-									   Predicate pred) {
-	for (ForwardIterator1 iter = first; iter != last; iter++)
-		if (pred(*iter)) {
-			*result++ = *iter;
-		}
+                                       ForwardIterator1 last,
+                                       ForwardIterator2 result,
+                                       Predicate pred) {
+    for (ForwardIterator1 iter = first; iter != last; iter++)
+        if (pred(*iter)) {
+            *result++ = *iter;
+        }
 
-	ForwardIterator2 middle = result;
+    ForwardIterator2 middle = result;
 
-	for (ForwardIterator1 iter = first; iter != last; iter++)
-		if (!pred(*iter)) {
-			*result++ = *iter;
-		}
+    for (ForwardIterator1 iter = first; iter != last; iter++)
+        if (!pred(*iter)) {
+            *result++ = *iter;
+        }
 
-	return middle;
+    return middle;
 }
 
 template < typename ForwardIterator1,
-		 typename ForwardIterator2,
-		 typename Predicate >
+         typename ForwardIterator2,
+         typename Predicate >
 ForwardIterator2 partition_copy(ForwardIterator1 first,
-								ForwardIterator1 last,
-								ForwardIterator2 result,
-								Predicate pred) {
-	return thrust::experimental::stable_partition_copy(first, last, result, pred);
+                                ForwardIterator1 last,
+                                ForwardIterator2 result,
+                                Predicate pred) {
+    return thrust::experimental::stable_partition_copy(first, last, result, pred);
 }
 
 } // end namespace host

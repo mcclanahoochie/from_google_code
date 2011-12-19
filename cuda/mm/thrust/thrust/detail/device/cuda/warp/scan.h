@@ -27,19 +27,19 @@ namespace cuda {
 namespace warp {
 
 template < typename InputType,
-		 typename InputIterator,
-		 typename AssociativeOperator >
+         typename InputIterator,
+         typename AssociativeOperator >
 __device__
 InputType scan(const unsigned int thread_lane, InputType val, InputIterator sdata, AssociativeOperator binary_op) {
-	sdata[threadIdx.x] = val;
+    sdata[threadIdx.x] = val;
 
-	if (thread_lane >=  1) { sdata[threadIdx.x] = val = binary_op(sdata[threadIdx.x -  1], val); }
-	if (thread_lane >=  2) { sdata[threadIdx.x] = val = binary_op(sdata[threadIdx.x -  2], val); }
-	if (thread_lane >=  4) { sdata[threadIdx.x] = val = binary_op(sdata[threadIdx.x -  4], val); }
-	if (thread_lane >=  8) { sdata[threadIdx.x] = val = binary_op(sdata[threadIdx.x -  8], val); }
-	if (thread_lane >= 16) { sdata[threadIdx.x] = val = binary_op(sdata[threadIdx.x - 16], val); }
+    if (thread_lane >=  1) { sdata[threadIdx.x] = val = binary_op(sdata[threadIdx.x -  1], val); }
+    if (thread_lane >=  2) { sdata[threadIdx.x] = val = binary_op(sdata[threadIdx.x -  2], val); }
+    if (thread_lane >=  4) { sdata[threadIdx.x] = val = binary_op(sdata[threadIdx.x -  4], val); }
+    if (thread_lane >=  8) { sdata[threadIdx.x] = val = binary_op(sdata[threadIdx.x -  8], val); }
+    if (thread_lane >= 16) { sdata[threadIdx.x] = val = binary_op(sdata[threadIdx.x - 16], val); }
 
-	return val;
+    return val;
 }
 
 } // end namespace warp

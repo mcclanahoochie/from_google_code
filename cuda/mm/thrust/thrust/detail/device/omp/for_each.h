@@ -32,10 +32,10 @@ namespace omp {
 
 
 template < typename InputIterator,
-		 typename UnaryFunction >
+         typename UnaryFunction >
 void for_each(InputIterator first,
-			  InputIterator last,
-			  UnaryFunction f);
+              InputIterator last,
+              UnaryFunction f);
 
 
 } // end namespace omp

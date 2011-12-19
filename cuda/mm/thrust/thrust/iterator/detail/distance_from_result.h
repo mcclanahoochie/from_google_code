@@ -25,12 +25,12 @@ namespace detail {
 
 template<typename Iterator1, typename Iterator2>
 struct distance_from_result
-		: eval_if <
-		is_convertible<Iterator2, Iterator1>::value,
-		iterator_difference<Iterator1>,
-		iterator_difference<Iterator2>
-		>
-	{};
+        : eval_if <
+        is_convertible<Iterator2, Iterator1>::value,
+        iterator_difference<Iterator1>,
+        iterator_difference<Iterator2>
+        >
+{};
 
 } // end detail
 

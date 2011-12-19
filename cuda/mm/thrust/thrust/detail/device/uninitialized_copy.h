@@ -28,15 +28,15 @@ namespace detail {
 namespace device {
 
 template < typename ForwardIterator,
-		 typename OutputIterator >
+         typename OutputIterator >
 OutputIterator uninitialized_copy(ForwardIterator first,
-								  ForwardIterator last,
-								  OutputIterator result) {
-	typedef typename iterator_traits<ForwardIterator>::value_type ResultType;
+                                  ForwardIterator last,
+                                  OutputIterator result) {
+    typedef typename iterator_traits<ForwardIterator>::value_type ResultType;
 
-	typedef typename thrust::detail::has_trivial_copy_constructor<ResultType>::type ResultTypeHasTrivialCopyConstructor;
+    typedef typename thrust::detail::has_trivial_copy_constructor<ResultType>::type ResultTypeHasTrivialCopyConstructor;
 
-	return thrust::detail::device::dispatch::uninitialized_copy(first, last, result, ResultTypeHasTrivialCopyConstructor());
+    return thrust::detail::device::dispatch::uninitialized_copy(first, last, result, ResultTypeHasTrivialCopyConstructor());
 } // end uninitialized_copy()
 
 } // end device

@@ -121,7 +121,7 @@ void MatToFloat(const Mat& thing, float* thing2) {
     for (int i = 0; i < thing.rows; i++) {
         const float* fptr = thing.ptr<float>(i);
         for (int j = 0; j < thing.cols; j++)
-            { thing2[tmp++] = fptr[j]; }
+        { thing2[tmp++] = fptr[j]; }
     }
 }
 
@@ -131,7 +131,7 @@ void FloatToMat(float const* thing, Mat& thing2) {
     for (int i = 0; i < thing2.rows; ++i) {
         float* fptr = thing2.ptr<float>(i);
         for (int j = 0; j < thing2.cols; ++j)
-            { fptr[j] = thing[tmp++]; }
+        { fptr[j] = thing[tmp++]; }
     }
 }
 
@@ -285,8 +285,8 @@ void process_pyramids(f32& pyr1, f32& pyr2, f32& ou, f32& ov) {
             w  = f32::zeros(pyr_M[level], pyr_N[level]);
             p  = f32::zeros(pyr_M[level], pyr_N[level], n_dual_vars);
         } else {
-            float rescale_u =  pyr_N[level+1]/(float)pyr_N[level];
-            float rescale_v =  pyr_M[level+1]/(float)pyr_M[level];
+            float rescale_u =  pyr_N[level + 1] / (float)pyr_N[level];
+            float rescale_v =  pyr_M[level + 1] / (float)pyr_M[level];
             // propagate
             f32 u_ =  resize(u, pyr_M[level], pyr_N[level], JKT_RSZ_Bilinear) * rescale_u;
             f32 v_ =  resize(v, pyr_M[level], pyr_N[level], JKT_RSZ_Bilinear) * rescale_v;

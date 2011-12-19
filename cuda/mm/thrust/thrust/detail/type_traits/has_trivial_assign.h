@@ -30,8 +30,8 @@ namespace thrust {
 namespace detail {
 
 template<typename T> struct has_trivial_assign
-		: public integral_constant <
-		bool,
+        : public integral_constant <
+        bool,
 (is_pod<T>::value && !is_const<T>::value)
 #if THRUST_HOST_COMPILER == THRUST_HOST_COMPILER_MSVC
 || __has_trivial_assign(T)

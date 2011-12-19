@@ -35,7 +35,7 @@ float cvmk[ksz][ksz] = {
     { -1,  0,  1, },
     {  0,  1,  2, },
 };
-Mat cvk = Mat (ksz, ksz, CV_32F, cvmk);
+Mat cvk = Mat(ksz, ksz, CV_32F, cvmk);
 
 void gen(Mat& mat, int rows, int cols, int type, Scalar low, Scalar high) {
     mat.create(rows, cols, type);

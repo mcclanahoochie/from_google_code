@@ -85,10 +85,10 @@ namespace thrust {
  *  \see \p partition_copy
  */
 template < typename ForwardIterator,
-		 typename Predicate >
+         typename Predicate >
 ForwardIterator partition(ForwardIterator first,
-						  ForwardIterator last,
-						  Predicate pred);
+                          ForwardIterator last,
+                          Predicate pred);
 
 namespace experimental {
 /*! \p partition_copy differs from \ref partition only in that the reordered
@@ -152,12 +152,12 @@ namespace experimental {
  *  \see \p partition
  */
 template < typename ForwardIterator1,
-		 typename ForwardIterator2,
-		 typename Predicate >
+         typename ForwardIterator2,
+         typename Predicate >
 ForwardIterator2 partition_copy(ForwardIterator1 first,
-								ForwardIterator1 last,
-								ForwardIterator2 result,
-								Predicate pred);
+                                ForwardIterator1 last,
+                                ForwardIterator2 result,
+                                Predicate pred);
 
 } // end namespace experimental
 
@@ -213,10 +213,10 @@ ForwardIterator2 partition_copy(ForwardIterator1 first,
  *  \see \p stable_partition_copy
  */
 template < typename ForwardIterator,
-		 typename Predicate >
+         typename Predicate >
 ForwardIterator stable_partition(ForwardIterator first,
-								 ForwardIterator last,
-								 Predicate pred);
+                                 ForwardIterator last,
+                                 Predicate pred);
 
 
 namespace experimental {
@@ -276,12 +276,12 @@ namespace experimental {
  *  \see \p stable_partition
  */
 template < typename ForwardIterator1,
-		 typename ForwardIterator2,
-		 typename Predicate >
+         typename ForwardIterator2,
+         typename Predicate >
 ForwardIterator2 stable_partition_copy(ForwardIterator1 first,
-									   ForwardIterator1 last,
-									   ForwardIterator2 result,
-									   Predicate pred);
+                                       ForwardIterator1 last,
+                                       ForwardIterator2 result,
+                                       Predicate pred);
 
 } // end namespace experimental
 

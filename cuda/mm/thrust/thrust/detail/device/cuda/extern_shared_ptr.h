@@ -34,17 +34,17 @@ namespace cuda {
 template<typename T>
 class extern_shared_ptr {
 public:
-	__device__
-	inline operator T * (void) {
-		extern __shared__ int4 smem[];
-		return reinterpret_cast<T*>(smem);
-	}
+    __device__
+    inline operator T* (void) {
+        extern __shared__ int4 smem[];
+        return reinterpret_cast<T*>(smem);
+    }
 
-	__device__
-	inline operator const T * (void) const {
-		extern __shared__ int4 smem[];
-		return reinterpret_cast<const T*>(smem);
-	}
+    __device__
+    inline operator const T* (void) const {
+        extern __shared__ int4 smem[];
+        return reinterpret_cast<const T*>(smem);
+    }
 }; // end extern_shared_ptr
 
 } // end cuda

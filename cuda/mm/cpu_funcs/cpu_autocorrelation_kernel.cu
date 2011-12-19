@@ -27,9 +27,9 @@ __global__ void cpu_extract_xyz_kernel(int N, void* outAx, void* outAy, void* ou
 void cpu_extract_xyz(float* h_xyz, const int validBodies, float* h_x, float* h_y, float* h_z) {
 
     for (int i = 0; i < validBodies; ++i) {
-        h_x[i] = h_xyz[i*3+0];
-        h_y[i] = h_xyz[i*3+1];
-        h_z[i] = h_xyz[i*3+2];
+        h_x[i] = h_xyz[i * 3 + 0];
+        h_y[i] = h_xyz[i * 3 + 1];
+        h_z[i] = h_xyz[i * 3 + 2];
     }
 
 }

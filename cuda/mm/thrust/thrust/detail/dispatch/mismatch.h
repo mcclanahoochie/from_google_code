@@ -35,12 +35,12 @@ namespace dispatch {
 ////////////////
 template <typename InputIterator1, typename InputIterator2, typename BinaryPredicate>
 thrust::pair<InputIterator1, InputIterator2> mismatch(InputIterator1 first1,
-		InputIterator1 last1,
-		InputIterator2 first2,
-		BinaryPredicate pred,
-		thrust::host_space_tag,
-		thrust::host_space_tag) {
-	return thrust::detail::host::mismatch(first1, last1, first2, pred);
+        InputIterator1 last1,
+        InputIterator2 first2,
+        BinaryPredicate pred,
+        thrust::host_space_tag,
+        thrust::host_space_tag) {
+    return thrust::detail::host::mismatch(first1, last1, first2, pred);
 }
 
 
@@ -49,12 +49,12 @@ thrust::pair<InputIterator1, InputIterator2> mismatch(InputIterator1 first1,
 //////////////////
 template <typename InputIterator1, typename InputIterator2, typename BinaryPredicate>
 thrust::pair<InputIterator1, InputIterator2> mismatch(InputIterator1 first1,
-		InputIterator1 last1,
-		InputIterator2 first2,
-		BinaryPredicate pred,
-		thrust::device_space_tag,
-		thrust::device_space_tag) {
-	return thrust::detail::device::mismatch(first1, last1, first2, pred);
+        InputIterator1 last1,
+        InputIterator2 first2,
+        BinaryPredicate pred,
+        thrust::device_space_tag,
+        thrust::device_space_tag) {
+    return thrust::detail::device::mismatch(first1, last1, first2, pred);
 }
 
 ///////////////
@@ -62,13 +62,13 @@ thrust::pair<InputIterator1, InputIterator2> mismatch(InputIterator1 first1,
 ///////////////
 template <typename InputIterator1, typename InputIterator2, typename BinaryPredicate>
 thrust::pair<InputIterator1, InputIterator2> mismatch(InputIterator1 first1,
-		InputIterator1 last1,
-		InputIterator2 first2,
-		BinaryPredicate pred,
-		thrust::any_space_tag,
-		thrust::any_space_tag) {
-	// default to device
-	return thrust::detail::device::mismatch(first1, last1, first2, pred);
+        InputIterator1 last1,
+        InputIterator2 first2,
+        BinaryPredicate pred,
+        thrust::any_space_tag,
+        thrust::any_space_tag) {
+    // default to device
+    return thrust::detail::device::mismatch(first1, last1, first2, pred);
 }
 
 } // end namespace dispatch

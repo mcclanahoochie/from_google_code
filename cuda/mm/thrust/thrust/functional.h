@@ -65,9 +65,9 @@ template<typename Operation> struct binary_traits;
  *  \see binary_function
  */
 template < typename Argument,
-		 typename Result >
+         typename Result >
 struct unary_function
-		: public std::unary_function<Argument, Result> {
+        : public std::unary_function<Argument, Result> {
 }; // end unary_function
 
 /*! \p binary_function is an empty base class: it contains no member functions
@@ -96,10 +96,10 @@ struct unary_function
  *  \see unary_function
  */
 template < typename Argument1,
-		 typename Argument2,
-		 typename Result >
+         typename Argument2,
+         typename Result >
 struct binary_function
-		: public std::binary_function<Argument1, Argument2, Result> {
+        : public std::binary_function<Argument1, Argument2, Result> {
 }; // end binary_function
 
 /*! \}
@@ -150,9 +150,9 @@ struct binary_function
  */
 template<typename T>
 struct plus : public binary_function<T, T, T> {
-	/*! Function call operator. The return value is <tt>lhs + rhs</tt>.
-	 */
-	__host__ __device__ T operator()(const T& lhs, const T& rhs) const {return lhs + rhs;}
+    /*! Function call operator. The return value is <tt>lhs + rhs</tt>.
+     */
+    __host__ __device__ T operator()(const T& lhs, const T& rhs) const {return lhs + rhs;}
 }; // end plus
 
 /*! \p minus is a function object. Specifically, it is an Adaptable Binary Function.
@@ -190,9 +190,9 @@ struct plus : public binary_function<T, T, T> {
  */
 template<typename T>
 struct minus : public binary_function<T, T, T> {
-	/*! Function call operator. The return value is <tt>lhs - rhs</tt>.
-	 */
-	__host__ __device__ T operator()(const T& lhs, const T& rhs) const {return lhs - rhs;}
+    /*! Function call operator. The return value is <tt>lhs - rhs</tt>.
+     */
+    __host__ __device__ T operator()(const T& lhs, const T& rhs) const {return lhs - rhs;}
 }; // end minus
 
 /*! \p multiplies is a function object. Specifically, it is an Adaptable Binary Function.
@@ -230,9 +230,9 @@ struct minus : public binary_function<T, T, T> {
  */
 template<typename T>
 struct multiplies : public binary_function<T, T, T> {
-	/*! Function call operator. The return value is <tt>lhs * rhs</tt>.
-	 */
-	__host__ __device__ T operator()(const T& lhs, const T& rhs) const {return lhs * rhs;}
+    /*! Function call operator. The return value is <tt>lhs * rhs</tt>.
+     */
+    __host__ __device__ T operator()(const T& lhs, const T& rhs) const {return lhs * rhs;}
 }; // end multiplies
 
 /*! \p divides is a function object. Specifically, it is an Adaptable Binary Function.
@@ -270,9 +270,9 @@ struct multiplies : public binary_function<T, T, T> {
  */
 template<typename T>
 struct divides : public binary_function<T, T, T> {
-	/*! Function call operator. The return value is <tt>lhs / rhs</tt>.
-	 */
-	__host__ __device__ T operator()(const T& lhs, const T& rhs) const {return lhs / rhs;}
+    /*! Function call operator. The return value is <tt>lhs / rhs</tt>.
+     */
+    __host__ __device__ T operator()(const T& lhs, const T& rhs) const {return lhs / rhs;}
 }; // end divides
 
 /*! \p modulus is a function object. Specifically, it is an Adaptable Binary Function.
@@ -310,9 +310,9 @@ struct divides : public binary_function<T, T, T> {
  */
 template<typename T>
 struct modulus : public binary_function<T, T, T> {
-	/*! Function call operator. The return value is <tt>lhs % rhs</tt>.
-	 */
-	__host__ __device__ T operator()(const T& lhs, const T& rhs) const {return lhs % rhs;}
+    /*! Function call operator. The return value is <tt>lhs % rhs</tt>.
+     */
+    __host__ __device__ T operator()(const T& lhs, const T& rhs) const {return lhs % rhs;}
 }; // end modulus
 
 /*! \p negate is a function object. Specifically, it is an Adaptable Unary Function.
@@ -347,9 +347,9 @@ struct modulus : public binary_function<T, T, T> {
  */
 template<typename T>
 struct negate : public unary_function<T, T> {
-	/*! Function call operator. The return value is <tt>-x</tt>.
-	 */
-	__host__ __device__ T operator()(const T& x) const {return -x;}
+    /*! Function call operator. The return value is <tt>-x</tt>.
+     */
+    __host__ __device__ T operator()(const T& x) const {return -x;}
 }; // end negate
 
 /*! \p absolute_value is a function object. Specifically, it is an Adaptable
@@ -386,9 +386,9 @@ struct negate : public unary_function<T, T> {
  */
 template<typename T>
 struct absolute_value : public unary_function<T, T> {
-	/*! Function call operator. The return value is <tt>x < 0 ? -x : x</tt>.
-	 */
-	__host__ __device__ T operator()(const T& x) const {return x < T(0) ? -x : x;}
+    /*! Function call operator. The return value is <tt>x < 0 ? -x : x</tt>.
+     */
+    __host__ __device__ T operator()(const T& x) const {return x < T(0) ? -x : x;}
 }; // end absolute_value
 
 /*! \}
@@ -412,9 +412,9 @@ struct absolute_value : public unary_function<T, T> {
  */
 template<typename T>
 struct equal_to : public binary_function<T, T, bool> {
-	/*! Function call operator. The return value is <tt>lhs == rhs</tt>.
-	 */
-	__host__ __device__ bool operator()(const T& lhs, const T& rhs) const {return lhs == rhs;}
+    /*! Function call operator. The return value is <tt>lhs == rhs</tt>.
+     */
+    __host__ __device__ bool operator()(const T& lhs, const T& rhs) const {return lhs == rhs;}
 }; // end equal_to
 
 /*! \p not_equal_to is a function object. Specifically, it is an Adaptable Binary
@@ -430,9 +430,9 @@ struct equal_to : public binary_function<T, T, bool> {
  */
 template<typename T>
 struct not_equal_to : public binary_function<T, T, bool> {
-	/*! Function call operator. The return value is <tt>lhs != rhs</tt>.
-	 */
-	__host__ __device__ bool operator()(const T& lhs, const T& rhs) const {return lhs != rhs;}
+    /*! Function call operator. The return value is <tt>lhs != rhs</tt>.
+     */
+    __host__ __device__ bool operator()(const T& lhs, const T& rhs) const {return lhs != rhs;}
 }; // end not_equal_to
 
 /*! \p greater is a function object. Specifically, it is an Adaptable Binary
@@ -448,9 +448,9 @@ struct not_equal_to : public binary_function<T, T, bool> {
  */
 template<typename T>
 struct greater : public binary_function<T, T, bool> {
-	/*! Function call operator. The return value is <tt>lhs > rhs</tt>.
-	 */
-	__host__ __device__ bool operator()(const T& lhs, const T& rhs) const {return lhs > rhs;}
+    /*! Function call operator. The return value is <tt>lhs > rhs</tt>.
+     */
+    __host__ __device__ bool operator()(const T& lhs, const T& rhs) const {return lhs > rhs;}
 }; // end greater
 
 /*! \p less is a function object. Specifically, it is an Adaptable Binary
@@ -466,9 +466,9 @@ struct greater : public binary_function<T, T, bool> {
  */
 template<typename T>
 struct less : public binary_function<T, T, bool> {
-	/*! Function call operator. The return value is <tt>lhs < rhs</tt>.
-	 */
-	__host__ __device__ bool operator()(const T& lhs, const T& rhs) const {return lhs < rhs;}
+    /*! Function call operator. The return value is <tt>lhs < rhs</tt>.
+     */
+    __host__ __device__ bool operator()(const T& lhs, const T& rhs) const {return lhs < rhs;}
 }; // end less
 
 /*! \p greater_equal is a function object. Specifically, it is an Adaptable Binary
@@ -484,9 +484,9 @@ struct less : public binary_function<T, T, bool> {
  */
 template<typename T>
 struct greater_equal : public binary_function<T, T, bool> {
-	/*! Function call operator. The return value is <tt>lhs >= rhs</tt>.
-	 */
-	__host__ __device__ bool operator()(const T& lhs, const T& rhs) const {return lhs >= rhs;}
+    /*! Function call operator. The return value is <tt>lhs >= rhs</tt>.
+     */
+    __host__ __device__ bool operator()(const T& lhs, const T& rhs) const {return lhs >= rhs;}
 }; // end greater_equal
 
 /*! \p less_equal is a function object. Specifically, it is an Adaptable Binary
@@ -502,9 +502,9 @@ struct greater_equal : public binary_function<T, T, bool> {
  */
 template<typename T>
 struct less_equal : public binary_function<T, T, bool> {
-	/*! Function call operator. The return value is <tt>lhs <= rhs</tt>.
-	 */
-	__host__ __device__ bool operator()(const T& lhs, const T& rhs) const {return lhs <= rhs;}
+    /*! Function call operator. The return value is <tt>lhs <= rhs</tt>.
+     */
+    __host__ __device__ bool operator()(const T& lhs, const T& rhs) const {return lhs <= rhs;}
 }; // end less_equal
 
 /*! \}
@@ -529,9 +529,9 @@ struct less_equal : public binary_function<T, T, bool> {
  */
 template<typename T>
 struct logical_and : public binary_function<T, T, bool> {
-	/*! Function call operator. The return value is <tt>lhs && rhs</tt>.
-	 */
-	__host__ __device__ bool operator()(const T& lhs, const T& rhs) const {return lhs && rhs;}
+    /*! Function call operator. The return value is <tt>lhs && rhs</tt>.
+     */
+    __host__ __device__ bool operator()(const T& lhs, const T& rhs) const {return lhs && rhs;}
 }; // end logical_and
 
 /*! \p logical_or is a function object. Specifically, it is an Adaptable Binary Predicate,
@@ -547,9 +547,9 @@ struct logical_and : public binary_function<T, T, bool> {
  */
 template<typename T>
 struct logical_or : public binary_function<T, T, bool> {
-	/*! Function call operator. The return value is <tt>lhs || rhs</tt>.
-	 */
-	__host__ __device__ bool operator()(const T& lhs, const T& rhs) const {return lhs || rhs;}
+    /*! Function call operator. The return value is <tt>lhs || rhs</tt>.
+     */
+    __host__ __device__ bool operator()(const T& lhs, const T& rhs) const {return lhs || rhs;}
 }; // end logical_or
 
 /*! \p logical_not is a function object. Specifically, it is an Adaptable Predicate,
@@ -579,9 +579,9 @@ struct logical_or : public binary_function<T, T, bool> {
  */
 template<typename T>
 struct logical_not : public unary_function<T, bool> {
-	/*! Function call operator. The return value is <tt>!x</tt>.
-	 */
-	__host__ __device__ bool operator()(const T& x) const {return !x;}
+    /*! Function call operator. The return value is <tt>!x</tt>.
+     */
+    __host__ __device__ bool operator()(const T& x) const {return !x;}
 }; // end logical_not
 
 /*! \}
@@ -614,9 +614,9 @@ struct logical_not : public unary_function<T, bool> {
  */
 template<typename T>
 struct identity : public unary_function<T, T> {
-	/*! Function call operator. The return value is <tt>x</tt>.
-	 */
-	__host__ __device__ const T& operator()(const T& x) const {return x;}
+    /*! Function call operator. The return value is <tt>x</tt>.
+     */
+    __host__ __device__ const T& operator()(const T& x) const {return x;}
 }; // end identity
 
 /*! \p maximum is a function object that takes two arguments and returns the greater
@@ -645,9 +645,9 @@ struct identity : public unary_function<T, T> {
  */
 template<typename T>
 struct maximum : public binary_function<T, T, T> {
-	/*! Function call operator. The return value is <tt>lhs > rhs ? lhs : rhs</tt>.
-	 */
-	__host__ __device__ const T& operator()(const T& lhs, const T& rhs) const {return lhs > rhs ? lhs : rhs;}
+    /*! Function call operator. The return value is <tt>lhs > rhs ? lhs : rhs</tt>.
+     */
+    __host__ __device__ const T& operator()(const T& lhs, const T& rhs) const {return lhs > rhs ? lhs : rhs;}
 }; // end maximum
 
 /*! \p minimum is a function object that takes two arguments and returns the lesser
@@ -676,9 +676,9 @@ struct maximum : public binary_function<T, T, T> {
  */
 template<typename T>
 struct minimum : public binary_function<T, T, T> {
-	/*! Function call operator. The return value is <tt>lhs > rhs ? lhs : rhs</tt>.
-	 */
-	__host__ __device__ const T& operator()(const T& lhs, const T& rhs) const {return lhs < rhs ? lhs : rhs;}
+    /*! Function call operator. The return value is <tt>lhs > rhs ? lhs : rhs</tt>.
+     */
+    __host__ __device__ const T& operator()(const T& lhs, const T& rhs) const {return lhs < rhs ? lhs : rhs;}
 }; // end minimum
 
 /*! \p project1st is a function object that takes two arguments and returns
@@ -701,9 +701,9 @@ struct minimum : public binary_function<T, T, T> {
  */
 template<typename T1, typename T2>
 struct project1st : public binary_function<T1, T2, T1> {
-	/*! Function call operator. The return value is <tt>lhs</tt>.
-	 */
-	__host__ __device__ const T1& operator()(const T1& lhs, const T2& rhs) const {return lhs;}
+    /*! Function call operator. The return value is <tt>lhs</tt>.
+     */
+    __host__ __device__ const T1& operator()(const T1& lhs, const T2& rhs) const {return lhs;}
 }; // end project1st
 
 /*! \p project2nd is a function object that takes two arguments and returns
@@ -726,9 +726,9 @@ struct project1st : public binary_function<T1, T2, T1> {
  */
 template<typename T1, typename T2>
 struct project2nd : public binary_function<T1, T2, T2> {
-	/*! Function call operator. The return value is <tt>rhs</tt>.
-	 */
-	__host__ __device__ const T2& operator()(const T1& lhs, const T2& rhs) const {return rhs;}
+    /*! Function call operator. The return value is <tt>rhs</tt>.
+     */
+    __host__ __device__ const T2& operator()(const T1& lhs, const T2& rhs) const {return rhs;}
 }; // end project2nd
 
 /*! \}
@@ -754,16 +754,16 @@ struct project2nd : public binary_function<T1, T2, T2> {
  */
 template<typename Predicate>
 struct unary_negate
-		: public thrust::unary_function<typename Predicate::argument_type, bool> {
-	__host__ __device__
-	explicit unary_negate(Predicate p) : pred(p) {}
+        : public thrust::unary_function<typename Predicate::argument_type, bool> {
+    __host__ __device__
+    explicit unary_negate(Predicate p) : pred(p) {}
 
-	/*! Function call operator. The return value is <tt>!pred(x)</tt>.
-	 */
-	__host__ __device__
-	bool operator()(const typename Predicate::argument_type& x) { return !pred(x); }
+    /*! Function call operator. The return value is <tt>!pred(x)</tt>.
+     */
+    __host__ __device__
+    bool operator()(const typename Predicate::argument_type& x) { return !pred(x); }
 
-	Predicate pred;
+    Predicate pred;
 }; // end unary_negate
 
 /*! \p not1 is a helper function to simplify the creation of Adaptable Predicates:
@@ -798,20 +798,20 @@ unary_negate<Predicate> not1(const Predicate& pred);
  */
 template<typename Predicate>
 struct binary_negate
-		: public thrust::binary_function < typename Predicate::first_argument_type,
-		  typename Predicate::second_argument_type,
-		  bool > {
-	__host__ __device__
-	explicit binary_negate(Predicate p) : pred(p) {}
+        : public thrust::binary_function < typename Predicate::first_argument_type,
+          typename Predicate::second_argument_type,
+          bool > {
+    __host__ __device__
+    explicit binary_negate(Predicate p) : pred(p) {}
 
-	/*! Function call operator. The return value is <tt>!pred(x,y)</tt>.
-	 */
-	__host__ __device__
-	bool operator()(const typename Predicate::first_argument_type& x, const typename Predicate::second_argument_type& y) {
-		return !pred(x, y);
-	}
+    /*! Function call operator. The return value is <tt>!pred(x,y)</tt>.
+     */
+    __host__ __device__
+    bool operator()(const typename Predicate::first_argument_type& x, const typename Predicate::second_argument_type& y) {
+        return !pred(x, y);
+    }
 
-	Predicate pred;
+    Predicate pred;
 }; // end binary_negate
 
 /*! \p not2 is a helper function to simplify the creation of Adaptable Binary Predicates:

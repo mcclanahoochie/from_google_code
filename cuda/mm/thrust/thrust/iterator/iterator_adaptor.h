@@ -58,80 +58,80 @@ typename Derived
 , typename Difference = use_default
 >
 class iterator_adaptor:
-	public detail::iterator_adaptor_base <
-	Derived, Base, Pointer, Value, Space, Traversal, Reference, Difference
-		>::type {
-	friend class iterator_core_access;
+    public detail::iterator_adaptor_base <
+    Derived, Base, Pointer, Value, Space, Traversal, Reference, Difference
+        >::type {
+    friend class iterator_core_access;
 
 protected:
-	typedef typename detail::iterator_adaptor_base <
-	Derived, Base, Pointer, Value, Space, Traversal, Reference, Difference
-	>::type super_t;
+    typedef typename detail::iterator_adaptor_base <
+    Derived, Base, Pointer, Value, Space, Traversal, Reference, Difference
+    >::type super_t;
 
 public:
-	__host__ __device__
-	iterator_adaptor() {}
+    __host__ __device__
+    iterator_adaptor() {}
 
-	__host__ __device__
-	explicit iterator_adaptor(Base const& iter)
-		: m_iterator(iter)
-	{}
+    __host__ __device__
+    explicit iterator_adaptor(Base const& iter)
+        : m_iterator(iter)
+    {}
 
-	typedef Base       base_type;
-	// XXX BUG: why do we have to declare this here?  it's supposed to be published in super_t
-	typedef typename super_t::reference reference;
-	// XXX BUG: why do we have to declare this here?  it's supposed to be published in super_t
-	typedef typename super_t::difference_type difference_type;
+    typedef Base       base_type;
+    // XXX BUG: why do we have to declare this here?  it's supposed to be published in super_t
+    typedef typename super_t::reference reference;
+    // XXX BUG: why do we have to declare this here?  it's supposed to be published in super_t
+    typedef typename super_t::difference_type difference_type;
 
-	__host__ __device__
-	Base const& base() const
-	{ return m_iterator; }
+    __host__ __device__
+    Base const& base() const
+    { return m_iterator; }
 
 protected:
-	typedef iterator_adaptor iterator_adaptor_;
+    typedef iterator_adaptor iterator_adaptor_;
 
-	__host__ __device__
-	Base const& base_reference() const
-	{ return m_iterator; }
+    __host__ __device__
+    Base const& base_reference() const
+    { return m_iterator; }
 
-	__host__ __device__
-	Base& base_reference()
-	{ return m_iterator; }
+    __host__ __device__
+    Base& base_reference()
+    { return m_iterator; }
 
 private: // Core iterator interface for iterator_facade
 
-	__host__ __device__
-	typename iterator_adaptor::reference dereference() const
-	{ return *m_iterator; }
+    __host__ __device__
+    typename iterator_adaptor::reference dereference() const
+    { return *m_iterator; }
 
-	template<typename OtherDerived, typename OtherIterator, typename P, typename V, typename S, typename T, typename R, typename D>
-	__host__ __device__
-	bool equal(iterator_adaptor<OtherDerived, OtherIterator, P, V, S, T, R, D> const& x) const
-	{ return m_iterator == x.base(); }
+    template<typename OtherDerived, typename OtherIterator, typename P, typename V, typename S, typename T, typename R, typename D>
+    __host__ __device__
+    bool equal(iterator_adaptor<OtherDerived, OtherIterator, P, V, S, T, R, D> const& x) const
+    { return m_iterator == x.base(); }
 
-	__host__ __device__
-	void advance(typename iterator_adaptor::difference_type n) {
-		// XXX statically assert on random_access_traversal_tag
-		m_iterator += n;
-	}
+    __host__ __device__
+    void advance(typename iterator_adaptor::difference_type n) {
+        // XXX statically assert on random_access_traversal_tag
+        m_iterator += n;
+    }
 
-	__host__ __device__
-	void increment()
-	{ ++m_iterator; }
+    __host__ __device__
+    void increment()
+    { ++m_iterator; }
 
-	__host__ __device__
-	void decrement() {
-		// XXX statically assert on bidirectional_traversal_tag
-		--m_iterator;
-	}
+    __host__ __device__
+    void decrement() {
+        // XXX statically assert on bidirectional_traversal_tag
+        --m_iterator;
+    }
 
-	template<typename OtherDerived, typename OtherIterator, typename P, typename V, typename S, typename T, typename R, typename D>
-	__host__ __device__
-	typename iterator_adaptor::difference_type distance_to(iterator_adaptor<OtherDerived, OtherIterator, P, V, S, T, R, D> const& y) const
-	{ return y.base() - m_iterator; }
+    template<typename OtherDerived, typename OtherIterator, typename P, typename V, typename S, typename T, typename R, typename D>
+    __host__ __device__
+    typename iterator_adaptor::difference_type distance_to(iterator_adaptor<OtherDerived, OtherIterator, P, V, S, T, R, D> const& y) const
+    { return y.base() - m_iterator; }
 
 private:
-	Base m_iterator; // exposition only
+    Base m_iterator; // exposition only
 }; // end iterator_adaptor
 
 } // end experimental

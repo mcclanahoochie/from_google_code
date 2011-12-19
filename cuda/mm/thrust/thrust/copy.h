@@ -71,8 +71,8 @@ namespace thrust {
  */
 template<typename InputIterator, typename OutputIterator>
 OutputIterator copy(InputIterator first,
-					InputIterator last,
-					OutputIterator result);
+                    InputIterator last,
+                    OutputIterator result);
 
 /*! \p copy_when conditionally copies elements from the range [\p first, \p last)
  *  to the range [\p result, \p result + (\p last - \p first)). For each iterator
@@ -111,12 +111,12 @@ OutputIterator copy(InputIterator first,
  *  \endcode
  */
 template < typename InputIterator,
-		 typename PredicateIterator,
-		 typename OutputIterator >
+         typename PredicateIterator,
+         typename OutputIterator >
 OutputIterator copy_when(InputIterator first,
-						 InputIterator last,
-						 PredicateIterator stencil,
-						 OutputIterator result);
+                         InputIterator last,
+                         PredicateIterator stencil,
+                         OutputIterator result);
 
 /*! \p copy_when conditionally copies elements from the range [\p first, \p last)
  *  to the range [\p result, \p result + (\p last - \p first)). For each iterator
@@ -167,14 +167,14 @@ OutputIterator copy_when(InputIterator first,
  *  \endcode
  */
 template < typename InputIterator,
-		 typename PredicateIterator,
-		 typename OutputIterator,
-		 typename Predicate >
+         typename PredicateIterator,
+         typename OutputIterator,
+         typename Predicate >
 OutputIterator copy_when(InputIterator first,
-						 InputIterator last,
-						 PredicateIterator stencil,
-						 OutputIterator result,
-						 Predicate pred);
+                         InputIterator last,
+                         PredicateIterator stencil,
+                         OutputIterator result,
+                         Predicate pred);
 
 /*! \} // end copying
  */
@@ -233,12 +233,12 @@ OutputIterator copy_when(InputIterator first,
  *  \see \c remove_copy_if
  */
 template < typename InputIterator,
-		 typename OutputIterator,
-		 typename Predicate >
+         typename OutputIterator,
+         typename Predicate >
 OutputIterator copy_if(InputIterator first,
-					   InputIterator last,
-					   OutputIterator result,
-					   Predicate pred);
+                       InputIterator last,
+                       OutputIterator result,
+                       Predicate pred);
 
 /*! This version of \p copy_if copies elements from the range <tt>[first,last)</tt>
  *  to a range beginning at \p result, except that any element whose corresponding stencil
@@ -267,14 +267,14 @@ OutputIterator copy_if(InputIterator first,
  *  \see \c remove_copy_if
  */
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename OutputIterator,
-		 typename Predicate >
+         typename InputIterator2,
+         typename OutputIterator,
+         typename Predicate >
 OutputIterator copy_if(InputIterator1 first,
-					   InputIterator1 last,
-					   InputIterator2 stencil,
-					   OutputIterator result,
-					   Predicate pred);
+                       InputIterator1 last,
+                       InputIterator2 stencil,
+                       OutputIterator result,
+                       Predicate pred);
 
 /*! \} // end stream_compaction
  */

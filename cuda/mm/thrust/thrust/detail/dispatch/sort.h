@@ -33,49 +33,49 @@ namespace dispatch {
 //////////////////
 
 template < typename RandomAccessIterator,
-		 typename StrictWeakOrdering >
+         typename StrictWeakOrdering >
 void sort(RandomAccessIterator begin,
-		  RandomAccessIterator end,
-		  StrictWeakOrdering comp,
-		  thrust::host_space_tag) {
-	thrust::detail::host::sort(begin, end, comp);
+          RandomAccessIterator end,
+          StrictWeakOrdering comp,
+          thrust::host_space_tag) {
+    thrust::detail::host::sort(begin, end, comp);
 }
 
 template < typename RandomAccessIterator,
-		 typename StrictWeakOrdering >
+         typename StrictWeakOrdering >
 void stable_sort(RandomAccessIterator begin,
-				 RandomAccessIterator end,
-				 StrictWeakOrdering comp,
-				 thrust::host_space_tag) {
-	thrust::detail::host::stable_sort(begin, end, comp);
+                 RandomAccessIterator end,
+                 StrictWeakOrdering comp,
+                 thrust::host_space_tag) {
+    thrust::detail::host::stable_sort(begin, end, comp);
 }
 
 template < typename RandomAccessKeyIterator,
-		 typename RandomAccessValueIterator,
-		 typename StrictWeakOrdering >
+         typename RandomAccessValueIterator,
+         typename StrictWeakOrdering >
 void sort_by_key(RandomAccessKeyIterator keys_begin,
-				 RandomAccessKeyIterator keys_end,
-				 RandomAccessValueIterator values_begin,
-				 StrictWeakOrdering comp,
-				 thrust::host_space_tag,
-				 thrust::host_space_tag)
+                 RandomAccessKeyIterator keys_end,
+                 RandomAccessValueIterator values_begin,
+                 StrictWeakOrdering comp,
+                 thrust::host_space_tag,
+                 thrust::host_space_tag)
 
 {
-	thrust::detail::host::sort_by_key(keys_begin, keys_end, values_begin, comp);
+    thrust::detail::host::sort_by_key(keys_begin, keys_end, values_begin, comp);
 }
 
 template < typename RandomAccessKeyIterator,
-		 typename RandomAccessValueIterator,
-		 typename StrictWeakOrdering >
+         typename RandomAccessValueIterator,
+         typename StrictWeakOrdering >
 void stable_sort_by_key(RandomAccessKeyIterator keys_begin,
-						RandomAccessKeyIterator keys_end,
-						RandomAccessValueIterator values_begin,
-						StrictWeakOrdering comp,
-						thrust::host_space_tag,
-						thrust::host_space_tag)
+                        RandomAccessKeyIterator keys_end,
+                        RandomAccessValueIterator values_begin,
+                        StrictWeakOrdering comp,
+                        thrust::host_space_tag,
+                        thrust::host_space_tag)
 
 {
-	thrust::detail::host::stable_sort_by_key(keys_begin, keys_end, values_begin, comp);
+    thrust::detail::host::stable_sort_by_key(keys_begin, keys_end, values_begin, comp);
 }
 
 
@@ -84,45 +84,45 @@ void stable_sort_by_key(RandomAccessKeyIterator keys_begin,
 ////////////////////
 
 template < typename RandomAccessIterator,
-		 typename StrictWeakOrdering >
+         typename StrictWeakOrdering >
 void sort(RandomAccessIterator begin,
-		  RandomAccessIterator end,
-		  StrictWeakOrdering comp,
-		  thrust::device_space_tag) {
-	thrust::detail::device::sort(begin, end, comp);
+          RandomAccessIterator end,
+          StrictWeakOrdering comp,
+          thrust::device_space_tag) {
+    thrust::detail::device::sort(begin, end, comp);
 }
 
 template < typename RandomAccessIterator,
-		 typename StrictWeakOrdering >
+         typename StrictWeakOrdering >
 void stable_sort(RandomAccessIterator begin,
-				 RandomAccessIterator end,
-				 StrictWeakOrdering comp,
-				 thrust::device_space_tag) {
-	thrust::detail::device::stable_sort(begin, end, comp);
+                 RandomAccessIterator end,
+                 StrictWeakOrdering comp,
+                 thrust::device_space_tag) {
+    thrust::detail::device::stable_sort(begin, end, comp);
 }
 
 template < typename RandomAccessKeyIterator,
-		 typename RandomAccessValueIterator,
-		 typename StrictWeakOrdering >
+         typename RandomAccessValueIterator,
+         typename StrictWeakOrdering >
 void sort_by_key(RandomAccessKeyIterator keys_begin,
-				 RandomAccessKeyIterator keys_end,
-				 RandomAccessValueIterator values_begin,
-				 StrictWeakOrdering comp,
-				 thrust::device_space_tag,
-				 thrust::device_space_tag) {
-	thrust::detail::device::sort_by_key(keys_begin, keys_end, values_begin, comp);
+                 RandomAccessKeyIterator keys_end,
+                 RandomAccessValueIterator values_begin,
+                 StrictWeakOrdering comp,
+                 thrust::device_space_tag,
+                 thrust::device_space_tag) {
+    thrust::detail::device::sort_by_key(keys_begin, keys_end, values_begin, comp);
 }
 
 template < typename RandomAccessKeyIterator,
-		 typename RandomAccessValueIterator,
-		 typename StrictWeakOrdering >
+         typename RandomAccessValueIterator,
+         typename StrictWeakOrdering >
 void stable_sort_by_key(RandomAccessKeyIterator keys_begin,
-						RandomAccessKeyIterator keys_end,
-						RandomAccessValueIterator values_begin,
-						StrictWeakOrdering comp,
-						thrust::device_space_tag,
-						thrust::device_space_tag) {
-	thrust::detail::device::stable_sort_by_key(keys_begin, keys_end, values_begin, comp);
+                        RandomAccessKeyIterator keys_end,
+                        RandomAccessValueIterator values_begin,
+                        StrictWeakOrdering comp,
+                        thrust::device_space_tag,
+                        thrust::device_space_tag) {
+    thrust::detail::device::stable_sort_by_key(keys_begin, keys_end, values_begin, comp);
 }
 
 } // end namespace dispatch

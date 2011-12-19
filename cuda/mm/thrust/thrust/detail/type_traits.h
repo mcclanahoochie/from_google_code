@@ -51,9 +51,9 @@ namespace detail {
 /// helper classes [4.3].
 template<typename _Tp, _Tp __v>
 struct integral_constant {
-	static const _Tp                      value = __v;
-	typedef _Tp                           value_type;
-	typedef integral_constant<_Tp, __v>   type;
+    static const _Tp                      value = __v;
+    typedef _Tp                           value_type;
+    typedef integral_constant<_Tp, __v>   type;
 };
 
 /// typedef for true_type
@@ -114,9 +114,9 @@ namespace tt_detail {
 } // end tt_detail
 
 template<typename T> struct is_pod
-		: public integral_constant <
-		bool,
-		is_void<T>::value || is_pointer<T>::value || is_arithmetic<T>::value
+        : public integral_constant <
+        bool,
+        is_void<T>::value || is_pointer<T>::value || is_arithmetic<T>::value
 #if THRUST_HOST_COMPILER   == THRUST_HOST_COMPILER_MSVC
 // use intrinsic type traits
 || __is_pod(T)
@@ -131,9 +131,9 @@ template<typename T> struct is_pod
 
 
 template<typename T> struct has_trivial_constructor
-		: public integral_constant <
-		bool,
-		is_pod<T>::value
+        : public integral_constant <
+        bool,
+        is_pod<T>::value
 #if THRUST_HOST_COMPILER   == THRUST_HOST_COMPILER_MSVC
 || __has_trivial_constructor(T)
 #elif THRUST_HOST_COMPILER == THRUST_HOST_COMPILER_GCC
@@ -146,9 +146,9 @@ template<typename T> struct has_trivial_constructor
 {};
 
 template<typename T> struct has_trivial_copy_constructor
-		: public integral_constant <
-		bool,
-		is_pod<T>::value
+        : public integral_constant <
+        bool,
+        is_pod<T>::value
 #if THRUST_HOST_COMPILER == THRUST_HOST_COMPILER_MSVC
 || __has_trivial_copy(T)
 #elif THRUST_HOST_COMPILER == THRUST_HOST_COMPILER_GCC
@@ -170,42 +170,42 @@ template<typename T> struct is_volatile<volatile T> : public true_type {};
 
 template<typename T>
 struct add_const {
-	typedef T const type;
+    typedef T const type;
 }; // end add_const
 
 template<typename T>
 struct remove_const {
-	typedef T type;
+    typedef T type;
 }; // end remove_const
 
 template<typename T>
 struct remove_const<const T> {
-	typedef T type;
+    typedef T type;
 }; // end remove_const
 
 template<typename T>
 struct add_volatile {
-	typedef volatile T type;
+    typedef volatile T type;
 }; // end add_volatile
 
 template<typename T>
 struct remove_volatile {
-	typedef T type;
+    typedef T type;
 }; // end remove_volatile
 
 template<typename T>
 struct remove_volatile<volatile T> {
-	typedef T type;
+    typedef T type;
 }; // end remove_volatile
 
 template<typename T>
 struct add_cv {
-	typedef const volatile T type;
+    typedef const volatile T type;
 }; // end add_cv
 
 template<typename T>
 struct remove_cv {
-	typedef typename remove_const<typename remove_volatile<T>::type>::type type;
+    typedef typename remove_const<typename remove_volatile<T>::type>::type type;
 }; // end remove_cv
 
 
@@ -219,34 +219,34 @@ template<typename T> struct is_device_reference< thrust::device_reference<T> > :
 // NB: Careful with reference to void.
 template < typename _Tp, bool = (is_void<_Tp>::value || is_reference<_Tp>::value) >
 struct __add_reference_helper
-	{ typedef _Tp&    type; };
+{ typedef _Tp&    type; };
 
 template<typename _Tp>
 struct __add_reference_helper<_Tp, true>
-	{ typedef _Tp     type; };
+{ typedef _Tp     type; };
 
 template<typename _Tp>
 struct add_reference
-		: public __add_reference_helper<_Tp> {};
+        : public __add_reference_helper<_Tp> {};
 
 template<typename T>
 struct remove_reference {
-	typedef T type;
+    typedef T type;
 }; // end remove_reference
 
 template<typename T>
 struct remove_reference<T&> {
-	typedef T type;
+    typedef T type;
 }; // end remove_reference
 
 template<typename T1, typename T2>
 struct is_same
-		: public false_type {
+        : public false_type {
 }; // end is_same
 
 template<typename T>
 struct is_same<T, T>
-		: public true_type {
+        : public true_type {
 }; // end is_same
 
 
@@ -254,11 +254,11 @@ namespace tt_detail {
 
 template<typename T>
 struct is_int_or_cref {
-	typedef typename remove_reference<T>::type type_sans_ref;
-	static const bool value = (is_integral<T>::value
-							   || (is_integral<type_sans_ref>::value
-								   && is_const<type_sans_ref>::value
-								   && !is_volatile<type_sans_ref>::value));
+    typedef typename remove_reference<T>::type type_sans_ref;
+    static const bool value = (is_integral<T>::value
+                               || (is_integral<type_sans_ref>::value
+                                   && is_const<type_sans_ref>::value
+                                   && !is_volatile<type_sans_ref>::value));
 }; // end is_int_or_cref
 
 
@@ -266,42 +266,42 @@ struct is_int_or_cref {
 template<typename From, typename To>
 struct is_convertible_sfinae {
 private:
-	typedef char                          one_byte;
-	typedef struct { char two_chars[2]; } two_bytes;
+    typedef char                          one_byte;
+    typedef struct { char two_chars[2]; } two_bytes;
 
-	static one_byte  test(To);
-	static two_bytes test(...);
-	static From      m_from;
+    static one_byte  test(To);
+    static two_bytes test(...);
+    static From      m_from;
 
 public:
-	static const bool value = sizeof(test(m_from)) == 1;
+    static const bool value = sizeof(test(m_from)) == 1;
 }; // end is_convertible_sfinae
 
 
 template<typename From, typename To>
 struct is_convertible_needs_simple_test {
-	static const bool from_is_void      = is_void<From>::value;
-	static const bool to_is_void        = is_void<To>::value;
-	static const bool from_is_float     = is_floating_point<typename remove_reference<From>::type>::value;
-	static const bool to_is_int_or_cref = is_int_or_cref<To>::value;
+    static const bool from_is_void      = is_void<From>::value;
+    static const bool to_is_void        = is_void<To>::value;
+    static const bool from_is_float     = is_floating_point<typename remove_reference<From>::type>::value;
+    static const bool to_is_int_or_cref = is_int_or_cref<To>::value;
 
-	static const bool value = (from_is_void || to_is_void || (from_is_float && to_is_int_or_cref));
+    static const bool value = (from_is_void || to_is_void || (from_is_float && to_is_int_or_cref));
 }; // end is_convertible_needs_simple_test
 
 
 template < typename From, typename To,
-		 bool = is_convertible_needs_simple_test<From, To>::value >
+         bool = is_convertible_needs_simple_test<From, To>::value >
 struct is_convertible {
-	static const bool value = (is_void<To>::value
-							   || (is_int_or_cref<To>::value
-								   && !is_void<From>::value));
+    static const bool value = (is_void<To>::value
+                               || (is_int_or_cref<To>::value
+                                   && !is_void<From>::value));
 }; // end is_convertible
 
 
 template<typename From, typename To>
 struct is_convertible<From, To, false> {
-	static const bool value = (is_convertible_sfinae < typename
-							   add_reference<From>::type, To >::value);
+    static const bool value = (is_convertible_sfinae < typename
+                               add_reference<From>::type, To >::value);
 }; // end is_convertible
 
 
@@ -309,34 +309,34 @@ struct is_convertible<From, To, false> {
 
 template<typename From, typename To>
 struct is_convertible
-		: public integral_constant<bool, tt_detail::is_convertible<From, To>::value> {
+        : public integral_constant<bool, tt_detail::is_convertible<From, To>::value> {
 }; // end is_convertible
 
 
 template<typename T1, typename T2>
 struct is_one_convertible_to_the_other
-		: public integral_constant <
-		bool,
-		is_convertible<T1, T2>::value || is_convertible<T2, T1>::value
-		>
-	{};
+        : public integral_constant <
+        bool,
+        is_convertible<T1, T2>::value || is_convertible<T2, T1>::value
+        >
+{};
 
 
 // mpl stuff
 
 template < typename Condition1, typename Condition2, typename Condition3 = false_type >
 struct or_
-		: public integral_constant < bool, Condition1::value || Condition2::value || Condition3::value > {
+        : public integral_constant < bool, Condition1::value || Condition2::value || Condition3::value > {
 }; // end or_
 
 template <typename Condition1, typename Condition2>
 struct and_
-		: public integral_constant < bool, Condition1::value && Condition2::value > {
+        : public integral_constant < bool, Condition1::value && Condition2::value > {
 }; // end and_
 
 template <typename Boolean>
 struct not_
-		: public integral_constant < bool, !Boolean::value > {
+        : public integral_constant < bool, !Boolean::value > {
 }; // end not_
 
 template <bool, typename Then, typename Else>
@@ -345,19 +345,19 @@ struct eval_if {
 
 template<typename Then, typename Else>
 struct eval_if<true, Then, Else> {
-	typedef typename Then::type type;
+    typedef typename Then::type type;
 }; // end eval_if
 
 template<typename Then, typename Else>
 struct eval_if<false, Then, Else> {
-	typedef typename Else::type type;
+    typedef typename Else::type type;
 }; // end eval_if
 
 template<typename T>
 //  struct identity
 //  XXX WAR nvcc's confusion with thrust::identity
 struct identity_ {
-	typedef T type;
+    typedef T type;
 }; // end identity
 
 template < bool, typename T = void > struct enable_if {};
@@ -366,16 +366,16 @@ template<typename T>              struct enable_if<true, T> {typedef T type;};
 
 template<typename T1, typename T2>
 struct enable_if_convertible
-		: enable_if< is_convertible<T1, T2>::value>
-	{};
+        : enable_if< is_convertible<T1, T2>::value>
+{};
 
 
 template<typename T>
 struct is_numeric
-		: and_ <
-		is_convertible<int, T>,
-		is_convertible<T, int>
-		> {
+        : and_ <
+        is_convertible<int, T>,
+        is_convertible<T, int>
+        > {
 }; // end is_numeric
 
 
@@ -403,49 +403,49 @@ template<> struct make_unsigned_simple<unsigned long long int> { typedef unsigne
 
 template<typename T>
 struct make_unsigned_base {
-	// remove cv
-	typedef typename remove_cv<T>::type remove_cv_t;
+    // remove cv
+    typedef typename remove_cv<T>::type remove_cv_t;
 
-	// get the simple unsigned type
-	typedef typename make_unsigned_simple<remove_cv_t>::type unsigned_remove_cv_t;
+    // get the simple unsigned type
+    typedef typename make_unsigned_simple<remove_cv_t>::type unsigned_remove_cv_t;
 
-	// add back const, volatile, both, or neither to the simple result
-	typedef typename eval_if <
-	is_const<T>::value && is_volatile<T>::value,
-			 // add cv back
-			 add_cv<unsigned_remove_cv_t>,
-			 // check const & volatile individually
-			 eval_if <
-			 is_const<T>::value,
-			 // add c back
-			 add_const<unsigned_remove_cv_t>,
-			 eval_if <
-			 is_volatile<T>::value,
-			 // add v back
-			 add_volatile<unsigned_remove_cv_t>,
-			 // original type was neither cv, return the simple unsigned result
-			 identity_<unsigned_remove_cv_t>
-			 >
-			 >
-			 >::type type;
+    // add back const, volatile, both, or neither to the simple result
+    typedef typename eval_if <
+    is_const<T>::value && is_volatile<T>::value,
+             // add cv back
+             add_cv<unsigned_remove_cv_t>,
+             // check const & volatile individually
+             eval_if <
+             is_const<T>::value,
+             // add c back
+             add_const<unsigned_remove_cv_t>,
+             eval_if <
+             is_volatile<T>::value,
+             // add v back
+             add_volatile<unsigned_remove_cv_t>,
+             // original type was neither cv, return the simple unsigned result
+             identity_<unsigned_remove_cv_t>
+             >
+             >
+             >::type type;
 };
 
 } // end tt_detail
 
 template<typename T>
 struct make_unsigned
-		: tt_detail::make_unsigned_base<T>
-	{};
+        : tt_detail::make_unsigned_base<T>
+{};
 
 struct largest_available_float {
 #if defined(__CUDA_ARCH__)
 #  if (__CUDA_ARCH__ < 130)
-	typedef float type;
+    typedef float type;
 #  else
-	typedef double type;
+    typedef double type;
 #  endif
 #else
-	typedef double type;
+    typedef double type;
 #endif
 };
 

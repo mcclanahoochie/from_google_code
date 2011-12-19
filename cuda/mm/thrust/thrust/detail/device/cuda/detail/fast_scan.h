@@ -29,22 +29,22 @@ namespace detail {
 namespace fast_scan {
 
 template < typename InputIterator,
-		 typename OutputIterator,
-		 typename BinaryFunction >
+         typename OutputIterator,
+         typename BinaryFunction >
 OutputIterator inclusive_scan(InputIterator first,
-							  InputIterator last,
-							  OutputIterator output,
-							  BinaryFunction binary_op);
+                              InputIterator last,
+                              OutputIterator output,
+                              BinaryFunction binary_op);
 
 template < typename InputIterator,
-		 typename OutputIterator,
-		 typename T,
-		 typename BinaryFunction >
+         typename OutputIterator,
+         typename T,
+         typename BinaryFunction >
 OutputIterator exclusive_scan(InputIterator first,
-							  InputIterator last,
-							  OutputIterator output,
-							  const T init,
-							  BinaryFunction binary_op);
+                              InputIterator last,
+                              OutputIterator output,
+                              const T init,
+                              BinaryFunction binary_op);
 
 } // end namespace fast_scan
 } // end namespace detail

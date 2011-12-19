@@ -28,8 +28,8 @@ namespace generic {
 
 template <class InputIterator, class OutputIterator, class BinaryFunction>
 OutputIterator adjacent_difference(InputIterator first, InputIterator last,
-								   OutputIterator result,
-								   BinaryFunction binary_op);
+                                   OutputIterator result,
+                                   BinaryFunction binary_op);
 
 } // end namespace generic
 } // end namespace device

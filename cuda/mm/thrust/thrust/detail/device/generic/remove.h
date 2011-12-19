@@ -27,30 +27,30 @@ namespace device {
 namespace generic {
 
 template < typename ForwardIterator,
-		 typename InputIterator,
-		 typename Predicate >
+         typename InputIterator,
+         typename Predicate >
 ForwardIterator remove_if(ForwardIterator first,
-						  ForwardIterator last,
-						  InputIterator stencil,
-						  Predicate pred);
+                          ForwardIterator last,
+                          InputIterator stencil,
+                          Predicate pred);
 
 template < typename InputIterator,
-		 typename OutputIterator,
-		 typename Predicate >
+         typename OutputIterator,
+         typename Predicate >
 OutputIterator remove_copy_if(InputIterator first,
-							  InputIterator last,
-							  OutputIterator result,
-							  Predicate pred);
+                              InputIterator last,
+                              OutputIterator result,
+                              Predicate pred);
 
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename OutputIterator,
-		 typename Predicate >
+         typename InputIterator2,
+         typename OutputIterator,
+         typename Predicate >
 OutputIterator remove_copy_if(InputIterator1 first,
-							  InputIterator1 last,
-							  InputIterator2 stencil,
-							  OutputIterator result,
-							  Predicate pred);
+                              InputIterator1 last,
+                              InputIterator2 stencil,
+                              OutputIterator result,
+                              Predicate pred);
 
 } // end namespace generic
 } // end namespace device

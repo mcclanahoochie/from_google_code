@@ -32,23 +32,23 @@ namespace dispatch {
 template<typename InputIterator>
 inline typename thrust::iterator_traits<InputIterator>::difference_type
 distance(InputIterator first, InputIterator last,
-		 thrust::single_pass_traversal_tag) {
-	typename thrust::iterator_traits<InputIterator>::difference_type result = 0;
+         thrust::single_pass_traversal_tag) {
+    typename thrust::iterator_traits<InputIterator>::difference_type result = 0;
 
-	while (first != last) {
-		++first;
-		++result;
-	}
+    while (first != last) {
+        ++first;
+        ++result;
+    }
 
-	return result;
+    return result;
 } // end distance()
 
 
 template<typename InputIterator>
 inline typename thrust::iterator_traits<InputIterator>::difference_type
 distance(InputIterator first, InputIterator last,
-		 thrust::random_access_traversal_tag) {
-	return last - first;
+         thrust::random_access_traversal_tag) {
+    return last - first;
 } // end distance()
 
 } // end namespace dispatch

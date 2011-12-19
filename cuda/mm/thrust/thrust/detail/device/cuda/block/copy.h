@@ -36,59 +36,59 @@ namespace detail {
 namespace dispatch {
 
 template < typename RandomAccessIterator1,
-		 typename RandomAccessIterator2 >
+         typename RandomAccessIterator2 >
 __device__
 RandomAccessIterator2 copy(RandomAccessIterator1 first,
-						   RandomAccessIterator1 last,
-						   RandomAccessIterator2 result,
-						   thrust::detail::true_type is_trivial_copy) {
-	typedef typename thrust::iterator_value<RandomAccessIterator1>::type T;
+                           RandomAccessIterator1 last,
+                           RandomAccessIterator2 result,
+                           thrust::detail::true_type is_trivial_copy) {
+    typedef typename thrust::iterator_value<RandomAccessIterator1>::type T;
 
-	// XXX these aren't working at the moment
-	//const T *src = thrust::raw_pointer_cast(&*first);
-	//      T *dst = thrust::raw_pointer_cast(&*result);
-	const T* src = &dereference(first);
-	T* dst = &dereference(result);
+    // XXX these aren't working at the moment
+    //const T *src = thrust::raw_pointer_cast(&*first);
+    //      T *dst = thrust::raw_pointer_cast(&*result);
+    const T* src = &dereference(first);
+    T* dst = &dereference(result);
 
-	size_t n = (last - first);
-	cuda::detail::trivial_copy<cuda::detail::trivial_copy_block>(dst, src, n * sizeof(T));
-	return result + n;
+    size_t n = (last - first);
+    cuda::detail::trivial_copy<cuda::detail::trivial_copy_block>(dst, src, n * sizeof(T));
+    return result + n;
 } // end copy()
 
 template < typename RandomAccessIterator1,
-		 typename RandomAccessIterator2 >
+         typename RandomAccessIterator2 >
 __device__
 RandomAccessIterator2 copy(RandomAccessIterator1 first,
-						   RandomAccessIterator1 last,
-						   RandomAccessIterator2 result,
-						   thrust::detail::false_type is_trivial_copy) {
-	RandomAccessIterator2 end_of_output = result + (last - first);
+                           RandomAccessIterator1 last,
+                           RandomAccessIterator2 result,
+                           thrust::detail::false_type is_trivial_copy) {
+    RandomAccessIterator2 end_of_output = result + (last - first);
 
-	// advance iterators
-	first  += threadIdx.x;
-	result += threadIdx.x;
+    // advance iterators
+    first  += threadIdx.x;
+    result += threadIdx.x;
 
-	for (;
-			first < last;
-			first += blockDim.x,
-			result += blockDim.x) {
-		dereference(result) = dereference(first);
-	} // end for
+    for (;
+            first < last;
+            first += blockDim.x,
+            result += blockDim.x) {
+        dereference(result) = dereference(first);
+    } // end for
 
-	return end_of_output;
+    return end_of_output;
 } // end copy()
 
 } // end namespace dispatch
 } // end namespace detail
 
 template < typename RandomAccessIterator1,
-		 typename RandomAccessIterator2 >
+         typename RandomAccessIterator2 >
 __device__
 RandomAccessIterator2 copy(RandomAccessIterator1 first,
-						   RandomAccessIterator1 last,
-						   RandomAccessIterator2 result) {
-	return detail::dispatch::copy(first, last, result,
-								  typename thrust::detail::dispatch::is_trivial_copy<RandomAccessIterator1, RandomAccessIterator2>::type());
+                           RandomAccessIterator1 last,
+                           RandomAccessIterator2 result) {
+    return detail::dispatch::copy(first, last, result,
+                                  typename thrust::detail::dispatch::is_trivial_copy<RandomAccessIterator1, RandomAccessIterator2>::type());
 } // end copy()
 
 } // end namespace block

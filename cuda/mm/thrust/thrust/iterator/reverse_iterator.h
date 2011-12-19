@@ -136,73 +136,73 @@ namespace thrust {
  */
 template<typename BidirectionalIterator>
 class reverse_iterator
-		: public detail::reverse_iterator_base<BidirectionalIterator>::type {
-	/*! \cond
-	 */
+        : public detail::reverse_iterator_base<BidirectionalIterator>::type {
+    /*! \cond
+     */
 private:
-	typedef typename thrust::detail::reverse_iterator_base <
-	BidirectionalIterator
-	>::type super_t;
+    typedef typename thrust::detail::reverse_iterator_base <
+    BidirectionalIterator
+    >::type super_t;
 
-	friend class thrust::experimental::iterator_core_access;
-	/*! \endcond
-	 */
+    friend class thrust::experimental::iterator_core_access;
+    /*! \endcond
+     */
 
 public:
-	/*! Default constructor does nothing.
-	 */
-	__host__ __device__
-	reverse_iterator(void) {}
+    /*! Default constructor does nothing.
+     */
+    __host__ __device__
+    reverse_iterator(void) {}
 
-	/*! \p Constructor accepts a \c BidirectionalIterator pointing to a range
-	 *  for this \p reverse_iterator to reverse.
-	 *
-	 *  \param x A \c BidirectionalIterator pointing to a range to reverse.
-	 */
-	__host__ __device__
-	explicit reverse_iterator(BidirectionalIterator x);
+    /*! \p Constructor accepts a \c BidirectionalIterator pointing to a range
+     *  for this \p reverse_iterator to reverse.
+     *
+     *  \param x A \c BidirectionalIterator pointing to a range to reverse.
+     */
+    __host__ __device__
+    explicit reverse_iterator(BidirectionalIterator x);
 
-	/*! \p Copy constructor allows construction from a related compatible
-	 *  \p reverse_iterator.
-	 *
-	 *  \param r A \p reverse_iterator to copy from.
-	 */
-	template<typename OtherBidirectionalIterator>
-	__host__ __device__
-	reverse_iterator(reverse_iterator<OtherBidirectionalIterator> const& r
+    /*! \p Copy constructor allows construction from a related compatible
+     *  \p reverse_iterator.
+     *
+     *  \param r A \p reverse_iterator to copy from.
+     */
+    template<typename OtherBidirectionalIterator>
+    __host__ __device__
+    reverse_iterator(reverse_iterator<OtherBidirectionalIterator> const& r
 // XXX msvc screws this up
 // XXX remove these guards when we have static_assert
 #ifndef _MSC_VER
-					 , typename thrust::detail::enable_if <
-					 thrust::detail::is_convertible <
-					 OtherBidirectionalIterator,
-					 BidirectionalIterator
-					 >::value
-					 >::type * = 0
+                     , typename thrust::detail::enable_if <
+                     thrust::detail::is_convertible <
+                     OtherBidirectionalIterator,
+                     BidirectionalIterator
+                     >::value
+                     >::type * = 0
 #endif // _MSC_VER
-					);
+                    );
 
-	/*! \cond
-	 */
+    /*! \cond
+     */
 private:
-	__host__ __device__
-	typename super_t::reference dereference(void) const;
+    __host__ __device__
+    typename super_t::reference dereference(void) const;
 
-	__host__ __device__
-	void increment(void);
+    __host__ __device__
+    void increment(void);
 
-	__host__ __device__
-	void decrement(void);
+    __host__ __device__
+    void decrement(void);
 
-	__host__ __device__
-	void advance(typename super_t::difference_type n);
+    __host__ __device__
+    void advance(typename super_t::difference_type n);
 
-	template<typename OtherBidirectionalIterator>
-	__host__ __device__
-	typename super_t::difference_type
-	distance_to(reverse_iterator<OtherBidirectionalIterator> const& y) const;
-	/*! \endcond
-	 */
+    template<typename OtherBidirectionalIterator>
+    __host__ __device__
+    typename super_t::difference_type
+    distance_to(reverse_iterator<OtherBidirectionalIterator> const& y) const;
+    /*! \endcond
+     */
 }; // end reverse_iterator
 
 

@@ -53,7 +53,7 @@ namespace thrust {
  */
 template <typename T>
 device_ptr<T> device_new(device_ptr<void> p,
-						 const size_t n = 1);
+                         const size_t n = 1);
 
 /*! \p device_new implements the placement new operator for types
  *  resident in device memory. \p device_new calls <tt>T</tt>'s copy
@@ -91,8 +91,8 @@ device_ptr<T> device_new(device_ptr<void> p,
  */
 template <typename T>
 device_ptr<T> device_new(device_ptr<void> p,
-						 const T& exemplar,
-						 const size_t n = 1);
+                         const T& exemplar,
+                         const size_t n = 1);
 
 /*! \p device_new implements the new operator for types resident in device memory.
  *  It allocates device memory large enough to hold \p n new objects of type \c T.

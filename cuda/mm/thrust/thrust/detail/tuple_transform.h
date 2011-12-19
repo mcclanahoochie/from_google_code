@@ -24,216 +24,216 @@ namespace thrust {
 namespace detail {
 
 template < typename Tuple,
-		 template<typename> class UnaryMetaFunction,
-		 typename UnaryFunction,
-		 unsigned int sz = thrust::tuple_size<Tuple>::value >
+         template<typename> class UnaryMetaFunction,
+         typename UnaryFunction,
+         unsigned int sz = thrust::tuple_size<Tuple>::value >
 struct tuple_transform_functor;
 
 
 template < typename Tuple,
-		 template<typename> class UnaryMetaFunction,
-		 typename UnaryFunction >
+         template<typename> class UnaryMetaFunction,
+         typename UnaryFunction >
 struct tuple_transform_functor<Tuple, UnaryMetaFunction, UnaryFunction, 0> {
-	static __host__ __device__
-	typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type
-	do_it(const Tuple& t, UnaryFunction f) {
-		return thrust::null_type();
-	}
+    static __host__ __device__
+    typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type
+    do_it(const Tuple& t, UnaryFunction f) {
+        return thrust::null_type();
+    }
 };
 
 
 template < typename Tuple,
-		 template<typename> class UnaryMetaFunction,
-		 typename UnaryFunction >
+         template<typename> class UnaryMetaFunction,
+         typename UnaryFunction >
 struct tuple_transform_functor<Tuple, UnaryMetaFunction, UnaryFunction, 1> {
-	static __host__ __device__
-	typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type
-	do_it(const Tuple& t, UnaryFunction f) {
-		typedef typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type XfrmTuple;
+    static __host__ __device__
+    typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type
+    do_it(const Tuple& t, UnaryFunction f) {
+        typedef typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type XfrmTuple;
 
-		return XfrmTuple(f(thrust::get<0>(t)));
-	}
+        return XfrmTuple(f(thrust::get<0>(t)));
+    }
 };
 
 
 template < typename Tuple,
-		 template<typename> class UnaryMetaFunction,
-		 typename UnaryFunction >
+         template<typename> class UnaryMetaFunction,
+         typename UnaryFunction >
 struct tuple_transform_functor<Tuple, UnaryMetaFunction, UnaryFunction, 2> {
-	static __host__ __device__
-	typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type
-	do_it(const Tuple& t, UnaryFunction f) {
-		typedef typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type XfrmTuple;
+    static __host__ __device__
+    typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type
+    do_it(const Tuple& t, UnaryFunction f) {
+        typedef typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type XfrmTuple;
 
-		return XfrmTuple(f(thrust::get<0>(t)),
-						 f(thrust::get<1>(t)));
-	}
+        return XfrmTuple(f(thrust::get<0>(t)),
+                         f(thrust::get<1>(t)));
+    }
 };
 
 
 template < typename Tuple,
-		 template<typename> class UnaryMetaFunction,
-		 typename UnaryFunction >
+         template<typename> class UnaryMetaFunction,
+         typename UnaryFunction >
 struct tuple_transform_functor<Tuple, UnaryMetaFunction, UnaryFunction, 3> {
-	static __host__ __device__
-	typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type
-	do_it(const Tuple& t, UnaryFunction f) {
-		typedef typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type XfrmTuple;
+    static __host__ __device__
+    typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type
+    do_it(const Tuple& t, UnaryFunction f) {
+        typedef typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type XfrmTuple;
 
-		return XfrmTuple(f(thrust::get<0>(t)),
-						 f(thrust::get<1>(t)),
-						 f(thrust::get<2>(t)));
-	}
+        return XfrmTuple(f(thrust::get<0>(t)),
+                         f(thrust::get<1>(t)),
+                         f(thrust::get<2>(t)));
+    }
 };
 
 
 template < typename Tuple,
-		 template<typename> class UnaryMetaFunction,
-		 typename UnaryFunction >
+         template<typename> class UnaryMetaFunction,
+         typename UnaryFunction >
 struct tuple_transform_functor<Tuple, UnaryMetaFunction, UnaryFunction, 4> {
-	static __host__ __device__
-	typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type
-	do_it(const Tuple& t, UnaryFunction f) {
-		typedef typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type XfrmTuple;
+    static __host__ __device__
+    typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type
+    do_it(const Tuple& t, UnaryFunction f) {
+        typedef typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type XfrmTuple;
 
-		return XfrmTuple(f(thrust::get<0>(t)),
-						 f(thrust::get<1>(t)),
-						 f(thrust::get<2>(t)),
-						 f(thrust::get<3>(t)));
-	}
+        return XfrmTuple(f(thrust::get<0>(t)),
+                         f(thrust::get<1>(t)),
+                         f(thrust::get<2>(t)),
+                         f(thrust::get<3>(t)));
+    }
 };
 
 
 template < typename Tuple,
-		 template<typename> class UnaryMetaFunction,
-		 typename UnaryFunction >
+         template<typename> class UnaryMetaFunction,
+         typename UnaryFunction >
 struct tuple_transform_functor<Tuple, UnaryMetaFunction, UnaryFunction, 5> {
-	static __host__ __device__
-	typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type
-	do_it(const Tuple& t, UnaryFunction f) {
-		typedef typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type XfrmTuple;
+    static __host__ __device__
+    typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type
+    do_it(const Tuple& t, UnaryFunction f) {
+        typedef typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type XfrmTuple;
 
-		return XfrmTuple(f(thrust::get<0>(t)),
-						 f(thrust::get<1>(t)),
-						 f(thrust::get<2>(t)),
-						 f(thrust::get<3>(t)),
-						 f(thrust::get<4>(t)));
-	}
+        return XfrmTuple(f(thrust::get<0>(t)),
+                         f(thrust::get<1>(t)),
+                         f(thrust::get<2>(t)),
+                         f(thrust::get<3>(t)),
+                         f(thrust::get<4>(t)));
+    }
 };
 
 
 template < typename Tuple,
-		 template<typename> class UnaryMetaFunction,
-		 typename UnaryFunction >
+         template<typename> class UnaryMetaFunction,
+         typename UnaryFunction >
 struct tuple_transform_functor<Tuple, UnaryMetaFunction, UnaryFunction, 6> {
-	static __host__ __device__
-	typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type
-	do_it(const Tuple& t, UnaryFunction f) {
-		typedef typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type XfrmTuple;
+    static __host__ __device__
+    typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type
+    do_it(const Tuple& t, UnaryFunction f) {
+        typedef typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type XfrmTuple;
 
-		return XfrmTuple(f(thrust::get<0>(t)),
-						 f(thrust::get<1>(t)),
-						 f(thrust::get<2>(t)),
-						 f(thrust::get<3>(t)),
-						 f(thrust::get<4>(t)),
-						 f(thrust::get<5>(t)));
-	}
+        return XfrmTuple(f(thrust::get<0>(t)),
+                         f(thrust::get<1>(t)),
+                         f(thrust::get<2>(t)),
+                         f(thrust::get<3>(t)),
+                         f(thrust::get<4>(t)),
+                         f(thrust::get<5>(t)));
+    }
 };
 
 
 template < typename Tuple,
-		 template<typename> class UnaryMetaFunction,
-		 typename UnaryFunction >
+         template<typename> class UnaryMetaFunction,
+         typename UnaryFunction >
 struct tuple_transform_functor<Tuple, UnaryMetaFunction, UnaryFunction, 7> {
-	static __host__ __device__
-	typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type
-	do_it(const Tuple& t, UnaryFunction f) {
-		typedef typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type XfrmTuple;
+    static __host__ __device__
+    typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type
+    do_it(const Tuple& t, UnaryFunction f) {
+        typedef typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type XfrmTuple;
 
-		return XfrmTuple(f(thrust::get<0>(t)),
-						 f(thrust::get<1>(t)),
-						 f(thrust::get<2>(t)),
-						 f(thrust::get<3>(t)),
-						 f(thrust::get<4>(t)),
-						 f(thrust::get<5>(t)),
-						 f(thrust::get<6>(t)));
-	}
+        return XfrmTuple(f(thrust::get<0>(t)),
+                         f(thrust::get<1>(t)),
+                         f(thrust::get<2>(t)),
+                         f(thrust::get<3>(t)),
+                         f(thrust::get<4>(t)),
+                         f(thrust::get<5>(t)),
+                         f(thrust::get<6>(t)));
+    }
 };
 
 
 template < typename Tuple,
-		 template<typename> class UnaryMetaFunction,
-		 typename UnaryFunction >
+         template<typename> class UnaryMetaFunction,
+         typename UnaryFunction >
 struct tuple_transform_functor<Tuple, UnaryMetaFunction, UnaryFunction, 8> {
-	static __host__ __device__
-	typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type
-	do_it(const Tuple& t, UnaryFunction f) {
-		typedef typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type XfrmTuple;
+    static __host__ __device__
+    typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type
+    do_it(const Tuple& t, UnaryFunction f) {
+        typedef typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type XfrmTuple;
 
-		return XfrmTuple(f(thrust::get<0>(t)),
-						 f(thrust::get<1>(t)),
-						 f(thrust::get<2>(t)),
-						 f(thrust::get<3>(t)),
-						 f(thrust::get<4>(t)),
-						 f(thrust::get<5>(t)),
-						 f(thrust::get<6>(t)),
-						 f(thrust::get<7>(t)));
-	}
+        return XfrmTuple(f(thrust::get<0>(t)),
+                         f(thrust::get<1>(t)),
+                         f(thrust::get<2>(t)),
+                         f(thrust::get<3>(t)),
+                         f(thrust::get<4>(t)),
+                         f(thrust::get<5>(t)),
+                         f(thrust::get<6>(t)),
+                         f(thrust::get<7>(t)));
+    }
 };
 
 
 template < typename Tuple,
-		 template<typename> class UnaryMetaFunction,
-		 typename UnaryFunction >
+         template<typename> class UnaryMetaFunction,
+         typename UnaryFunction >
 struct tuple_transform_functor<Tuple, UnaryMetaFunction, UnaryFunction, 9> {
-	static __host__ __device__
-	typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type
-	do_it(const Tuple& t, UnaryFunction f) {
-		typedef typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type XfrmTuple;
+    static __host__ __device__
+    typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type
+    do_it(const Tuple& t, UnaryFunction f) {
+        typedef typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type XfrmTuple;
 
-		return XfrmTuple(f(thrust::get<0>(t)),
-						 f(thrust::get<1>(t)),
-						 f(thrust::get<2>(t)),
-						 f(thrust::get<3>(t)),
-						 f(thrust::get<4>(t)),
-						 f(thrust::get<5>(t)),
-						 f(thrust::get<6>(t)),
-						 f(thrust::get<7>(t)),
-						 f(thrust::get<8>(t)));
-	}
+        return XfrmTuple(f(thrust::get<0>(t)),
+                         f(thrust::get<1>(t)),
+                         f(thrust::get<2>(t)),
+                         f(thrust::get<3>(t)),
+                         f(thrust::get<4>(t)),
+                         f(thrust::get<5>(t)),
+                         f(thrust::get<6>(t)),
+                         f(thrust::get<7>(t)),
+                         f(thrust::get<8>(t)));
+    }
 };
 
 
 template < typename Tuple,
-		 template<typename> class UnaryMetaFunction,
-		 typename UnaryFunction >
+         template<typename> class UnaryMetaFunction,
+         typename UnaryFunction >
 struct tuple_transform_functor<Tuple, UnaryMetaFunction, UnaryFunction, 10> {
-	static __host__ __device__
-	typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type
-	do_it(const Tuple& t, UnaryFunction f) {
-		typedef typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type XfrmTuple;
+    static __host__ __device__
+    typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type
+    do_it(const Tuple& t, UnaryFunction f) {
+        typedef typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type XfrmTuple;
 
-		return XfrmTuple(f(thrust::get<0>(t)),
-						 f(thrust::get<1>(t)),
-						 f(thrust::get<2>(t)),
-						 f(thrust::get<3>(t)),
-						 f(thrust::get<4>(t)),
-						 f(thrust::get<5>(t)),
-						 f(thrust::get<6>(t)),
-						 f(thrust::get<7>(t)),
-						 f(thrust::get<8>(t)),
-						 f(thrust::get<9>(t)));
-	}
+        return XfrmTuple(f(thrust::get<0>(t)),
+                         f(thrust::get<1>(t)),
+                         f(thrust::get<2>(t)),
+                         f(thrust::get<3>(t)),
+                         f(thrust::get<4>(t)),
+                         f(thrust::get<5>(t)),
+                         f(thrust::get<6>(t)),
+                         f(thrust::get<7>(t)),
+                         f(thrust::get<8>(t)),
+                         f(thrust::get<9>(t)));
+    }
 };
 
 
 template < template<typename> class UnaryMetaFunction,
-		 typename Tuple,
-		 typename UnaryFunction >
+         typename Tuple,
+         typename UnaryFunction >
 __host__ __device__
 typename tuple_meta_transform<Tuple, UnaryMetaFunction>::type
 tuple_transform(const Tuple& t, UnaryFunction f) {
-	return tuple_transform_functor<Tuple, UnaryMetaFunction, UnaryFunction>::do_it(t, f);
+    return tuple_transform_functor<Tuple, UnaryMetaFunction, UnaryFunction>::do_it(t, f);
 }
 
 } // end detail

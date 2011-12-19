@@ -22,14 +22,14 @@ namespace device {
 namespace generic {
 
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename OutputIterator,
-		 typename Predicate >
+         typename InputIterator2,
+         typename OutputIterator,
+         typename Predicate >
 OutputIterator copy_if(InputIterator1 first,
-					   InputIterator1 last,
-					   InputIterator2 stencil,
-					   OutputIterator result,
-					   Predicate pred);
+                       InputIterator1 last,
+                       InputIterator2 stencil,
+                       OutputIterator result,
+                       Predicate pred);
 
 } // end namespace generic
 } // end namespace device

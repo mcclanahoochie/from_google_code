@@ -30,23 +30,23 @@ namespace device {
 
 template <typename ForwardIterator, typename BinaryPredicate>
 ForwardIterator min_element(ForwardIterator first,
-							ForwardIterator last,
-							BinaryPredicate comp) {
-	return thrust::detail::device::generic::min_element(first, last, comp);
+                            ForwardIterator last,
+                            BinaryPredicate comp) {
+    return thrust::detail::device::generic::min_element(first, last, comp);
 }
 
 template <typename ForwardIterator, typename BinaryPredicate>
 ForwardIterator max_element(ForwardIterator first,
-							ForwardIterator last,
-							BinaryPredicate comp) {
-	return thrust::detail::device::generic::max_element(first, last, comp);
+                            ForwardIterator last,
+                            BinaryPredicate comp) {
+    return thrust::detail::device::generic::max_element(first, last, comp);
 }
 
 template <typename ForwardIterator, typename BinaryPredicate>
 thrust::pair<ForwardIterator, ForwardIterator> minmax_element(ForwardIterator first,
-		ForwardIterator last,
-		BinaryPredicate comp) {
-	return thrust::detail::device::generic::minmax_element(first, last, comp);
+        ForwardIterator last,
+        BinaryPredicate comp) {
+    return thrust::detail::device::generic::minmax_element(first, last, comp);
 }
 
 } // end namespace device

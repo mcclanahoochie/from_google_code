@@ -31,18 +31,18 @@ namespace generic {
 
 template <typename ForwardIterator, typename BinaryPredicate>
 ForwardIterator min_element(ForwardIterator first,
-							ForwardIterator last,
-							BinaryPredicate comp);
+                            ForwardIterator last,
+                            BinaryPredicate comp);
 
 template <typename ForwardIterator, typename BinaryPredicate>
 ForwardIterator max_element(ForwardIterator first,
-							ForwardIterator last,
-							BinaryPredicate comp);
+                            ForwardIterator last,
+                            BinaryPredicate comp);
 
 template <typename ForwardIterator, typename BinaryPredicate>
 thrust::pair<ForwardIterator, ForwardIterator> minmax_element(ForwardIterator first,
-		ForwardIterator last,
-		BinaryPredicate comp);
+        ForwardIterator last,
+        BinaryPredicate comp);
 
 } // end namespace generic
 } // end namespace device

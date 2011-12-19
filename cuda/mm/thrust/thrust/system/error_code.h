@@ -49,94 +49,94 @@ namespace errc {
 enum errc_t {
 // XXX eventually implement Windows error codes
 #if THRUST_HOST_COMPILER == THRUST_HOST_COMPILER_GCC
-	address_family_not_supported       = EAFNOSUPPORT,
-	address_in_use                     = EADDRINUSE,
-	address_not_available              = EADDRNOTAVAIL,
-	already_connected                  = EISCONN,
-	argument_list_too_long             = E2BIG,
-	argument_out_of_domain             = EDOM,
-	bad_address                        = EFAULT,
-	bad_file_descriptor                = EBADF,
-	bad_message                        = EBADMSG,
-	broken_pipe                        = EPIPE,
-	connection_aborted                 = ECONNABORTED,
-	connection_already_in_progress     = EALREADY,
-	connection_refused                 = ECONNREFUSED,
-	connection_reset                   = ECONNRESET,
-	cross_device_link                  = EXDEV,
-	destination_address_required       = EDESTADDRREQ,
-	device_or_resource_busy            = EBUSY,
-	directory_not_empty                = ENOTEMPTY,
-	executable_format_error            = ENOEXEC,
-	file_exists                        = EEXIST,
-	file_too_large                     = EFBIG,
-	filename_too_long                  = ENAMETOOLONG,
-	function_not_supported             = ENOSYS,
-	host_unreachable                   = EHOSTUNREACH,
-	identifier_removed                 = EIDRM,
-	illegal_byte_sequence              = EILSEQ,
-	inappropriate_io_control_operation = ENOTTY,
-	interrupted                        = EINTR,
-	invalid_argument                   = EINVAL,
-	invalid_seek                       = ESPIPE,
-	io_error                           = EIO,
-	is_a_directory                     = EISDIR,
-	message_size                       = EMSGSIZE,
-	network_down                       = ENETDOWN,
-	network_reset                      = ENETRESET,
-	network_unreachable                = ENETUNREACH,
-	no_buffer_space                    = ENOBUFS,
-	no_child_process                   = ECHILD,
-	no_link                            = ENOLINK,
-	no_lock_available                  = ENOLCK,
-	no_message_available               = ENODATA,
-	no_message                         = ENOMSG,
-	no_protocol_option                 = ENOPROTOOPT,
-	no_space_on_device                 = ENOSPC,
-	no_stream_resources                = ENOSR,
-	no_such_device_or_address          = ENXIO,
-	no_such_device                     = ENODEV,
-	no_such_file_or_directory          = ENOENT,
-	no_such_process                    = ESRCH,
-	not_a_directory                    = ENOTDIR,
-	not_a_socket                       = ENOTSOCK,
-	not_a_stream                       = ENOSTR,
-	not_connected                      = ENOTCONN,
-	not_enough_memory                  = ENOMEM,
-	not_supported                      = ENOTSUP,
-	operation_canceled                 = ECANCELED,
-	operation_in_progress              = EINPROGRESS,
-	operation_not_permitted            = EPERM,
-	operation_not_supported            = EOPNOTSUPP,
-	operation_would_block              = EWOULDBLOCK,
+    address_family_not_supported       = EAFNOSUPPORT,
+    address_in_use                     = EADDRINUSE,
+    address_not_available              = EADDRNOTAVAIL,
+    already_connected                  = EISCONN,
+    argument_list_too_long             = E2BIG,
+    argument_out_of_domain             = EDOM,
+    bad_address                        = EFAULT,
+    bad_file_descriptor                = EBADF,
+    bad_message                        = EBADMSG,
+    broken_pipe                        = EPIPE,
+    connection_aborted                 = ECONNABORTED,
+    connection_already_in_progress     = EALREADY,
+    connection_refused                 = ECONNREFUSED,
+    connection_reset                   = ECONNRESET,
+    cross_device_link                  = EXDEV,
+    destination_address_required       = EDESTADDRREQ,
+    device_or_resource_busy            = EBUSY,
+    directory_not_empty                = ENOTEMPTY,
+    executable_format_error            = ENOEXEC,
+    file_exists                        = EEXIST,
+    file_too_large                     = EFBIG,
+    filename_too_long                  = ENAMETOOLONG,
+    function_not_supported             = ENOSYS,
+    host_unreachable                   = EHOSTUNREACH,
+    identifier_removed                 = EIDRM,
+    illegal_byte_sequence              = EILSEQ,
+    inappropriate_io_control_operation = ENOTTY,
+    interrupted                        = EINTR,
+    invalid_argument                   = EINVAL,
+    invalid_seek                       = ESPIPE,
+    io_error                           = EIO,
+    is_a_directory                     = EISDIR,
+    message_size                       = EMSGSIZE,
+    network_down                       = ENETDOWN,
+    network_reset                      = ENETRESET,
+    network_unreachable                = ENETUNREACH,
+    no_buffer_space                    = ENOBUFS,
+    no_child_process                   = ECHILD,
+    no_link                            = ENOLINK,
+    no_lock_available                  = ENOLCK,
+    no_message_available               = ENODATA,
+    no_message                         = ENOMSG,
+    no_protocol_option                 = ENOPROTOOPT,
+    no_space_on_device                 = ENOSPC,
+    no_stream_resources                = ENOSR,
+    no_such_device_or_address          = ENXIO,
+    no_such_device                     = ENODEV,
+    no_such_file_or_directory          = ENOENT,
+    no_such_process                    = ESRCH,
+    not_a_directory                    = ENOTDIR,
+    not_a_socket                       = ENOTSOCK,
+    not_a_stream                       = ENOSTR,
+    not_connected                      = ENOTCONN,
+    not_enough_memory                  = ENOMEM,
+    not_supported                      = ENOTSUP,
+    operation_canceled                 = ECANCELED,
+    operation_in_progress              = EINPROGRESS,
+    operation_not_permitted            = EPERM,
+    operation_not_supported            = EOPNOTSUPP,
+    operation_would_block              = EWOULDBLOCK,
 
 // EOWNERDEAD is missing on Darwin
 #ifdef EOWNERDEAD
-	owner_dead                         = EOWNERDEAD,
+    owner_dead                         = EOWNERDEAD,
 #endif
 
-	permission_denied                  = EACCES,
-	protocol_error                     = EPROTO,
-	protocol_not_supported             = EPROTONOSUPPORT,
-	read_only_file_system              = EROFS,
-	resource_deadlock_would_occur      = EDEADLK,
-	resource_unavailable_try_again     = EAGAIN,
-	result_out_of_range                = ERANGE,
+    permission_denied                  = EACCES,
+    protocol_error                     = EPROTO,
+    protocol_not_supported             = EPROTONOSUPPORT,
+    read_only_file_system              = EROFS,
+    resource_deadlock_would_occur      = EDEADLK,
+    resource_unavailable_try_again     = EAGAIN,
+    result_out_of_range                = ERANGE,
 
 // ENOTRECOVERABLE is missing on Darwin
 #ifdef ENOTRECOVERABLE
-	state_not_recoverable              = ENOTRECOVERABLE,
+    state_not_recoverable              = ENOTRECOVERABLE,
 #endif
 
-	stream_timeout                     = ETIME,
-	text_file_busy                     = ETXTBSY,
-	timed_out                          = ETIMEDOUT,
-	too_many_files_open_in_system      = ENFILE,
-	too_many_files_open                = EMFILE,
-	too_many_links                     = EMLINK,
-	too_many_symbolic_link_levels      = ELOOP,
-	value_too_large                    = EOVERFLOW,
-	wrong_protocol_type                = EPROTOTYPE,
+    stream_timeout                     = ETIME,
+    text_file_busy                     = ETXTBSY,
+    timed_out                          = ETIMEDOUT,
+    too_many_files_open_in_system      = ENFILE,
+    too_many_files_open                = EMFILE,
+    too_many_links                     = EMLINK,
+    too_many_symbolic_link_levels      = ELOOP,
+    value_too_large                    = EOVERFLOW,
+    wrong_protocol_type                = EPROTOTYPE,
 #endif // THRUST_HOST_COMPILER == THRUST_HOST_COMPILER_GCC
 }; // end errc_t
 
@@ -150,44 +150,44 @@ template<> struct is_error_condition_enum<errc::errc_t> : public thrust::detail:
 
 class error_category {
 public:
-	inline virtual ~error_category(void);
+    inline virtual ~error_category(void);
 
-	// XXX enable upon c++0x
-	// error_category(const error_category &) = delete;
-	// error_category &operator=(const error_category &) = delete;
+    // XXX enable upon c++0x
+    // error_category(const error_category &) = delete;
+    // error_category &operator=(const error_category &) = delete;
 
-	/*! \return A string naming the error category.
-	 */
-	inline virtual const char* name(void) const = 0;
+    /*! \return A string naming the error category.
+     */
+    inline virtual const char* name(void) const = 0;
 
-	/*! \return \p error_condition(ev, *this).
-	 */
-	inline virtual error_condition default_error_condition(int ev) const;
+    /*! \return \p error_condition(ev, *this).
+     */
+    inline virtual error_condition default_error_condition(int ev) const;
 
-	/*! \return <tt>default_error_condition(code) == condition</tt>
-	 */
-	inline virtual bool equivalent(int code, const error_condition& condition) const;
+    /*! \return <tt>default_error_condition(code) == condition</tt>
+     */
+    inline virtual bool equivalent(int code, const error_condition& condition) const;
 
-	/*! \return <tt>*this == code.category() && code.value() == condition</tt>
-	 */
-	inline virtual bool equivalent(const error_code& code, int condition) const;
+    /*! \return <tt>*this == code.category() && code.value() == condition</tt>
+     */
+    inline virtual bool equivalent(const error_code& code, int condition) const;
 
-	/*! \return A string that describes the error condition denoted by \p ev.
-	 */
-	virtual std::string message(int ev) const = 0;
+    /*! \return A string that describes the error condition denoted by \p ev.
+     */
+    virtual std::string message(int ev) const = 0;
 
-	/*! \return <tt>*this == &rhs</tt>
-	 */
-	inline bool operator==(const error_category& rhs) const;
+    /*! \return <tt>*this == &rhs</tt>
+     */
+    inline bool operator==(const error_category& rhs) const;
 
-	/*! \return <tt>!(*this == rhs)</tt>
-	 */
-	inline bool operator!=(const error_category& rhs) const;
+    /*! \return <tt>!(*this == rhs)</tt>
+     */
+    inline bool operator!=(const error_category& rhs) const;
 
-	/*! \return <tt>less<const error_category*>()(this, &rhs)</tt>
-	 *  \note \c less provides a total ordering for pointers.
-	 */
-	inline bool operator<(const error_category& rhs) const;
+    /*! \return <tt>less<const error_category*>()(this, &rhs)</tt>
+     *  \note \c less provides a total ordering for pointers.
+     */
+    inline bool operator<(const error_category& rhs) const;
 }; // end error_category
 
 
@@ -221,82 +221,82 @@ inline const error_category& system_category(void);
 
 class error_code {
 public:
-	// [19.5.2.2] constructors:
+    // [19.5.2.2] constructors:
 
-	/*! Effects: Constructs an object of type \p error_code.
-	 *  Postconditions: <tt>value() == 0</tt> and <tt>category() == &system_category()</tt>.
-	 */
-	inline error_code(void);
+    /*! Effects: Constructs an object of type \p error_code.
+     *  Postconditions: <tt>value() == 0</tt> and <tt>category() == &system_category()</tt>.
+     */
+    inline error_code(void);
 
-	/*! Effects: Constructs an object of type \p error_code.
-	 *  Postconditions: <tt>value() == val</tt> and <tt>category() == &cat</tt>.
-	 */
-	inline error_code(int val, const error_category& cat);
+    /*! Effects: Constructs an object of type \p error_code.
+     *  Postconditions: <tt>value() == val</tt> and <tt>category() == &cat</tt>.
+     */
+    inline error_code(int val, const error_category& cat);
 
-	/*! Effects: Constructs an object of type \p error_code.
-	 *  Postconditions: <tt>*this == make_error_code(e)<tt>.
-	 */
-	template <typename ErrorCodeEnum>
-	error_code(ErrorCodeEnum e
+    /*! Effects: Constructs an object of type \p error_code.
+     *  Postconditions: <tt>*this == make_error_code(e)<tt>.
+     */
+    template <typename ErrorCodeEnum>
+    error_code(ErrorCodeEnum e
 // XXX WAR msvc's problem with enable_if
 #if THRUST_HOST_COMPILER != THRUST_HOST_COMPILER_MSVC
-			   , typename thrust::detail::enable_if<is_error_code_enum<ErrorCodeEnum>::value>::type * = 0
+               , typename thrust::detail::enable_if<is_error_code_enum<ErrorCodeEnum>::value>::type * = 0
 #endif // THRUST_HOST_COMPILER_MSVC
-			  );
+              );
 
-	// [19.5.2.3] modifiers:
+    // [19.5.2.3] modifiers:
 
-	/*! Postconditions: <tt>value() == val</tt> and <tt>category() == &cat</tt>.
-	 */
-	inline void assign(int val, const error_category& cat);
+    /*! Postconditions: <tt>value() == val</tt> and <tt>category() == &cat</tt>.
+     */
+    inline void assign(int val, const error_category& cat);
 
-	/*! Postconditions: <tt>*this == make_error_code(e)</tt>.
-	 */
-	template <typename ErrorCodeEnum>
+    /*! Postconditions: <tt>*this == make_error_code(e)</tt>.
+     */
+    template <typename ErrorCodeEnum>
 // XXX WAR msvc's problem with enable_if
 #if THRUST_HOST_COMPILER != THRUST_HOST_COMPILER_MSVC
-	typename thrust::detail::enable_if<is_error_code_enum<ErrorCodeEnum>::value, error_code>::type &
+    typename thrust::detail::enable_if<is_error_code_enum<ErrorCodeEnum>::value, error_code>::type&
 #else
-	error_code &
+    error_code&
 #endif // THRUST_HOST_COMPILER_MSVC
-	operator=(ErrorCodeEnum e);
+    operator=(ErrorCodeEnum e);
 
-	/*! Postconditions: <tt>value() == 0</tt> and <tt>category() == system_category()</tt>.
-	 */
-	inline void clear(void);
+    /*! Postconditions: <tt>value() == 0</tt> and <tt>category() == system_category()</tt>.
+     */
+    inline void clear(void);
 
-	// [19.5.2.4] observers:
+    // [19.5.2.4] observers:
 
-	/*! \return An integral value of this \p error_code object.
-	 */
-	inline int value(void) const;
+    /*! \return An integral value of this \p error_code object.
+     */
+    inline int value(void) const;
 
-	/*! \return An \p error_category describing the category of this \p error_code object.
-	 */
-	inline const error_category& category(void) const;
+    /*! \return An \p error_category describing the category of this \p error_code object.
+     */
+    inline const error_category& category(void) const;
 
-	/*! \return <tt>category().default_error_condition()</tt>.
-	 */
-	inline error_condition default_error_condition(void) const;
+    /*! \return <tt>category().default_error_condition()</tt>.
+     */
+    inline error_condition default_error_condition(void) const;
 
-	/*! \return <tt>category().message(value())</tt>.
-	 */
-	inline std::string message(void) const;
+    /*! \return <tt>category().message(value())</tt>.
+     */
+    inline std::string message(void) const;
 
-	// XXX replace the below upon c++0x
-	// inline explicit operator bool (void) const;
+    // XXX replace the below upon c++0x
+    // inline explicit operator bool (void) const;
 
-	/*! \return <tt>value() != 0</tt>.
-	 */
-	inline operator bool (void) const;
+    /*! \return <tt>value() != 0</tt>.
+     */
+    inline operator bool (void) const;
 
-	/*! \cond
-	 */
+    /*! \cond
+     */
 private:
-	int m_val;
-	const error_category* m_cat;
-	/*! \endcond
-	 */
+    int m_val;
+    const error_category* m_cat;
+    /*! \endcond
+     */
 }; // end error_code
 
 
@@ -332,54 +332,54 @@ operator<<(std::basic_ostream<charT, traits>& os, const error_code& ec);
  */
 class error_condition {
 public:
-	// [19.5.3.2] constructors
-	inline error_condition(void);
+    // [19.5.3.2] constructors
+    inline error_condition(void);
 
-	inline error_condition(int val, const error_category& cat);
+    inline error_condition(int val, const error_category& cat);
 
-	template<typename ErrorConditionEnum>
-	error_condition(ErrorConditionEnum e
+    template<typename ErrorConditionEnum>
+    error_condition(ErrorConditionEnum e
 // XXX WAR msvc's problem with enable_if
 #if THRUST_HOST_COMPILER != THRUST_HOST_COMPILER_MSVC
-					, typename thrust::detail::enable_if<is_error_condition_enum<ErrorConditionEnum>::value>::type * = 0
+                    , typename thrust::detail::enable_if<is_error_condition_enum<ErrorConditionEnum>::value>::type * = 0
 #endif // THRUST_HOST_COMPILER != THRUST_HOST_COMPILER_MSVC
-				   );
+                   );
 
-	// [19.5.3.3] modifiers
-	inline void assign(int val, const error_category& cat);
+    // [19.5.3.3] modifiers
+    inline void assign(int val, const error_category& cat);
 
-	template<typename ErrorConditionEnum>
+    template<typename ErrorConditionEnum>
 // XXX WAR msvc's problem with enable_if
 #if THRUST_HOST_COMPILER != THRUST_HOST_COMPILER_MSVC
-	typename thrust::detail::enable_if<is_error_condition_enum<ErrorConditionEnum>::value, error_condition>::type &
+    typename thrust::detail::enable_if<is_error_condition_enum<ErrorConditionEnum>::value, error_condition>::type&
 #else
-	error_condition &
+    error_condition&
 #endif // THRUST_HOST_COMPILER != THRUST_HOST_COMPILER_MSVC
-	operator=(ErrorConditionEnum e);
+    operator=(ErrorConditionEnum e);
 
-	inline void clear(void);
+    inline void clear(void);
 
-	// [19.5.3.4] observers
-	inline int value(void) const;
+    // [19.5.3.4] observers
+    inline int value(void) const;
 
-	inline const error_category& category(void) const;
+    inline const error_category& category(void) const;
 
-	inline std::string message(void) const;
+    inline std::string message(void) const;
 
-	// XXX replace below with this upon c++0x
-	//explicit operator bool (void) const;
+    // XXX replace below with this upon c++0x
+    //explicit operator bool (void) const;
 
-	inline operator bool (void) const;
+    inline operator bool (void) const;
 
-	/*! \cond
-	 */
+    /*! \cond
+     */
 
 private:
-	int m_val;
-	const error_category* m_cat;
+    int m_val;
+    const error_category* m_cat;
 
-	/*! \endcond
-	 */
+    /*! \endcond
+     */
 }; // end error_condition
 
 

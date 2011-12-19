@@ -34,10 +34,10 @@ namespace cuda {
 template<unsigned int DummyParameterToAvoidInstantiation>
 void free(thrust::device_ptr<void> ptr) {
 #if 0
-	cudaError_t error = cudaFree(ptr.get());
-	if (error) {
-		throw thrust::system_error(error, thrust::cuda_category());
-	} // end error
+    cudaError_t error = cudaFree(ptr.get());
+    if (error) {
+        throw thrust::system_error(error, thrust::cuda_category());
+    } // end error
 #endif
 } // end free()
 

@@ -29,39 +29,39 @@ namespace host {
 
 
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename RandomAccessIterator >
+         typename InputIterator2,
+         typename RandomAccessIterator >
 void scatter(InputIterator1 first,
-			 InputIterator1 last,
-			 InputIterator2 map,
-			 RandomAccessIterator output) {
-	while (first != last) {
-		output[*map] = *first;
-		first++;
-		map++;
-	}
+             InputIterator1 last,
+             InputIterator2 map,
+             RandomAccessIterator output) {
+    while (first != last) {
+        output[*map] = *first;
+        first++;
+        map++;
+    }
 }
 
 
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename InputIterator3,
-		 typename RandomAccessIterator,
-		 typename Predicate >
+         typename InputIterator2,
+         typename InputIterator3,
+         typename RandomAccessIterator,
+         typename Predicate >
 void scatter_if(InputIterator1 first,
-				InputIterator1 last,
-				InputIterator2 map,
-				InputIterator3 stencil,
-				RandomAccessIterator output,
-				Predicate pred) {
-	while (first != last) {
-		if (pred(*stencil)) {
-			output[*map] = *first;
-		}
-		first++;
-		map++;
-		stencil++;
-	}
+                InputIterator1 last,
+                InputIterator2 map,
+                InputIterator3 stencil,
+                RandomAccessIterator output,
+                Predicate pred) {
+    while (first != last) {
+        if (pred(*stencil)) {
+            output[*map] = *first;
+        }
+        first++;
+        map++;
+        stencil++;
+    }
 }
 
 

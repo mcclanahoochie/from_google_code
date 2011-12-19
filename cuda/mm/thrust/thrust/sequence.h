@@ -62,7 +62,7 @@ namespace thrust {
  */
 template<typename ForwardIterator>
 void sequence(ForwardIterator first,
-			  ForwardIterator last);
+              ForwardIterator last);
 
 
 /*! \p sequence fills the sequence <tt>[first, last)</tt> with a sequence of numbers.
@@ -101,8 +101,8 @@ void sequence(ForwardIterator first,
  */
 template<typename ForwardIterator, typename T>
 void sequence(ForwardIterator first,
-			  ForwardIterator last,
-			  T init);
+              ForwardIterator last,
+              T init);
 
 
 /*! \p sequence fills the sequence <tt>[first, last)</tt> with a sequence of numbers.
@@ -142,9 +142,9 @@ void sequence(ForwardIterator first,
  */
 template<typename ForwardIterator, typename T>
 void sequence(ForwardIterator first,
-			  ForwardIterator last,
-			  T init,
-			  T step);
+              ForwardIterator last,
+              T init,
+              T step);
 
 /*! \} // end transformations
  */

@@ -30,24 +30,24 @@ namespace generic {
 namespace detail {
 template <typename T>
 struct fill_functor {
-	T exemplar;
+    T exemplar;
 
-	fill_functor(T _exemplar)
-		: exemplar(_exemplar) {}
+    fill_functor(T _exemplar)
+        : exemplar(_exemplar) {}
 
-	__host__ __device__
-	T operator()(void) {
-		return exemplar;
-	}
+    __host__ __device__
+    T operator()(void) {
+        return exemplar;
+    }
 };
 } // end namespace detail
 
 template<typename ForwardIterator, typename T>
 void fill(ForwardIterator first,
-		  ForwardIterator last,
-		  const T& exemplar) {
-	// dispatch on space
-	thrust::detail::device::generate(first, last, detail::fill_functor<T>(exemplar));
+          ForwardIterator last,
+          const T& exemplar) {
+    // dispatch on space
+    thrust::detail::device::generate(first, last, detail::fill_functor<T>(exemplar));
 }
 
 } // end namespace generic

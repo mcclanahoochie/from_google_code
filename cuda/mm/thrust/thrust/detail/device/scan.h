@@ -31,31 +31,31 @@ namespace detail {
 namespace device {
 
 template < typename InputIterator,
-		 typename OutputIterator,
-		 typename AssociativeOperator >
+         typename OutputIterator,
+         typename AssociativeOperator >
 OutputIterator inclusive_scan(InputIterator first,
-							  InputIterator last,
-							  OutputIterator result,
-							  AssociativeOperator binary_op) {
-	return thrust::detail::device::dispatch::inclusive_scan(first, last, result, binary_op,
-			typename thrust::iterator_space<InputIterator>::type(),
-			typename thrust::iterator_space<OutputIterator>::type());
+                              InputIterator last,
+                              OutputIterator result,
+                              AssociativeOperator binary_op) {
+    return thrust::detail::device::dispatch::inclusive_scan(first, last, result, binary_op,
+            typename thrust::iterator_space<InputIterator>::type(),
+            typename thrust::iterator_space<OutputIterator>::type());
 
 }
 
 
 template < typename InputIterator,
-		 typename OutputIterator,
-		 typename T,
-		 typename AssociativeOperator >
+         typename OutputIterator,
+         typename T,
+         typename AssociativeOperator >
 OutputIterator exclusive_scan(InputIterator first,
-							  InputIterator last,
-							  OutputIterator result,
-							  T init,
-							  AssociativeOperator binary_op) {
-	return thrust::detail::device::dispatch::exclusive_scan(first, last, result, init, binary_op,
-			typename thrust::iterator_space<InputIterator>::type(),
-			typename thrust::iterator_space<OutputIterator>::type());
+                              InputIterator last,
+                              OutputIterator result,
+                              T init,
+                              AssociativeOperator binary_op) {
+    return thrust::detail::device::dispatch::exclusive_scan(first, last, result, init, binary_op,
+            typename thrust::iterator_space<InputIterator>::type(),
+            typename thrust::iterator_space<OutputIterator>::type());
 }
 
 } // end namespace device

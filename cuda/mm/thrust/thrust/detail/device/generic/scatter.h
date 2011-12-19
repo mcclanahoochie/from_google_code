@@ -27,24 +27,24 @@ namespace device {
 namespace generic {
 
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename RandomAccessIterator >
+         typename InputIterator2,
+         typename RandomAccessIterator >
 void scatter(InputIterator1 first,
-			 InputIterator1 last,
-			 InputIterator2 map,
-			 RandomAccessIterator output);
+             InputIterator1 last,
+             InputIterator2 map,
+             RandomAccessIterator output);
 
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename InputIterator3,
-		 typename RandomAccessIterator,
-		 typename Predicate >
+         typename InputIterator2,
+         typename InputIterator3,
+         typename RandomAccessIterator,
+         typename Predicate >
 void scatter_if(InputIterator1 first,
-				InputIterator1 last,
-				InputIterator2 map,
-				InputIterator3 stencil,
-				RandomAccessIterator output,
-				Predicate pred);
+                InputIterator1 last,
+                InputIterator2 map,
+                InputIterator3 stencil,
+                RandomAccessIterator output,
+                Predicate pred);
 
 } // end namespace generic
 } // end namespace device

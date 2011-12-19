@@ -36,12 +36,12 @@ namespace dispatch {
 // Host Path //
 ///////////////
 template < typename ForwardIterator,
-		 typename Generator >
+         typename Generator >
 void generate(ForwardIterator first,
-			  ForwardIterator last,
-			  Generator gen,
-			  thrust::host_space_tag) {
-	std::generate(first, last, gen);
+              ForwardIterator last,
+              Generator gen,
+              thrust::host_space_tag) {
+    std::generate(first, last, gen);
 } // end generate()
 
 
@@ -49,12 +49,12 @@ void generate(ForwardIterator first,
 // Device Path //
 /////////////////
 template < typename ForwardIterator,
-		 typename Generator >
+         typename Generator >
 void generate(ForwardIterator first,
-			  ForwardIterator last,
-			  Generator gen,
-			  thrust::device_space_tag) {
-	thrust::detail::device::generate(first, last, gen);
+              ForwardIterator last,
+              Generator gen,
+              thrust::device_space_tag) {
+    thrust::detail::device::generate(first, last, gen);
 } // end generate()
 
 } // end namespace dispatch

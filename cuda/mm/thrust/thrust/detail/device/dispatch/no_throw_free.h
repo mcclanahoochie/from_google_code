@@ -34,15 +34,15 @@ namespace dispatch {
 
 template<unsigned int DummyParameterToAvoidInstantiation>
 void no_throw_free(thrust::device_ptr<void> ptr,
-				   thrust::device_space_tag) throw() {
-	thrust::detail::device::generic::no_throw_free<0>(ptr);
+                   thrust::device_space_tag) throw() {
+    thrust::detail::device::generic::no_throw_free<0>(ptr);
 } // end no_throw_free()
 
 
 template<unsigned int DummyParameterToAvoidInstantiation>
 void no_throw_free(thrust::device_ptr<void> ptr,
-				   thrust::detail::cuda_device_space_tag) throw() {
-	thrust::detail::device::cuda::no_throw_free<0>(ptr);
+                   thrust::detail::cuda_device_space_tag) throw() {
+    thrust::detail::device::cuda::no_throw_free<0>(ptr);
 } // end no_throw_free()
 
 } // end dispatch

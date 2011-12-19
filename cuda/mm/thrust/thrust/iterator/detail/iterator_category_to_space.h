@@ -37,48 +37,48 @@ template <typename> struct device_iterator_category_to_backend_space;
 
 template<typename Category>
 struct iterator_category_to_space
-		// convertible to any iterator?
-		: eval_if <
-		or_ <
-		is_convertible<Category, thrust::input_universal_iterator_tag>,
-		is_convertible<Category, thrust::output_universal_iterator_tag>
-		>::value,
+        // convertible to any iterator?
+        : eval_if <
+        or_ <
+        is_convertible<Category, thrust::input_universal_iterator_tag>,
+        is_convertible<Category, thrust::output_universal_iterator_tag>
+        >::value,
 
-		detail::identity_<thrust::any_space_tag>,
+        detail::identity_<thrust::any_space_tag>,
 
-		// convertible to host iterator?
-		eval_if <
-		or_ <
-		is_convertible<Category, thrust::input_host_iterator_tag>,
-		is_convertible<Category, thrust::output_host_iterator_tag>
-		>::value,
+        // convertible to host iterator?
+        eval_if <
+        or_ <
+        is_convertible<Category, thrust::input_host_iterator_tag>,
+        is_convertible<Category, thrust::output_host_iterator_tag>
+        >::value,
 
-		detail::identity_<thrust::host_space_tag>,
+        detail::identity_<thrust::host_space_tag>,
 
-		// convertible to device iterator?
-		eval_if <
-		or_ <
-		is_convertible<Category, thrust::input_device_iterator_tag>,
-		is_convertible<Category, thrust::output_device_iterator_tag>
-		>::value,
+        // convertible to device iterator?
+        eval_if <
+        or_ <
+        is_convertible<Category, thrust::input_device_iterator_tag>,
+        is_convertible<Category, thrust::output_device_iterator_tag>
+        >::value,
 
-		device_iterator_category_to_backend_space<Category>,
+        device_iterator_category_to_backend_space<Category>,
 
-		// unknown space
-		void
-		> // if device
-		> // if host
-		> { // if any
+        // unknown space
+        void
+        > // if device
+        > // if host
+        > { // if any
 }; // end iterator_category_to_space
 
 
 template<typename CategoryOrTraversal>
 struct iterator_category_or_traversal_to_space
-		: eval_if <
-		is_iterator_space<CategoryOrTraversal>::value,
-		detail::identity_<CategoryOrTraversal>,
-		iterator_category_to_space<CategoryOrTraversal>
-		> {
+        : eval_if <
+        is_iterator_space<CategoryOrTraversal>::value,
+        detail::identity_<CategoryOrTraversal>,
+        iterator_category_to_space<CategoryOrTraversal>
+        > {
 }; // end iterator_category_or_traversal_to_space
 
 } // end detail

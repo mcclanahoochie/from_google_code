@@ -34,7 +34,7 @@ public class CameraPreviewCallback implements PreviewCallback {
     private static Size mPreviewSize;
     private static int mBuffSize = 320 * 240 * 12 / 8;
     // buffsize =  w*h*12/8 : (12 bits per pixel / 8 bits per byte)
-    public static byte[] cameradata = new byte[320*240*12/8];
+    public static byte[] cameradata = new byte[320 * 240 * 12 / 8];
 
     public CameraPreviewCallback(Size previewSize, int buffsize) {
         mPreviewSize = previewSize;

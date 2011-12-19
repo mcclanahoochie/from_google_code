@@ -34,7 +34,7 @@ namespace generic {
 
 template<unsigned int DummyParameterToAvoidInstantiation>
 void free(thrust::device_ptr<void> ptr) {
-	return std::free(ptr.get());
+    return std::free(ptr.get());
 } // end free()
 
 } // end namespace generic

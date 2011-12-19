@@ -32,16 +32,16 @@ namespace cuda {
 
 template<unsigned int DummyParameterToAvoidInstantiation>
 void no_throw_free(thrust::device_ptr<void> ptr) throw() {
-	try {
+    try {
 #if 1
-		// ignore the CUDA error if it exists
-		cudaFree(ptr.get());
+        // ignore the CUDA error if it exists
+        cudaFree(ptr.get());
 #else
-		//jkt_thrust_free(ptr.get());
+        //jkt_thrust_free(ptr.get());
 #endif
-	} catch (...) {
-		;
-	}
+    } catch (...) {
+        ;
+    }
 } // end no_throw_free()
 
 

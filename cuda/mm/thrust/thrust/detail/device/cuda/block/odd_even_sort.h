@@ -32,98 +32,98 @@ namespace block {
  *  This implementation is based on Nadathur Satish's.
  */
 template < typename KeyType,
-		 typename ValueType,
-		 typename StrictWeakOrdering >
+         typename ValueType,
+         typename StrictWeakOrdering >
 __device__ void odd_even_sort(KeyType* keys,
-							  ValueType* data,
-							  const unsigned int n,
-							  StrictWeakOrdering comp) {
-	for (unsigned int p = blockDim.x >> 1; p > 0; p >>= 1) {
-		unsigned int q = blockDim.x >> 1, r = 0, d = p;
+                              ValueType* data,
+                              const unsigned int n,
+                              StrictWeakOrdering comp) {
+    for (unsigned int p = blockDim.x >> 1; p > 0; p >>= 1) {
+        unsigned int q = blockDim.x >> 1, r = 0, d = p;
 
-		while (q >= p) {
-			unsigned int j = threadIdx.x + d;
+        while (q >= p) {
+            unsigned int j = threadIdx.x + d;
 
-			// if j lies beyond the end of the array, we consider it "sorted" wrt i
-			// regardless of whether i lies beyond the end of the array
-			if (threadIdx.x < (blockDim.x - d) && (threadIdx.x & p) == r && j < n) {
-				KeyType xikey = keys[threadIdx.x];
-				KeyType xjkey = keys[j];
+            // if j lies beyond the end of the array, we consider it "sorted" wrt i
+            // regardless of whether i lies beyond the end of the array
+            if (threadIdx.x < (blockDim.x - d) && (threadIdx.x & p) == r && j < n) {
+                KeyType xikey = keys[threadIdx.x];
+                KeyType xjkey = keys[j];
 
-				ValueType xivalue = data[threadIdx.x];
-				ValueType xjvalue = data[j];
+                ValueType xivalue = data[threadIdx.x];
+                ValueType xjvalue = data[j];
 
-				// does xj sort before xi?
-				if (comp(xjkey, xikey)) {
-					keys[threadIdx.x] = xjkey;
-					keys[j] = xikey;
+                // does xj sort before xi?
+                if (comp(xjkey, xikey)) {
+                    keys[threadIdx.x] = xjkey;
+                    keys[j] = xikey;
 
-					data[threadIdx.x] = xjvalue;
-					data[j] = xivalue;
-				} // end if
-			} // end if
+                    data[threadIdx.x] = xjvalue;
+                    data[j] = xivalue;
+                } // end if
+            } // end if
 
-			d = q - p;
-			q >>= 1;
-			r = p;
+            d = q - p;
+            q >>= 1;
+            r = p;
 
-			__syncthreads();
-		} // end while
-	} // end for p
+            __syncthreads();
+        } // end while
+    } // end for p
 } // end odd_even_sort()
 
 template < typename KeyType,
-		 typename ValueType,
-		 typename StrictWeakOrdering >
+         typename ValueType,
+         typename StrictWeakOrdering >
 __device__ void stable_odd_even_sort(KeyType* keys,
-									 ValueType* data,
-									 const unsigned int n,
-									 StrictWeakOrdering comp) {
-	for (unsigned int i = 0;
-			i < blockDim.x >> 1;
-			++i) {
-		bool thread_is_odd = threadIdx.x & 0x1;
+                                     ValueType* data,
+                                     const unsigned int n,
+                                     StrictWeakOrdering comp) {
+    for (unsigned int i = 0;
+            i < blockDim.x >> 1;
+            ++i) {
+        bool thread_is_odd = threadIdx.x & 0x1;
 
-		// do odds first
-		if (thread_is_odd && threadIdx.x + 1 < n) {
-			KeyType xikey = keys[threadIdx.x];
-			KeyType xjkey = keys[threadIdx.x + 1];
+        // do odds first
+        if (thread_is_odd && threadIdx.x + 1 < n) {
+            KeyType xikey = keys[threadIdx.x];
+            KeyType xjkey = keys[threadIdx.x + 1];
 
-			ValueType xivalue = data[threadIdx.x];
-			ValueType xjvalue = data[threadIdx.x + 1];
+            ValueType xivalue = data[threadIdx.x];
+            ValueType xjvalue = data[threadIdx.x + 1];
 
-			// does xj sort before xi?
-			if (comp(xjkey, xikey)) {
-				keys[threadIdx.x] = xjkey;
-				keys[threadIdx.x + 1] = xikey;
+            // does xj sort before xi?
+            if (comp(xjkey, xikey)) {
+                keys[threadIdx.x] = xjkey;
+                keys[threadIdx.x + 1] = xikey;
 
-				data[threadIdx.x] = xjvalue;
-				data[threadIdx.x + 1] = xivalue;
-			} // end if
-		} // end if
+                data[threadIdx.x] = xjvalue;
+                data[threadIdx.x + 1] = xivalue;
+            } // end if
+        } // end if
 
-		__syncthreads();
+        __syncthreads();
 
-		// do evens second
-		if (!thread_is_odd && threadIdx.x + 1 < n) {
-			KeyType xikey = keys[threadIdx.x];
-			KeyType xjkey = keys[threadIdx.x + 1];
+        // do evens second
+        if (!thread_is_odd && threadIdx.x + 1 < n) {
+            KeyType xikey = keys[threadIdx.x];
+            KeyType xjkey = keys[threadIdx.x + 1];
 
-			ValueType xivalue = data[threadIdx.x];
-			ValueType xjvalue = data[threadIdx.x + 1];
+            ValueType xivalue = data[threadIdx.x];
+            ValueType xjvalue = data[threadIdx.x + 1];
 
-			// does xj sort before xi?
-			if (comp(xjkey, xikey)) {
-				keys[threadIdx.x] = xjkey;
-				keys[threadIdx.x + 1] = xikey;
+            // does xj sort before xi?
+            if (comp(xjkey, xikey)) {
+                keys[threadIdx.x] = xjkey;
+                keys[threadIdx.x + 1] = xikey;
 
-				data[threadIdx.x] = xjvalue;
-				data[threadIdx.x + 1] = xivalue;
-			} // end if
-		} // end if
+                data[threadIdx.x] = xjvalue;
+                data[threadIdx.x + 1] = xivalue;
+            } // end if
+        } // end if
 
-		__syncthreads();
-	} // end for i
+        __syncthreads();
+    } // end for i
 } // end stable_odd_even_sort()
 
 

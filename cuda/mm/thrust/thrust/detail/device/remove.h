@@ -28,35 +28,35 @@ namespace detail {
 namespace device {
 
 template < typename ForwardIterator,
-		 typename InputIterator,
-		 typename Predicate >
+         typename InputIterator,
+         typename Predicate >
 ForwardIterator remove_if(ForwardIterator first,
-						  ForwardIterator last,
-						  InputIterator stencil,
-						  Predicate pred) {
-	return thrust::detail::device::generic::remove_if(first, last, stencil, pred);
+                          ForwardIterator last,
+                          InputIterator stencil,
+                          Predicate pred) {
+    return thrust::detail::device::generic::remove_if(first, last, stencil, pred);
 }
 
 template < typename InputIterator,
-		 typename OutputIterator,
-		 typename Predicate >
+         typename OutputIterator,
+         typename Predicate >
 OutputIterator remove_copy_if(InputIterator first,
-							  InputIterator last,
-							  OutputIterator result,
-							  Predicate pred) {
-	return thrust::detail::device::generic::remove_copy_if(first, last, result, pred);
+                              InputIterator last,
+                              OutputIterator result,
+                              Predicate pred) {
+    return thrust::detail::device::generic::remove_copy_if(first, last, result, pred);
 }
 
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename OutputIterator,
-		 typename Predicate >
+         typename InputIterator2,
+         typename OutputIterator,
+         typename Predicate >
 OutputIterator remove_copy_if(InputIterator1 first,
-							  InputIterator1 last,
-							  InputIterator2 stencil,
-							  OutputIterator result,
-							  Predicate pred) {
-	return thrust::detail::device::generic::remove_copy_if(first, last, stencil, result, pred);
+                              InputIterator1 last,
+                              InputIterator2 stencil,
+                              OutputIterator result,
+                              Predicate pred) {
+    return thrust::detail::device::generic::remove_copy_if(first, last, stencil, result, pred);
 }
 
 } // end namespace device

@@ -74,11 +74,11 @@ namespace thrust {
  *  \see http://www.sgi.com/tech/stl/transform.html
  */
 template < typename InputIterator,
-		 typename OutputIterator,
-		 typename UnaryFunction >
+         typename OutputIterator,
+         typename UnaryFunction >
 OutputIterator transform(InputIterator first, InputIterator last,
-						 OutputIterator result,
-						 UnaryFunction op);
+                         OutputIterator result,
+                         UnaryFunction op);
 
 
 /*! This version of \p transform applies a binary function to each pair
@@ -127,13 +127,13 @@ OutputIterator transform(InputIterator first, InputIterator last,
  *  \see http://www.sgi.com/tech/stl/transform.html
  */
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename OutputIterator,
-		 typename BinaryFunction >
+         typename InputIterator2,
+         typename OutputIterator,
+         typename BinaryFunction >
 OutputIterator transform(InputIterator1 first1, InputIterator1 last1,
-						 InputIterator2 first2,
-						 OutputIterator result,
-						 BinaryFunction op);
+                         InputIterator2 first2,
+                         OutputIterator result,
+                         BinaryFunction op);
 
 
 /*! This version of \p transform_if conditionally applies a unary function
@@ -188,15 +188,15 @@ OutputIterator transform(InputIterator1 first1, InputIterator1 last1,
  *  \see thrust::transform
  */
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename ForwardIterator,
-		 typename UnaryFunction,
-		 typename Predicate >
+         typename InputIterator2,
+         typename ForwardIterator,
+         typename UnaryFunction,
+         typename Predicate >
 ForwardIterator transform_if(InputIterator1 first, InputIterator1 last,
-							 InputIterator2 stencil,
-							 ForwardIterator result,
-							 UnaryFunction op,
-							 Predicate pred);
+                             InputIterator2 stencil,
+                             ForwardIterator result,
+                             UnaryFunction op,
+                             Predicate pred);
 
 
 /*! This version of \p transform_if conditionally applies a binary function
@@ -255,17 +255,17 @@ ForwardIterator transform_if(InputIterator1 first, InputIterator1 last,
  *  \see thrust::transform
  */
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename InputIterator3,
-		 typename ForwardIterator,
-		 typename BinaryFunction,
-		 typename Predicate >
+         typename InputIterator2,
+         typename InputIterator3,
+         typename ForwardIterator,
+         typename BinaryFunction,
+         typename Predicate >
 ForwardIterator transform_if(InputIterator1 first1, InputIterator1 last1,
-							 InputIterator2 first2,
-							 InputIterator3 stencil,
-							 ForwardIterator result,
-							 BinaryFunction binary_op,
-							 Predicate pred);
+                             InputIterator2 first2,
+                             InputIterator3 stencil,
+                             ForwardIterator result,
+                             BinaryFunction binary_op,
+                             Predicate pred);
 
 
 /*! \} // end transformations

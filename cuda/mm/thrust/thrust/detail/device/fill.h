@@ -30,11 +30,11 @@ namespace device {
 
 template<typename ForwardIterator, typename T>
 void fill(ForwardIterator first,
-		  ForwardIterator last,
-		  const T& exemplar) {
-	// dispatch on space
-	thrust::detail::device::dispatch::fill(first, last, exemplar,
-										   typename thrust::iterator_space<ForwardIterator>::type());
+          ForwardIterator last,
+          const T& exemplar) {
+    // dispatch on space
+    thrust::detail::device::dispatch::fill(first, last, exemplar,
+                                           typename thrust::iterator_space<ForwardIterator>::type());
 }
 
 } // end namespace device

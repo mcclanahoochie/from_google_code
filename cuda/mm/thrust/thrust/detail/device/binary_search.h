@@ -29,58 +29,58 @@ namespace device {
 
 template <class ForwardIterator, class T, class StrictWeakOrdering>
 ForwardIterator lower_bound(ForwardIterator begin,
-							ForwardIterator end,
-							const T& value,
-							StrictWeakOrdering comp) {
-	return thrust::detail::device::generic::lower_bound(begin, end, value, comp);
+                            ForwardIterator end,
+                            const T& value,
+                            StrictWeakOrdering comp) {
+    return thrust::detail::device::generic::lower_bound(begin, end, value, comp);
 }
 
 template <class ForwardIterator, class T, class StrictWeakOrdering>
 ForwardIterator upper_bound(ForwardIterator begin,
-							ForwardIterator end,
-							const T& value,
-							StrictWeakOrdering comp) {
-	return thrust::detail::device::generic::upper_bound(begin, end, value, comp);
+                            ForwardIterator end,
+                            const T& value,
+                            StrictWeakOrdering comp) {
+    return thrust::detail::device::generic::upper_bound(begin, end, value, comp);
 }
 
 
 template <class ForwardIterator, class T, class StrictWeakOrdering>
 bool binary_search(ForwardIterator begin,
-				   ForwardIterator end,
-				   const T& value,
-				   StrictWeakOrdering comp) {
-	return thrust::detail::device::generic::binary_search(begin, end, value, comp);
+                   ForwardIterator end,
+                   const T& value,
+                   StrictWeakOrdering comp) {
+    return thrust::detail::device::generic::binary_search(begin, end, value, comp);
 }
 
 
 template <class ForwardIterator, class InputIterator, class OutputIterator, class StrictWeakOrdering>
 OutputIterator lower_bound(ForwardIterator begin,
-						   ForwardIterator end,
-						   InputIterator values_begin,
-						   InputIterator values_end,
-						   OutputIterator output,
-						   StrictWeakOrdering comp) {
-	return thrust::detail::device::generic::lower_bound(begin, end, values_begin, values_end, output, comp);
+                           ForwardIterator end,
+                           InputIterator values_begin,
+                           InputIterator values_end,
+                           OutputIterator output,
+                           StrictWeakOrdering comp) {
+    return thrust::detail::device::generic::lower_bound(begin, end, values_begin, values_end, output, comp);
 }
 
 template <class ForwardIterator, class InputIterator, class OutputIterator, class StrictWeakOrdering>
 OutputIterator upper_bound(ForwardIterator begin,
-						   ForwardIterator end,
-						   InputIterator values_begin,
-						   InputIterator values_end,
-						   OutputIterator output,
-						   StrictWeakOrdering comp) {
-	return thrust::detail::device::generic::upper_bound(begin, end, values_begin, values_end, output, comp);
+                           ForwardIterator end,
+                           InputIterator values_begin,
+                           InputIterator values_end,
+                           OutputIterator output,
+                           StrictWeakOrdering comp) {
+    return thrust::detail::device::generic::upper_bound(begin, end, values_begin, values_end, output, comp);
 }
 
 template <class ForwardIterator, class InputIterator, class OutputIterator, class StrictWeakOrdering>
 OutputIterator binary_search(ForwardIterator begin,
-							 ForwardIterator end,
-							 InputIterator values_begin,
-							 InputIterator values_end,
-							 OutputIterator output,
-							 StrictWeakOrdering comp) {
-	return thrust::detail::device::generic::binary_search(begin, end, values_begin, values_end, output, comp);
+                             ForwardIterator end,
+                             InputIterator values_begin,
+                             InputIterator values_end,
+                             OutputIterator output,
+                             StrictWeakOrdering comp) {
+    return thrust::detail::device::generic::binary_search(begin, end, values_begin, values_end, output, comp);
 }
 
 } // end namespace device

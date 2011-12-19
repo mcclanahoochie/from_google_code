@@ -91,8 +91,8 @@ namespace thrust {
  */
 template <class ForwardIterator, class LessThanComparable>
 ForwardIterator lower_bound(ForwardIterator first,
-							ForwardIterator last,
-							const LessThanComparable& value);
+                            ForwardIterator last,
+                            const LessThanComparable& value);
 
 
 /*! \p lower_bound is a version of binary search: it attempts to find
@@ -145,9 +145,9 @@ ForwardIterator lower_bound(ForwardIterator first,
  */
 template <class ForwardIterator, class T, class StrictWeakOrdering>
 ForwardIterator lower_bound(ForwardIterator first,
-							ForwardIterator last,
-							const T& value,
-							StrictWeakOrdering comp);
+                            ForwardIterator last,
+                            const T& value,
+                            StrictWeakOrdering comp);
 
 
 /*! \p upper_bound is a version of binary search: it attempts to find
@@ -197,8 +197,8 @@ ForwardIterator lower_bound(ForwardIterator first,
  */
 template <class ForwardIterator, class LessThanComparable>
 ForwardIterator upper_bound(ForwardIterator first,
-							ForwardIterator last,
-							const LessThanComparable& value);
+                            ForwardIterator last,
+                            const LessThanComparable& value);
 
 /*! \p upper_bound is a version of binary search: it attempts to find
  * the element value in an ordered range <tt>[first, last)</tt>.
@@ -250,9 +250,9 @@ ForwardIterator upper_bound(ForwardIterator first,
  */
 template <class ForwardIterator, class T, class StrictWeakOrdering>
 ForwardIterator upper_bound(ForwardIterator first,
-							ForwardIterator last,
-							const T& value,
-							StrictWeakOrdering comp);
+                            ForwardIterator last,
+                            const T& value,
+                            StrictWeakOrdering comp);
 
 
 /*! \p binary_search is a version of binary search: it attempts to find
@@ -301,8 +301,8 @@ ForwardIterator upper_bound(ForwardIterator first,
  */
 template <class ForwardIterator, class LessThanComparable>
 bool binary_search(ForwardIterator first,
-				   ForwardIterator last,
-				   const LessThanComparable& value);
+                   ForwardIterator last,
+                   const LessThanComparable& value);
 
 
 /*! \p binary_search is a version of binary search: it attempts to find
@@ -354,9 +354,9 @@ bool binary_search(ForwardIterator first,
  */
 template <class ForwardIterator, class T, class StrictWeakOrdering>
 bool binary_search(ForwardIterator first,
-				   ForwardIterator last,
-				   const T& value,
-				   StrictWeakOrdering comp);
+                   ForwardIterator last,
+                   const T& value,
+                   StrictWeakOrdering comp);
 
 
 /*! \p equal_range is a version of binary search: it attempts to find
@@ -419,8 +419,8 @@ bool binary_search(ForwardIterator first,
 template <class ForwardIterator, class LessThanComparable>
 thrust::pair<ForwardIterator, ForwardIterator>
 equal_range(ForwardIterator first,
-			ForwardIterator last,
-			const LessThanComparable& value);
+            ForwardIterator last,
+            const LessThanComparable& value);
 
 /*! \p equal_range is a version of binary search: it attempts to find
  * the element value in an ordered range <tt>[first, last)</tt>. The
@@ -486,9 +486,9 @@ equal_range(ForwardIterator first,
 template <class ForwardIterator, class T, class StrictWeakOrdering>
 thrust::pair<ForwardIterator, ForwardIterator>
 equal_range(ForwardIterator first,
-			ForwardIterator last,
-			const T& value,
-			StrictWeakOrdering comp);
+            ForwardIterator last,
+            const T& value,
+            StrictWeakOrdering comp);
 
 /*! \addtogroup vectorized_binary_search Vectorized Searches
  *  \ingroup binary_search
@@ -556,10 +556,10 @@ equal_range(ForwardIterator first,
  */
 template <class ForwardIterator, class InputIterator, class OutputIterator>
 OutputIterator lower_bound(ForwardIterator first,
-						   ForwardIterator last,
-						   InputIterator values_first,
-						   InputIterator values_last,
-						   OutputIterator output);
+                           ForwardIterator last,
+                           InputIterator values_first,
+                           InputIterator values_last,
+                           OutputIterator output);
 
 
 /*! \p lower_bound is a vectorized version of binary search: for each
@@ -624,11 +624,11 @@ OutputIterator lower_bound(ForwardIterator first,
  */
 template <class ForwardIterator, class InputIterator, class OutputIterator, class StrictWeakOrdering>
 OutputIterator lower_bound(ForwardIterator first,
-						   ForwardIterator last,
-						   InputIterator values_first,
-						   InputIterator values_last,
-						   OutputIterator output,
-						   StrictWeakOrdering comp);
+                           ForwardIterator last,
+                           InputIterator values_first,
+                           InputIterator values_last,
+                           OutputIterator output,
+                           StrictWeakOrdering comp);
 
 
 /*! \p upper_bound is a vectorized version of binary search: for each
@@ -688,10 +688,10 @@ OutputIterator lower_bound(ForwardIterator first,
  */
 template <class ForwardIterator, class InputIterator, class OutputIterator>
 OutputIterator upper_bound(ForwardIterator first,
-						   ForwardIterator last,
-						   InputIterator values_first,
-						   InputIterator values_last,
-						   OutputIterator output);
+                           ForwardIterator last,
+                           InputIterator values_first,
+                           InputIterator values_last,
+                           OutputIterator output);
 
 
 /*! \p upper_bound is a vectorized version of binary search: for each
@@ -756,11 +756,11 @@ OutputIterator upper_bound(ForwardIterator first,
  */
 template <class ForwardIterator, class InputIterator, class OutputIterator, class StrictWeakOrdering>
 OutputIterator upper_bound(ForwardIterator first,
-						   ForwardIterator last,
-						   InputIterator values_first,
-						   InputIterator values_last,
-						   OutputIterator output,
-						   StrictWeakOrdering comp);
+                           ForwardIterator last,
+                           InputIterator values_first,
+                           InputIterator values_last,
+                           OutputIterator output,
+                           StrictWeakOrdering comp);
 
 
 /*! \p binary_search is a vectorized version of binary search: for each
@@ -821,10 +821,10 @@ OutputIterator upper_bound(ForwardIterator first,
  */
 template <class ForwardIterator, class InputIterator, class OutputIterator>
 OutputIterator binary_search(ForwardIterator first,
-							 ForwardIterator last,
-							 InputIterator values_first,
-							 InputIterator values_last,
-							 OutputIterator output);
+                             ForwardIterator last,
+                             InputIterator values_first,
+                             InputIterator values_last,
+                             OutputIterator output);
 
 
 /*! \p binary_search is a vectorized version of binary search: for each
@@ -890,11 +890,11 @@ OutputIterator binary_search(ForwardIterator first,
  */
 template <class ForwardIterator, class InputIterator, class OutputIterator, class StrictWeakOrdering>
 OutputIterator binary_search(ForwardIterator first,
-							 ForwardIterator last,
-							 InputIterator values_first,
-							 InputIterator values_last,
-							 OutputIterator output,
-							 StrictWeakOrdering comp);
+                             ForwardIterator last,
+                             InputIterator values_first,
+                             InputIterator values_last,
+                             OutputIterator output,
+                             StrictWeakOrdering comp);
 
 /*! \} // end vectorized_binary_search
  */

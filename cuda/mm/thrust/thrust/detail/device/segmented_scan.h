@@ -28,35 +28,35 @@ namespace detail {
 namespace device {
 
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename OutputIterator,
-		 typename AssociativeOperator,
-		 typename BinaryPredicate >
+         typename InputIterator2,
+         typename OutputIterator,
+         typename AssociativeOperator,
+         typename BinaryPredicate >
 OutputIterator inclusive_segmented_scan(InputIterator1 first1,
-										InputIterator1 last1,
-										InputIterator2 first2,
-										OutputIterator result,
-										AssociativeOperator binary_op,
-										BinaryPredicate pred) {
-	return thrust::detail::device::generic::inclusive_segmented_scan
-		   (first1, last1, first2, result, binary_op, pred);
+                                        InputIterator1 last1,
+                                        InputIterator2 first2,
+                                        OutputIterator result,
+                                        AssociativeOperator binary_op,
+                                        BinaryPredicate pred) {
+    return thrust::detail::device::generic::inclusive_segmented_scan
+           (first1, last1, first2, result, binary_op, pred);
 }
 
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename OutputIterator,
-		 typename T,
-		 typename AssociativeOperator,
-		 typename BinaryPredicate >
+         typename InputIterator2,
+         typename OutputIterator,
+         typename T,
+         typename AssociativeOperator,
+         typename BinaryPredicate >
 OutputIterator exclusive_segmented_scan(InputIterator1 first1,
-										InputIterator1 last1,
-										InputIterator2 first2,
-										OutputIterator result,
-										const T init,
-										AssociativeOperator binary_op,
-										BinaryPredicate pred) {
-	return thrust::detail::device::generic::exclusive_segmented_scan
-		   (first1, last1, first2, result, init, binary_op, pred);
+                                        InputIterator1 last1,
+                                        InputIterator2 first2,
+                                        OutputIterator result,
+                                        const T init,
+                                        AssociativeOperator binary_op,
+                                        BinaryPredicate pred) {
+    return thrust::detail::device::generic::exclusive_segmented_scan
+           (first1, last1, first2, result, init, binary_op, pred);
 }
 
 } // end namespace device

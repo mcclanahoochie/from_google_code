@@ -36,12 +36,12 @@ namespace dispatch {
 // Host Path //
 ///////////////
 template < typename InputIterator,
-		 typename UnaryFunction >
+         typename UnaryFunction >
 void for_each(InputIterator first,
-			  InputIterator last,
-			  UnaryFunction f,
-			  thrust::host_space_tag) {
-	std::for_each(first, last, f);
+              InputIterator last,
+              UnaryFunction f,
+              thrust::host_space_tag) {
+    std::for_each(first, last, f);
 }
 
 
@@ -49,12 +49,12 @@ void for_each(InputIterator first,
 // Device Path //
 /////////////////
 template < typename InputIterator,
-		 typename UnaryFunction >
+         typename UnaryFunction >
 void for_each(InputIterator first,
-			  InputIterator last,
-			  UnaryFunction f,
-			  thrust::device_space_tag) {
-	thrust::detail::device::for_each(first, last, f);
+              InputIterator last,
+              UnaryFunction f,
+              thrust::device_space_tag) {
+    thrust::detail::device::for_each(first, last, f);
 }
 
 } // end dispatch

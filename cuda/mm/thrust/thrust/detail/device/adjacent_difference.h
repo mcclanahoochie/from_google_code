@@ -29,9 +29,9 @@ namespace device {
 
 template <class InputIterator, class OutputIterator, class BinaryFunction>
 OutputIterator adjacent_difference(InputIterator first, InputIterator last,
-								   OutputIterator result,
-								   BinaryFunction binary_op) {
-	return thrust::detail::device::generic::adjacent_difference(first, last, result, binary_op);
+                                   OutputIterator result,
+                                   BinaryFunction binary_op) {
+    return thrust::detail::device::generic::adjacent_difference(first, last, result, binary_op);
 }
 
 } // end namespace device

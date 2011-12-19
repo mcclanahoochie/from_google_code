@@ -123,7 +123,7 @@ ForwardIterator min_element(ForwardIterator first, ForwardIterator last);
  */
 template <typename ForwardIterator, typename BinaryPredicate>
 ForwardIterator min_element(ForwardIterator first, ForwardIterator last,
-							BinaryPredicate comp);
+                            BinaryPredicate comp);
 
 /*! \p max_element finds the largest element in the range <tt>[first, last)</tt>.
  *  It returns the first iterator \c i in <tt>[first, last)</tt>
@@ -187,7 +187,7 @@ ForwardIterator max_element(ForwardIterator first, ForwardIterator last);
  */
 template <typename ForwardIterator, typename BinaryPredicate>
 ForwardIterator max_element(ForwardIterator first, ForwardIterator last,
-							BinaryPredicate comp);
+                            BinaryPredicate comp);
 
 
 /*! \p minmax_element finds the smallest and largest elements in the range <tt>[first, last)</tt>.
@@ -222,7 +222,7 @@ ForwardIterator max_element(ForwardIterator first, ForwardIterator last,
  */
 template <typename ForwardIterator>
 thrust::pair<ForwardIterator, ForwardIterator> minmax_element(ForwardIterator first,
-		ForwardIterator last);
+        ForwardIterator last);
 
 /*! \p minmax_element finds the smallest and largest elements in the range <tt>[first, last)</tt>.
  *  It returns a pair of iterators <tt>(imin, imax)</tt> where \c imin is the same iterator
@@ -246,8 +246,8 @@ thrust::pair<ForwardIterator, ForwardIterator> minmax_element(ForwardIterator fi
  */
 template <typename ForwardIterator, typename BinaryPredicate>
 thrust::pair<ForwardIterator, ForwardIterator> minmax_element(ForwardIterator first,
-		ForwardIterator last,
-		BinaryPredicate comp);
+        ForwardIterator last,
+        BinaryPredicate comp);
 
 /*! \} // end extrema
  *  \} // end reductions

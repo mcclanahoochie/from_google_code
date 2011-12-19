@@ -37,8 +37,8 @@ namespace dispatch {
 ///////////////
 template<typename InputIterator, typename Distance>
 void advance(InputIterator& i, Distance n,
-			 thrust::host_space_tag) {
-	std::advance(i, n);
+             thrust::host_space_tag) {
+    std::advance(i, n);
 }
 
 /////////////////
@@ -46,9 +46,9 @@ void advance(InputIterator& i, Distance n,
 /////////////////
 template<typename InputIterator, typename Distance>
 void advance(InputIterator& i, Distance n,
-			 thrust::device_space_tag) {
-	// device iterators are random access
-	i += n;
+             thrust::device_space_tag) {
+    // device iterators are random access
+    i += n;
 }
 
 //////////////
@@ -56,9 +56,9 @@ void advance(InputIterator& i, Distance n,
 //////////////
 template<typename InputIterator, typename Distance>
 void advance(InputIterator& i, Distance n,
-			 thrust::any_space_tag) {
-	// any space iterators are random access
-	i += n;
+             thrust::any_space_tag) {
+    // any space iterators are random access
+    i += n;
 }
 
 } // end namespace dispatch

@@ -69,12 +69,12 @@ namespace thrust {
  *  \note \p scatter is the inverse of thrust::gather.
  */
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename RandomAccessIterator >
+         typename InputIterator2,
+         typename RandomAccessIterator >
 void scatter(InputIterator1 first,
-			 InputIterator1 last,
-			 InputIterator2 map,
-			 RandomAccessIterator output);
+             InputIterator1 last,
+             InputIterator2 map,
+             RandomAccessIterator output);
 
 
 /*! \p scatter_if conditionally copies elements from a source range into an
@@ -99,14 +99,14 @@ void scatter(InputIterator1 first,
  *  \note \p scatter_if is the inverse of thrust::gather_if.
  */
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename InputIterator3,
-		 typename RandomAccessIterator >
+         typename InputIterator2,
+         typename InputIterator3,
+         typename RandomAccessIterator >
 void scatter_if(InputIterator1 first,
-				InputIterator1 last,
-				InputIterator2 map,
-				InputIterator3 stencil,
-				RandomAccessIterator output);
+                InputIterator1 last,
+                InputIterator2 map,
+                InputIterator3 stencil,
+                RandomAccessIterator output);
 
 
 /*! \p scatter_if conditionally copies elements from a source range into an
@@ -133,16 +133,16 @@ void scatter_if(InputIterator1 first,
  *  \note \p scatter_if is the inverse of thrust::gather_if.
  */
 template < typename InputIterator1,
-		 typename InputIterator2,
-		 typename InputIterator3,
-		 typename RandomAccessIterator,
-		 typename Predicate >
+         typename InputIterator2,
+         typename InputIterator3,
+         typename RandomAccessIterator,
+         typename Predicate >
 void scatter_if(InputIterator1 first,
-				InputIterator1 last,
-				InputIterator2 map,
-				InputIterator3 stencil,
-				RandomAccessIterator output,
-				Predicate pred);
+                InputIterator1 last,
+                InputIterator2 map,
+                InputIterator3 stencil,
+                RandomAccessIterator output,
+                Predicate pred);
 
 /*! \} // end scattering
  */
