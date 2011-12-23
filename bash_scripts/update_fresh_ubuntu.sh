@@ -129,8 +129,6 @@ if true ; then
     p7zip-rar \
     zip \
     unzip \
-    ttf-mscorefonts-installer \
-    ttf-liberation mencoder \
     mplayer \
     sun-java6-plugin \
     sun-java6-jre \
@@ -173,7 +171,7 @@ echo "35" ;
 if true ; then
     echo "# Installing various python packages..."
     sudo apt-get -y --force-yes install \
-    python2.6 \
+    python2.7 \
     python-tk \
     python-gtk2-dev \
     python-setuptools \
@@ -287,7 +285,7 @@ fi
 
 echo "70" ; 
 
-if true ; then
+if false ; then
     # window close button placement
     echo "# move window buttons to right"
 btnxml='<?xml version="1.0"?>
@@ -313,7 +311,7 @@ fi
 echo "85" ; 
 
 # may need work!
-if false ; then
+if true ; then
     # remap capslock to control
     xmodmap -e 'clear Lock'
     xmodmap -e 'keycode 0x66 = Control_L' # modify 0x42 (find via xev)
