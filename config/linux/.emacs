@@ -1,4 +1,4 @@
-;; Time-stamp: <2011-05-17 08:06:26 malcolm>
+;; Time-stamp: <2011-12-23 15:09:41 chris>
 (setq
  user-full-name "Chris McClanahan"
  user-mail-address "chris.mcclanahan@accelereyes.com"
@@ -925,7 +925,7 @@ in 'my-shebang-patterns."
 (setq color-theme-is-global t)
 (setq color-theme-is-cumulative t)
 (setq color-theme-load-all-themes nil)
-(load-file "~/.color-theme.el")
+(load-file "~/.elisp/color-theme.el")
 ;; ;; color theme - dark laptop
 (color-theme-dark-laptop)
 ;; ;; color theme - linh ding dark
@@ -934,13 +934,13 @@ in 'my-shebang-patterns."
 ;; misc
 (savehist-mode t)
 (show-paren-mode t)
-;;(set-default-font "-microsoft-Consolas-bold-bold-bold-*-16-*-*-*-m-0-iso10646-1")
-(set-default-font "-apple-Menlo-medium-normal-normal-*-16-*-*-*-m-0-iso10646-1")
+(set-default-font "-microsoft-Consolas-bold-bold-bold-*-16-*-*-*-m-0-iso10646-1")
+;; (set-default-font "-apple-Menlo-medium-normal-normal-*-16-*-*-*-m-0-iso10646-1")
 (setq truncate-lines t)
 
 
 ;; mac
-(setq mac-option-modifier 'control)
-(setq mac-command-modifier 'meta)
+;; (setq mac-option-modifier 'control)
+;; (setq mac-command-modifier 'meta)
 
 

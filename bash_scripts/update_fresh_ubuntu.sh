@@ -33,7 +33,7 @@ if true ; then
     echo "   2. Add/remove packages to install sections as desired."
     echo "   3. Enjoy!"
     echo "===== ===== ===== ===== ===== ====="
-    exit 0; 
+    exit 0;
 fi
 
 # # # # # # # # # # # # Setup # # # # # # # # # # # # # # # # # # # # # #
@@ -67,9 +67,9 @@ if true ; then
     ## echo " ===== Done."
 fi
 
-# # # # # # # # # # # # Installs 1 # # # # # # # # # # # # # # # # # # # 
-  
-echo "5" ; 
+# # # # # # # # # # # # Installs 1 # # # # # # # # # # # # # # # # # # #
+
+echo "5" ;
 
 if true ; then
     echo "# Installing various gnome packages..."
@@ -87,7 +87,7 @@ if true ; then
     aptitude
 fi
 
-echo "10" ; 
+echo "10" ;
 
 if true ; then
     echo "# Installing various utility packages..."
@@ -103,10 +103,12 @@ if true ; then
     emacs23 \
     emacs-goodies-el \
     emacs-goodies-extra-el \
-    meld
+    meld \
+    gnome-do \
+    hal
 fi
 
-echo "15" ; 
+echo "15" ;
 
 if true ; then
     echo "# Installing webupd8 reccomended packages..."
@@ -122,7 +124,6 @@ if true ; then
     libxine1-ffmpeg \
     ffmpeg \
     flashplugin-nonfree \
-    sun-java6-fonts \
     rar \
     unrar \
     p7zip-full \
@@ -138,7 +139,7 @@ if true ; then
     skype
 fi
 
-echo "25" ; 
+echo "25" ;
 
 if true ; then
     echo "# Installing various programming packages..."
@@ -163,10 +164,11 @@ if true ; then
     cmake \
     autoconf \
     git \
-    git-core
+    git-core \
+    swig
 fi
 
-echo "35" ; 
+echo "35" ;
 
 if true ; then
     echo "# Installing various python packages..."
@@ -183,7 +185,7 @@ if true ; then
     libboost-python-dev
 fi
 
-echo "40" ; 
+echo "40" ;
 
 if true ; then
     echo "# Installing pam keyring packages..."
@@ -195,8 +197,8 @@ if true ; then
     libpam-modules
 fi
 
-# # # # # # # # # # # # Installs 2 # # # # # # # # # # # # # # # # # # # 
-echo "45" ; 
+# # # # # # # # # # # # Installs 2 # # # # # # # # # # # # # # # # # # #
+echo "45" ;
 
 if true ; then
     echo "# Installing extra apt-get keys/repos/programs"
@@ -236,7 +238,7 @@ if true ; then
         faenza-icon-theme
 fi
 
-echo "50" ; 
+echo "50" ;
 
 # not fully automatic yet, need to configure manually
 if false ; then
@@ -252,7 +254,7 @@ if false ; then
 fi
 
 # # # # # # # # # # # # Tweaks # # # # # # # # # # # # # # # # # # # # #
-echo "55" ; 
+echo "55" ;
 
 if true ; then
     # speed up gnome menu
@@ -263,7 +265,7 @@ if true ; then
     fi
 fi
 
-echo "60" ; 
+echo "60" ;
 
 if true ; then
     # Linux process scheduler
@@ -275,7 +277,7 @@ if true ; then
     fi
 fi
 
-echo "65" ; 
+echo "65" ;
 
 if true ; then
     # parallel booting
@@ -283,7 +285,7 @@ if true ; then
     sudo perl -i -pe 's/CONCURRENCY=none/CONCURRENCY=shell/' /etc/init.d/rc
 fi
 
-echo "70" ; 
+echo "70" ;
 
 if false ; then
     # window close button placement
@@ -299,7 +301,7 @@ fi
 
 # # # # # # # # # # # # system config # # # # # # # # # # # # # # # # # # # # #
 
-echo "80" ; 
+echo "80" ;
 
 # not fully automatic yet, need to select manually
 if false ; then
@@ -308,7 +310,7 @@ if false ; then
     sudo dpkg-reconfigure --force dash
 fi
 
-echo "85" ; 
+echo "85" ;
 
 # may need work!
 if true ; then
@@ -318,7 +320,7 @@ if true ; then
     xmodmap -e 'add Control = Control_L'
 fi
 
-echo "90" ; 
+echo "90" ;
 
 if false ; then
     # remove old nvidia drivers
@@ -345,7 +347,7 @@ if false ; then
 fi
 
 # # # # # # # # # # # # Cleanup # # # # # # # # # # # # # # # # # # # # #
-echo "95" ; 
+echo "95" ;
 
 if true ; then
     # Clean up after the installs.
@@ -358,10 +360,10 @@ fi
 # temp dir
 $echo_exec rm -rf "$dir"
 
-# # # # # # # # # # # # Finish # # # # # # # # # # # # # # # # # # # # # 
+# # # # # # # # # # # # Finish # # # # # # # # # # # # # # # # # # # # #
 
 # done
-echo "100" ; 
+echo "100" ;
 echo " ===== "
 echo " ===== Finished. Please restart."
 echo " ===== "
