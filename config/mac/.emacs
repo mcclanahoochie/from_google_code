@@ -1,4 +1,4 @@
-;; Time-stamp: <2011-05-17 08:06:26 malcolm>
+;; Time-stamp: <2012-01-24 08:59:57 chris>
 (setq
  user-full-name "Chris McClanahan"
  user-mail-address "chris.mcclanahan@accelereyes.com"
@@ -943,4 +943,7 @@ in 'my-shebang-patterns."
 (setq mac-option-modifier 'control)
 (setq mac-command-modifier 'meta)
 
+;; SHIFT-arrow between windows
+(when (fboundp 'windmove-default-keybindings)
+  (windmove-default-keybindings))
 

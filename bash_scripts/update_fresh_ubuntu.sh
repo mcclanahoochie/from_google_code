@@ -206,7 +206,6 @@ if true ; then
     sudo add-apt-repository ppa:nilarimogard/webupd8
     sudo add-apt-repository ppa:app-review-board/ppa
     sudo add-apt-repository ppa:tualatrix/ppa
-    sudo add-apt-repository ppa:ailurus
     sudo add-apt-repository ppa:nilarimogard/webupd8
     sudo add-apt-repository ppa:bisigi
     sudo add-apt-repository ppa:rabbitvcs/ppa
@@ -223,7 +222,6 @@ if true ; then
     sudo apt-get -y --force-yes install \
 	launchpad-getkeys \
 	ubuntu-tweak \
-	ailurus \
 	gimp-plugin-registry \
 	eco-theme \
         tropical-theme \

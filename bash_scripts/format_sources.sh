@@ -11,7 +11,8 @@ find . -name '*.hpp'  -print -exec astyle $ARGS {} \;
 find . -name '*.h'    -print -exec astyle $ARGS {} \;
 find . -name '*.cu'   -print -exec astyle $ARGS {} \;
 find . -name '*.java' -print -exec astyle $ARGS {} \;
-find . -name '*.pde' -print -exec astyle $ARGS {} \;
+find . -name '*.pde'  -print -exec astyle $ARGS {} \;
+find . -name '*.cl'   -print -exec astyle $ARGS {} \;
 
 echo "removing astyle crap..."
 find . -name '*.orig' -exec rm '{}' \; -print
