@@ -1,0 +1,8 @@
+
+[ Linux/Mac Only ]
+
+Make sure the latest OpenCV is installed.
+
+Place the files in your arrayfire/examples/image_processing/ directory, and type:
+  make && ./webcam_demo
+
