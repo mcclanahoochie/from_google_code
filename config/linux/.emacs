@@ -1,4 +1,4 @@
-;; Time-stamp: <2012-01-24 08:59:57 chris>
+;; Time-stamp: <2012-08-15 12:50:58 chris>
 (setq
  user-full-name "Chris McClanahan"
  user-mail-address "chris.mcclanahan@accelereyes.com"
@@ -9,7 +9,7 @@
 
 ;; debug -- keep near top
 (setq
- debug-on-error nil                     ; enter debugger on errors
+ debug-on-error t                       ; enter debugger on errors
  stack-trace-on-error nil               ; show backtrace of error on debug
  debug-on-quit nil                      ; don't debug when C-g is hit
  debug-on-signal nil                    ; debug any/every error
@@ -474,7 +474,7 @@ something to do with 'defun which I obviously don't know much about."
   (modify-syntax-entry ?\$ "." text-mode-syntax-table)
   ;; (hl-line-mode 1)
   (setq
-   fill-column 78
+   fill-column 90
    sentence-end-double-space t
    colon-double-space t
    tab-width 4
@@ -925,7 +925,7 @@ in 'my-shebang-patterns."
 (setq color-theme-is-global t)
 (setq color-theme-is-cumulative t)
 (setq color-theme-load-all-themes nil)
-(load-file "~/.elisp/color-theme.el")
+(load-file "~/.color-theme.el")
 ;; ;; color theme - dark laptop
 (color-theme-dark-laptop)
 ;; ;; color theme - linh ding dark
@@ -937,6 +937,7 @@ in 'my-shebang-patterns."
 (set-default-font "-microsoft-Consolas-bold-bold-bold-*-16-*-*-*-m-0-iso10646-1")
 ;; (set-default-font "-apple-Menlo-medium-normal-normal-*-16-*-*-*-m-0-iso10646-1")
 (setq truncate-lines t)
+(set-face-attribute 'default nil :height 150)
 
 
 ;; mac
@@ -946,4 +947,8 @@ in 'my-shebang-patterns."
 ;; SHIFT-arrow between windows
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
+
+
+;; window opacity
+(set-frame-parameter nil 'alpha 80)
 
