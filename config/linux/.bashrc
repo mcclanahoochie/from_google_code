@@ -1,12 +1,17 @@
-#!/bin/sh
-# run on non-interactive logins
-# Time-stamp: <2011-09-09 23:55:56 chris>
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
 
-umask 002
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
+
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
 
 alias ls='ls -1 --color'
 alias l='ls'
-alias ll='ls -l'
+alias ll='ls -lh'
 alias lrt='ls -rt'
 alias llrt='ls -lrt'
 alias la='ls -A'
@@ -19,7 +24,6 @@ alias gi=git
 alias gitinfo='git show | head -3 && git remote -v'
 
 alias grep="grep --color"
-alias r='stty sane'
 
 h() { history | tail -15; }
 s() { [[ $# == 0 ]] && s local || ssh -t $@ "screen -ADR $(whoami)"; }
@@ -47,12 +51,6 @@ alias M="matlab -nodesktop -nosplash"
 
 if [[ `uname -m` == x86_64 ]]; then ARCH=64; fi
 if [[ `uname` == Darwin ]]; then
-  VERSION=`sw_vers -productVersion`
-  if [[ ${VERSION} =~ 10\.6.* ]]; then # SnowLeopard
-    export MACI64=1
-  else
-    export MACI64=0
-  fi
   alias ls='ls -1G' # Darwin hates '--color' parameter
 fi
 
@@ -83,48 +81,8 @@ export HISTCONTROL=ignoreboth # Don't store duplicate adjacent items in the hist
 shopt -s histappend
 export PROMPT_COMMAND="history -a && history -r" # each cmd updates hist
 
-# from github.com/huyng/bashmarks
-touch ~/.bookmarks
-. ~/.bookmarks
-function mark {  # mark current directory
-    mv ~/.bookmarks /tmp
-    grep -v "export DIR_$1=" /tmp/.bookmarks >~/.bookmarks
-    echo "export DIR_$1=$PWD" >>~/.bookmarks
-}
-
-function j {  # jump to bookmark
-   . ~/.bookmarks
-   cd $(eval $(echo echo $(echo \$DIR_$1)))
-}
-
-function list {  # list bookmarks (with dirname)
-   . ~/.bookmarks
-   env | grep "^DIR_" | cut -c5- | grep "^.*="
-}
-function _list {  # list bookmarks (without dirname)
-   . ~/.bookmarks
-   env | grep "^DIR_" | cut -c5- | grep "^.*=" | cut -f1 -d "="
-}
-
-function _jump { # completion command for jump
-    local curw
-    COMPREPLY=()
-    curw=${COMP_WORDS[COMP_CWORD]}
-    COMPREPLY=($(compgen -W '`_list`' -- $curw))
-    return 0
-}
-complete -F _jump j
-shopt -s progcomp
-
-if [ -r /etc/bash_completion.d/git ]; then
-  . /etc/bash_completion.d/git
-  #export GIT_PS1_SHOWDIRTYSTATE=1
-  complete -o bashdefault -o default -o nospace -F _git g # alias g=git
-else
-  function __git_ps1() { true; }  # define dummy
-fi
+# prompt
 export PS1='\[\e[33m\]\h\[\e[0m\].\[\033[32m\]\W\[\033[0m\]$(__git_ps1 "{%s}") \$ '
-
 set visual-bell none
 
 # enable programmable completion features (you don't need to enable
@@ -147,8 +105,6 @@ for p in \
     /usr/sbin \
     /bin \
     /sbin \
-    /usr/X/bin \
-    /usr/X11R6/bin \
     /usr/local/matlab/bin \
     /usr/local/cuda/bin \
     ; do
@@ -157,16 +113,15 @@ done
 unset p
 export PATH=${PATH##:}
 
-# more paths
-export LD_LIBRARY_PATH=/usr/local/cuda/lib/:$LD_LIBRARY_PATH
-export MANPATH=/usr/share/man:/usr/local/man:/opt/local/man:/usr/local/cuda/man
-export INFOPATH=/usr/local/info:/usr/share/info:/opt/local/info
-
 # editors
 export PAGER=less
 export VISUAL=nano
 export EDITOR=nano
 export ALTERNATE_EDITOR=nano
+
+# more paths
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64/:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/usr/local/cuda/lib/:$LD_LIBRARY_PATH
 
 # android paths
 export NDKROOT=/home/chris/workspace/android-ndk-r4-crystax
@@ -187,3 +142,11 @@ else
     function __git_ps1() { true; }
 fi
 
+# lion
+#export PATH=${PATH}:/Developer/usr/bin/
+#export PATH=${PATH}:/usr/bin/
+
+
+# ssh office
+alias aegit='ssh -L8081:bob.a:8080 -L8082:mmas.a:22 -L8084:coors.a:80 -L8085:bob.a:8090 -N -p 9401 git@76.97.68.41 &'
+alias mmas='ssh -p 8082 gallagher@localhost'

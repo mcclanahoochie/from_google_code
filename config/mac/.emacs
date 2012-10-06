@@ -154,10 +154,10 @@ Returns reference to modified sequence."
 ;;(require 'tbemail)
 
 ;; Tramp
-(require 'tramp)
-(setq
- tramp-default-method "ssh"
- tramp-verbose 9)
+;;(require 'tramp)
+;;(setq
+;; tramp-default-method "ssh"
+;; tramp-verbose 9)
 
 ;; sh mode
 (defun my-sh-mode ()
