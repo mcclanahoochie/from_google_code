@@ -1,15 +1,14 @@
-;; Time-stamp: <2012-08-15 12:50:58 chris>
+;; Time-stamp: <2012-10-01 14:48:15 chris>
 (setq
  user-full-name "Chris McClanahan"
  user-mail-address "chris.mcclanahan@accelereyes.com"
  mail-default-reply-to user-mail-address)
 (add-to-list 'load-path (expand-file-name "~/.elisp/"))
-(add-to-list 'load-path (expand-file-name "~/.eacs.d/weblogger/"))
 (add-to-list 'load-path "/usr/local/share/emacs/site-lisp")
 
 ;; debug -- keep near top
 (setq
- debug-on-error t                       ; enter debugger on errors
+ debug-on-error nil                     ; enter debugger on errors
  stack-trace-on-error nil               ; show backtrace of error on debug
  debug-on-quit nil                      ; don't debug when C-g is hit
  debug-on-signal nil                    ; debug any/every error
@@ -19,6 +18,7 @@
  auto-fill-function nil
  indent-tabs-mode nil)
 (global-font-lock-mode 1)
+(setq font-lock-maximum-decoration 1)
 (setq
  transient-mark-mode t
  show-trailing-whitespace t
@@ -90,6 +90,7 @@
                          (cursor-color . "Red")
                          (vertical-scroll-bars)
                          (tool-bar-lines . 0)))
+(blink-cursor-mode -1)
 
 ;; Utility functions
 (defun foreach (function sequence)
@@ -153,12 +154,12 @@ Returns reference to modified sequence."
 ;;(require 'tbemail)
 
 ;; Tramp
-;;(require 'tramp)
-;;(setq
-;; tramp-default-method "ssh"
-;; tramp-verbose 9)
+(require 'tramp)
+(setq
+ tramp-default-method "ssh"
+ tramp-verbose 9)
 
-;;sh mode
+;; sh mode
 (defun my-sh-mode ()
   "My shell mode settings."
   (local-set-key "\C-c\C-c" 'compile)
@@ -393,6 +394,7 @@ something to do with 'defun which I obviously don't know much about."
     (goto-char (point-min))
     (while (search-forward "[ \t]+$" nil t
                            (replace-match "" nil t)))))
+;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; print function documentation in minibuffer as you type
 (autoload 'turn-on-eldoc-mode "eldoc" nil t)
@@ -579,6 +581,9 @@ something to do with 'defun which I obviously don't know much about."
   (c-mode)
   (my-algol-mode))
 
+(autoload 'js2-mode "js2" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+
 (defun my-java-mode ()
   "Java mode with adjusted defaults."
   (c-mode)
@@ -605,9 +610,9 @@ something to do with 'defun which I obviously don't know much about."
   (c-set-style "linux")
   (setq c-basic-offset 4)
   (which-func-mode t)
-  ;; (font-lock-add-keywords nil
-  ;;                         '(("\\<\\(FIXME\\|TODO\\|XXX+\\|BUG\\):?"
-  ;;                            1 font-lock-warning-face prepend)))
+  (font-lock-add-keywords nil
+                          '(("\\<\\(FIXME\\|HACK\\|TODO\\|XXX+\\|BUG\\):?"
+                             1 font-lock-warning-face prepend)))
   (setq
    show-trailing-whitespace t
    default-tab-width 4
@@ -677,12 +682,13 @@ something to do with 'defun which I obviously don't know much about."
   (local-set-key "\C-h" 'backward-delete-char-untabify)
   (local-set-key "\C-cc" 'comment-region)
   (setq
+   show-trailing-whitespace t
    matlab-auto-fill nil
    matlab-fill-code nil
    matlab-fill-strings nil
    matlab-indent-function t
    matlab-highlight-block-match-flag t
-   matlab-verify-on-save-flag t
+   matlab-verify-on-save-flag nil
    matlab-handle-graphics-list nil
    matlab-show-periodic-code-details-flag nil))
 (add-hook 'matlab-mode-hook 'my-matlab-mode)
@@ -796,11 +802,11 @@ in 'my-shebang-patterns."
 
 ;;(require 'mediawiki)
 ;;(setq mediawiki-site-alist '(("Wikipedia" "http://en.wikipedia.org/w/"
-;;                              "malcolmj1" "edinamn" "Main Page")
+;;                              "" "" "Main Page")
 ;;                             ("Internal" "http://coors.a/wiki/"
-;;                              "malcolm" "foobar" "Main Page")
+;;                              "" "" "Main Page")
 ;;                             ("External" "http://wiki.accelereyes.com/wiki/"
-;;                              "malcolm" "edinamn" "Main Page")))
+;;                              "" "" "Main Page")))
 
 
 (defun swap-words (a b)
@@ -892,7 +898,7 @@ in 'my-shebang-patterns."
  '(diff-removed ((t (:foreground "#de1923"))))
  )
 
-;;(server-start)
+(server-start)
 
 
 ;; (add-to-list 'crypt-encryption-alist
@@ -912,6 +918,12 @@ in 'my-shebang-patterns."
 
 ;; ================================================= ;;
 
+;; lua mode
+(load-file "~/.elisp/lua-mode.el")
+(autoload 'lua-mode "lua-mode" "Lua editing mode." t)
+(add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
+(add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
+
 ;; astyle
 (defun astyle-this-buffer (pmin pmax)
   (interactive "r")
@@ -925,20 +937,19 @@ in 'my-shebang-patterns."
 (setq color-theme-is-global t)
 (setq color-theme-is-cumulative t)
 (setq color-theme-load-all-themes nil)
-(load-file "~/.color-theme.el")
-;; ;; color theme - dark laptop
+(load-file "~/.elisp/.color-theme.el")
 (color-theme-dark-laptop)
-;; ;; color theme - linh ding dark
 ;; (color-theme-ld-dark)
 
 ;; misc
 (savehist-mode t)
 (show-paren-mode t)
-;;(set-default-font "-microsoft-Consolas-bold-bold-bold-*-16-*-*-*-m-0-iso10646-1")
-(set-default-font "-apple-Menlo-medium-normal-normal-*-16-*-*-*-m-0-iso10646-1")
 (setq truncate-lines t)
-(set-face-attribute 'default nil :height 150)
 
+;; font
+;;(set-default-font "-microsoft-Consolas-bold-bold-bold-*-16-*-*-*-m-0-iso10646-1")
+(set-default-font "-apple-Menlo-medium-medium-medium-*-16-*-*-*-m-0-iso10646-1")
+(set-face-attribute 'default nil :height 150)
 
 ;; mac
 (setq mac-option-modifier 'control)
@@ -948,7 +959,7 @@ in 'my-shebang-patterns."
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
 
-
 ;; window opacity
 (set-frame-parameter nil 'alpha 80)
 
+;; ================================================= ;;
