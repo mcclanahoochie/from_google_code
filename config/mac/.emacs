@@ -1,4 +1,4 @@
-;; Time-stamp: <2012-10-01 14:48:15 chris>
+;; Time-stamp: <2012-10-08 09:40:00 chris>
 (setq
  user-full-name "Chris McClanahan"
  user-mail-address "chris.mcclanahan@accelereyes.com"
@@ -17,8 +17,8 @@
 (setq-default
  auto-fill-function nil
  indent-tabs-mode nil)
-(global-font-lock-mode 1)
-(setq font-lock-maximum-decoration 1)
+(global-font-lock-mode t)
+;;(setq font-lock-maximum-decoration t)
 (setq
  transient-mark-mode t
  show-trailing-whitespace t
@@ -154,10 +154,10 @@ Returns reference to modified sequence."
 ;;(require 'tbemail)
 
 ;; Tramp
-;;(require 'tramp)
-;;(setq
-;; tramp-default-method "ssh"
-;; tramp-verbose 9)
+(require 'tramp)
+(setq
+ tramp-default-method "ssh"
+ tramp-verbose 9)
 
 ;; sh mode
 (defun my-sh-mode ()
@@ -578,7 +578,7 @@ something to do with 'defun which I obviously don't know much about."
   (my-algol-mode))
 (defun my-c++-mode ()
   "C++ mode with adjusted defaults."
-  (c-mode)
+  (c++-mode)
   (my-algol-mode))
 
 (autoload 'js2-mode "js2" nil t)
@@ -610,9 +610,9 @@ something to do with 'defun which I obviously don't know much about."
   (c-set-style "linux")
   (setq c-basic-offset 4)
   (which-func-mode t)
-  (font-lock-add-keywords nil
-                          '(("\\<\\(FIXME\\|HACK\\|TODO\\|XXX+\\|BUG\\):?"
-                             1 font-lock-warning-face prepend)))
+  ;; (font-lock-add-keywords nil
+  ;;                         '(("\\<\\(FIXME\\|HACK\\|TODO\\|XXX+\\|BUG\\):?"
+  ;;                            1 font-lock-warning-face prepend)))
   (setq
    show-trailing-whitespace t
    default-tab-width 4
@@ -898,7 +898,7 @@ in 'my-shebang-patterns."
  '(diff-removed ((t (:foreground "#de1923"))))
  )
 
-(server-start)
+;; (server-start)
 
 
 ;; (add-to-list 'crypt-encryption-alist
