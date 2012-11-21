@@ -45,7 +45,7 @@ int colmax = 512;
 int rowmax = 256;
 int[][] sgram = new int[colmax][rowmax];
 int col;
-int leftedge;
+int leftedge = 0;
 
 
 void setup() {
@@ -81,8 +81,8 @@ void draw() {
     // perform a forward FFT on the samples in the input buffer
     fft.forward(in.mix);
     for (int i = 0; i < rowmax /* fft.specSize() */; ++i) {
-        // fill in the new column of spectral values
-        sgram[col][i] = (int)Math.round(Math.max(0, 40 * Math.log10(1000 * fft.getBand(i))));
+        // fill in the new column of spectral values (and scale)
+        sgram[col][i] = (int)Math.round(Math.max(0, 52 * Math.log10(1000 * fft.getBand(i))));
     }
 
     // next time will be the next column
@@ -96,7 +96,7 @@ void draw() {
     for (int i = 0; i < colmax - leftedge; ++i) {
         for (int j = 0; j < rowmax; ++j) {
             sval = Math.min(255, sgram[i + leftedge][j]);
-            stroke(255 - sval, 255 - sval, sval * 1.1f);
+            stroke(255 - sval, sval, sval);
             point(i, height - j);
         }
     }
@@ -105,7 +105,7 @@ void draw() {
     for (int i = 0; i < leftedge; ++i) {
         for (int j = 0; j < rowmax; ++j) {
             sval = Math.min(255, sgram[i][j]);
-            stroke(255 - sval, 255 - sval, sval * 1.1f);
+            stroke(255 - sval, sval, sval);
             point(i + colmax - leftedge, height - j);
         }
     }
