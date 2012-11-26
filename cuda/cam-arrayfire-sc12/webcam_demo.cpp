@@ -55,10 +55,10 @@ void mat_to_array(cv::Mat& input, array& output) {
 // edge kernel
 const float h_sobel_kernel[] = { -2.0, -1.0,  0.0,
                                  -1.0,  0.0,  1.0,
-                                  0.0,  1.0,  2.0
-};
-array sobel_k = array(3,3,h_sobel_kernel);
-void sobel(array& in, array& out){
+                                 0.0,  1.0,  2.0
+                               };
+array sobel_k = array(3, 3, h_sobel_kernel);
+void sobel(array& in, array& out) {
     out = medfilt(abs(convolve(in, sobel_k, af_conv_same)));
 }
 
@@ -72,7 +72,7 @@ array process_image(Mat& cur_img, array& prev_img) {
 
     // get V of hsv colorspace
     array hsv = rgbtohsv(img);
-    array v = hsv(span,span,2) * 255.f; // value
+    array v = hsv(span, span, 2) * 255.f; // value
 
     // histograms
     const int nbins = 256;
@@ -83,16 +83,16 @@ array process_image(Mat& cur_img, array& prev_img) {
     sobel(v, edges);
 
     // fram differences
-    array diff = abs(curr_img-prev_img);
+    array diff = abs(curr_img - prev_img);
 
     // meanshift
-    array m = meanshift(resize(img,0.5),4.4,0.1);
+    array m = meanshift(resize(img, 0.5), 4.4, 0.1);
     // display
     subfigure(3, 2, 4);  rgbplot(img);              title("Source");
     subfigure(3, 2, 6);  rgbplot(m);                title("Meanshift");
     subfigure(3, 2, 3);  rgbplot(diff);             title("Motion");
     subfigure(3, 2, 1);  imgplot(edges);            title("Edges");
-    subfigure(3, 2, 5);  plot(veq_h(seq(nbins-1))); title("Histogram");
+    subfigure(3, 2, 5);  plot(veq_h(seq(nbins - 1))); title("Histogram");
 
     // refresh
     draw();
@@ -131,7 +131,7 @@ int main(int argc, char* argv[]) {
     palette("orange");
 
     // logo
-    array logo  = loadimage("aflogo.jpg", true) / 255.f;    // 3 channel RGB       [0-1]
+    array logo  = loadimage("aflogo.jpg", true) / 255.f; // 3 channel RGB [0-1]
     subfigure(3, 2, 2);   rgbplot(logo);   title("Powered By:");
 
     // grab frame
