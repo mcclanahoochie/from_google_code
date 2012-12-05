@@ -6,6 +6,6 @@ LDFLAGS  += `pkg-config --libs opencv`
 
 AF_PATH ?= ../..
 # if elsewhere: AF_PATH := /opt/local/arrayfire
-BIN := webcam_demo
+BIN := webcam_demo_19
 include $(AF_PATH)/examples/common.mk
 LDFLAGS += -lafGFX

@@ -87,6 +87,7 @@ array process_image(Mat& cur_img, array& prev_img) {
 
     // meanshift
     array m = meanshift(resize(img, 0.5), 4.4, 0.1);
+
     // display
     subfigure(3, 2, 4);  rgbplot(img);              title("Source");
     subfigure(3, 2, 6);  rgbplot(m);                title("Meanshift");
