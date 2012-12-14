@@ -24,8 +24,8 @@ char x = 30, ylim = 60;
 int i = 0, val = 0, j = 0;
 char toggle = 0;
 
-const int colmax = 12;//128;
-const int rowmax = 64;//64;
+const int colmax = 12;//128;    // memory limitation!!!
+const int rowmax = 64;
 const int width = colmax;
 const int height = rowmax;
 int col = 0;
