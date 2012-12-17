@@ -12,6 +12,8 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+
+   Credit also goes to: http://blurtime.blogspot.com/2010_11_01_archive.html
 */
 
 #include <ks0108.h>
@@ -71,12 +73,15 @@ void loop() {
     fix_fft(data, im, 7, 0);
 
     // -----------------------------------------------------------------
+    char d;
     for (i = 1; i < rowmax; i++) {
-        data[i] = sqrt(data[i] * data[i] + im[i] * im[i]);
-        if(data[i] < thresh>>1) data[i] = 0;
-        GLCD.DrawLine(i + x, lastpass[i], i + x, ylim,           BLACK);
-        GLCD.DrawLine(i + x, ylim,        i + x, ylim - data[i], BLACK);
-        lastpass[i] = ylim - data[i];
+        d = sqrt(data[i] * data[i] + im[i] * im[i]) * 1.33;
+        if(d < thresh>>1) d = 0;
+        if(d >= ylim) data[i] = ylim - 1;
+        GLCD.DrawLine(i + x, lastpass[i], i + x, ylim,     BLACK);
+        GLCD.DrawLine(i + x, ylim,        i + x, ylim - d, BLACK);
+        data[i] = d;
+        lastpass[i] = ylim - d;
     };
 
     // -----------------------------------------------------------------
