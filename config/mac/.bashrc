@@ -113,23 +113,13 @@ done
 unset p
 export PATH=${PATH##:}
 
-# editors
 export PAGER=less
 export VISUAL=nano
 export EDITOR=nano
 export ALTERNATE_EDITOR=nano
 
-# more paths
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64/:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=/usr/local/cuda/lib/:$LD_LIBRARY_PATH
-
-# android paths
-#export NDKROOT=/home/chris/workspace/android-ndk-r4-crystax
-#export NDK_ROOT=$NDKROOT
-#export ANDROID_NDK=$NDKROOT
-#export ANDROID_NDK_ROOT=$NDKROOT
-#export ANDROID_SDK=/home/chris/workspace/android-sdk-linux_x86
-#export PATH=$PATH:$ANDROID_SDK/tools:$ANDROID_SDK/platform-tools:$ANDROID_NDK/
 
 #up-arrow-history
 bind '"\e[A": history-search-backward'

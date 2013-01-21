@@ -1,4 +1,4 @@
-;; Time-stamp: <2012-10-08 09:40:00 chris>
+;; Time-stamp: <2013-01-09 11:38:35 chris>
 (setq
  user-full-name "Chris McClanahan"
  user-mail-address "chris.mcclanahan@accelereyes.com"
@@ -948,7 +948,8 @@ in 'my-shebang-patterns."
 
 ;; font
 ;;(set-default-font "-microsoft-Consolas-bold-bold-bold-*-16-*-*-*-m-0-iso10646-1")
-(set-default-font "-apple-Menlo-medium-medium-medium-*-16-*-*-*-m-0-iso10646-1")
+;;(set-default-font "-apple-Menlo-medium-medium-medium-*-16-*-*-*-m-0-iso10646-1")
+(set-default-font "-apple-Menlo-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1")
 (set-face-attribute 'default nil :height 150)
 
 ;; mac
@@ -961,5 +962,15 @@ in 'my-shebang-patterns."
 
 ;; window opacity
 (set-frame-parameter nil 'alpha 80)
+
+;; paren match          
+          (global-set-key "%" 'match-paren)
+          
+          (defun match-paren (arg)
+            "Go to the matching paren if on a paren; otherwise insert %."
+            (interactive "p")
+            (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+                  ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+                  (t (self-insert-command (or arg 1)))))
 
 ;; ================================================= ;;
