@@ -4,6 +4,7 @@
 --
 -- modified to use ImageMagick
 --   by Chris McClanahan http://mcclanahoochie.com
+--   http://mcclanahoochie.com/blog/2013/01/lightroom-plugins-infrared-and-pyrdetail
 --
 
 local LrTasks = import 'LrTasks'

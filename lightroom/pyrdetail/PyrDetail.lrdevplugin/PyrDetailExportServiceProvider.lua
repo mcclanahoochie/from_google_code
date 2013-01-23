@@ -1,6 +1,7 @@
 --
 -- Quick Export Script to Pyr Detail
 --   by Chris McClanahan http://mcclanahoochie.com/blog/
+--   http://mcclanahoochie.com/blog/2013/01/lightroom-plugins-infrared-and-pyrdetail
 --
 
 local LrTasks = import 'LrTasks'

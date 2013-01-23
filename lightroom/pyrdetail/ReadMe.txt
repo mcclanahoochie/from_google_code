@@ -1,5 +1,5 @@
 Sources:
- http://mcclanahoochie.com/blog/2013/01/?
+ http://mcclanahoochie.com/blog/2013/01/lightroom-plugins-infrared-and-pyrdetail
 
 1.
  Place PyrDetail.lrpdevplugin in
