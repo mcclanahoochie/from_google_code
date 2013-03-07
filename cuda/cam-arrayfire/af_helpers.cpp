@@ -53,7 +53,7 @@ void array_to_mat(const array& input, cv::Mat& output, int type) {
     array input;
     if (channels == 1) { input = input_.T(); }
     else {
-        input = constant(1, input_.dims(1), input_.dims(0), channels);
+        input = constant(0, input_.dims(1), input_.dims(0), channels);
         gfor(array ii, channels) { input(span, span, ii) = input_(span, span, ii).T(); }
     }
     output = cv::Mat(input.dims(1), input.dims(0), CV_MAKETYPE(type, channels));
