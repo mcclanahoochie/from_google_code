@@ -49,22 +49,24 @@ array mat_to_array(const cv::Mat& input) {
 
 // mem layout for cpu
 void array_to_mat(const array& input, cv::Mat& output, int type) {
-    if (input.dims(2) != 1) {
-        // TODO
-        MSG("array_to_mat: input must be 1 channel.");
-    } else {
-        output = cv::Mat(input.dims(0), input.dims(1), type);
-        if (type == CV_32F) {
-            float* data = output.ptr<float>(0);
-            input.T().host((void*)data);
-        } else if (type == CV_64F) {
-            double* data = output.ptr<double>(0);
-            input.T().as(af::f64).host((void*)data);
-        } else if (type == CV_8U) {
-            uchar* data = output.ptr<uchar>(0);
-            input.T().as(af::b8).host((void*)data);
-        } else { MSG("array_to_mat: invalid conversion"); }
+    const int channels = input_.dims(2);
+    array input;
+    if (channels == 1) { input = input_.T(); }
+    else {
+        input = zero(input_.dims(1), input_.dims(0), channels);
+        gfor(array ii, channels) { input(span, span, ii) = input_(span, span, ii).T(); }
     }
+    output = cv::Mat(input.dims(1), input.dims(0), CV_MAKETYPE(type, channels));
+    if (type == CV_32F) {
+        float* data = output.ptr<float>(0);
+        input.host((void*)data);
+    } else if (type == CV_64F) {
+        double* data = output.ptr<double>(0);
+        input.as(af::f64).host((void*)data);
+    } else if (type == CV_8U) {
+        uchar* data = output.ptr<uchar>(0);
+        input.as(af::b8).host((void*)data);
+    } else { MSG("array_to_mat: invalid conversion"); }
 }
 
 Mat array_to_mat(const array& input, int type) {
