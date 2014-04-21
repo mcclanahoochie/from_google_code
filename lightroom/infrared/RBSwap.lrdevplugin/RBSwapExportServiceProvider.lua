@@ -38,15 +38,17 @@ function exportServiceProvider.processRenderedPhotos(functionContext, exportCont
             local filePath = assert(pathOrMessage)
             -- choose app, configure bin paths --
             --result = LrTasks.execute("/Applications/Gimp-2.8.app/Contents/Resources/bin/gimp-2.8 -i -b '(red_blue_swap \"" .. filePath .. "\")' -b '(gimp-quit 0)'")
-            result = LrTasks.execute("/opt/local/bin/convert " .. filePath .. " -set colorspace RGB -separate -swap 0,2 -combine " .. filePath)
-            if result == 0 then
-               local catalog = LrApplication:activeCatalog()
-               catalog:withWriteAccessDo('Import from RBSwap',
-                                         function(context) 
-                                            catalog:addPhoto(filePath)
-                                         end
-                                        )
+            if WIN_ENV then
+               -- windows support thanks to Frank Firsching 
+               cmd = "cmd.exe /c convert.exe"
+            else
+               cmd = "/opt/local/bin/convert"
             end
+            local cmd = cmd .. " " .. filePath .. " -set colorspace RGB -separate -swap 0,2 -combine " .. filePath
+            
+            result = LrTasks.execute(cmd)
+            -- no need to trigger import. Done automatically by Lightroom as
+            -- specified in presets/RBSwap.lrtemplate
          end
       end
    end

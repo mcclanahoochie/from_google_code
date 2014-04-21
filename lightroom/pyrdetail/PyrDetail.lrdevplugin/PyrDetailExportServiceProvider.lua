@@ -35,7 +35,8 @@ function exportServiceProvider.processRenderedPhotos(functionContext, exportCont
             local filePath = assert(pathOrMessage)
             -- configure bin paths --
             -- result = LrTasks.execute("/Applications/pyr_detail.app/Contents/MacOS/pyr_detail " .. filePath)
-            result = LrTasks.execute("/Users/chris/workspace/bin_lapl/pyr_detail.app/Contents/MacOS/pyr_detail " .. filePath)
+            -- result = LrTasks.execute("/Users/chris/workspace/bin_lapl/pyr_detail.app/Contents/MacOS/pyr_detail " .. filePath)
+            result = LrTasks.execute("/Users/chris/workspace/pyrdetail_bitbucket/pyr_detail.app/Contents/MacOS/pyr_detail " .. filePath)
             -- reimport
             if result == 0 then
                local catalog = LrApplication:activeCatalog()
